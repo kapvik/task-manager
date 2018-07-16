@@ -24,9 +24,9 @@ class User extends Component {
 
 	render() { 
 		const { user }  	= this.props.user
-		const { isEditing} 	= this.props.isEdit
+		const { isEditing, editData } 	= this.props.isEdit
 		
-		if ( user && !isEditing ) {
+		if ( user && !isEditing && !editData) {
 			return (
 		
 		<Grid item xs={12} >
@@ -36,7 +36,7 @@ class User extends Component {
 					<IconButton aria-label="Delete" onClick={ e => this.onClickEdit() }>
 				        <EditIcon />
 				    </IconButton>
-					<Typography variant="subheading"> { item.name.title }. { item.name.first } { item.name.last } </Typography>
+					<Typography variant="subheading"> { item.name.first } { item.name.last } </Typography>
 					<Typography variant="subheading"> { item.email } </Typography>
 					<Typography variant="subheading"> { item.dob.date }</Typography>
 					<Divider />
@@ -54,6 +54,29 @@ class User extends Component {
 		} else if (isEditing) {
 			return (
 				<EditForm />
+			)
+		} else if(editData) {
+			return (
+				<Grid item xs={12} >
+					{ user.map((item, index) => 
+						<div key={ index }>
+							<img alt="User Avatar" src={ item.picture.large } /> 
+							<IconButton aria-label="Delete" onClick={ e => this.onClickEdit() }>
+						        <EditIcon />
+						    </IconButton>
+							<Typography variant="subheading"> { editData.first || item.name.first } { editData.last || item.name.last } </Typography>
+							<Typography variant="subheading"> { editData.email || item.email } </Typography>
+							<Typography variant="subheading"> { editData.data || item.dob.date }</Typography>
+							<Divider />
+							<Typography variant="subheading" align="center">Skills </Typography>
+							<List component="nav">
+								<ListItem button>
+									<ListItemText primary="Skill 1" />
+								</ListItem>	        
+							</List>	
+						</div>
+			) } 
+				</Grid>
 			)
 		} else {
 			return (
