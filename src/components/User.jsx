@@ -11,6 +11,7 @@ import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import IconButton from '@material-ui/core/IconButton'
 import EditIcon from '@material-ui/icons/Edit'
+import CircularProgress from '@material-ui/core/CircularProgress'
 
 import EditForm from './EditForm'
 
@@ -26,8 +27,8 @@ class User extends Component {
     if (user && !isEditing && !editData) {
       return (
         <Grid item xs={12} >
-          { user.map((item, index) =>
-            (<div key={ index }>
+          { user.map((item) =>
+            (<div key={ item.email }>
               <img alt='User Avatar' src={ item.picture.large } />
               <IconButton aria-label='Delete' onClick={ () => this.onClickEdit() }>
                 <EditIcon />
@@ -81,7 +82,9 @@ class User extends Component {
       )
     }
     return (
-      <p> Waiting... </p>
+      <div>
+        <CircularProgress />
+      </div>
     )
   }
 }

@@ -3,7 +3,8 @@ import {
   RECEIVE_DATA,
   EDIT_USER_START,
   EDIT_USER_STOP,
-  EDIT_USER_CANCEL
+  EDIT_USER_CANCEL,
+  RECEIVE_TASK
 } from '../actions/actionsTypes'
 
 function dataUser(state = [], action) {
@@ -28,10 +29,20 @@ function editing(state = [], action) {
   }
 }
 
+function tasksData(state = [], action) {
+  switch (action.type) {
+  case RECEIVE_TASK:
+    return Object.assign({}, state, { tasks: action.tasks })
+  default:
+    return state
+  }
+}
+
 
 const rootReducer = combineReducers({
   dataUser,
-  editing
+  editing,
+  tasksData
 })
 
 export default rootReducer

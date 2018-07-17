@@ -1,4 +1,10 @@
-import { RECEIVE_DATA, EDIT_USER_START, EDIT_USER_STOP, EDIT_USER_CANCEL } from './actionsTypes'
+import {
+  RECEIVE_DATA,
+  EDIT_USER_START,
+  EDIT_USER_STOP,
+  EDIT_USER_CANCEL,
+  RECEIVE_TASK
+} from './actionsTypes'
 import axios from 'axios'
 
 
@@ -23,6 +29,11 @@ export const stopEditData = newData => ({
   isEdit: false
 })
 
+export const receiveTask = tasks => ({
+  type: RECEIVE_TASK,
+  tasks
+})
+
 export const fetchData = () => {
   return dispatch => {
     return axios.get('https://randomuser.me/api/')
@@ -42,4 +53,13 @@ export const cancelEditingUser = () => {
 
 export const stopEditingUser = (...newData) => {
   return dispatch => dispatch(stopEditData(...newData))
+}
+
+export const fetchTasks = () => {
+  return dispatch => {
+    return axios.get('tasks.json')
+      .then(response => {
+        dispatch(receiveTask(response.data))
+      })
+  }
 }

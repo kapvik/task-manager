@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { fetchData } from './actions'
 
 import ProfilePage from './components/ProfilePage'
-import Tasks from './components/Tasks'
+import TasksPage from './components/TasksPage'
 
 class App extends Component {
   componentDidMount() {
@@ -16,7 +16,7 @@ class App extends Component {
       <Router>
         <div className='App'>
           <Route exact path='/user' component={ProfilePage} />
-          <Route exact path='/tasks' component={Tasks} />
+          <Route exact path='/tasks' component={TasksPage} />
         </div>
       </ Router>
     )
