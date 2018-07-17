@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 
 import compose from 'recompose/compose'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { fetchTasks, selectedTask } from '../actions'
 
 import { withStyles } from '@material-ui/core/styles'
@@ -9,10 +10,8 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 import Grid from '@material-ui/core/Grid'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
-import IconButton from '@material-ui/core/IconButton'
 import ListItemText from '@material-ui/core/ListItemText'
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction'
-import ChatIcon from '@material-ui/icons/Chat'
 import MenuItem from '@material-ui/core/MenuItem'
 import Select from '@material-ui/core/Select'
 
@@ -29,6 +28,11 @@ const styles = theme => ({
   status: {
     display: 'flex',
     justifyContent: 'flex-end'
+  },
+  task: {
+    display: 'flex',
+    textDecoration: 'none',
+    maxWidth: '90%'
   }
 })
 
@@ -53,10 +57,12 @@ class Task extends Component {
             >
               { tasks.map(task => (
                 <ListItem button key={task.id} onClick={ () => this.onClickTask(task.id)}>
-                  <IconButton>
-                    <ChatIcon />
-                  </IconButton>
-                  <ListItemText inset primary={task.title} secondary={task.short_description} />
+                  <Link to={`/tasks/${task.id}`} className={classes.task}>
+                    <ListItemText
+                      primary={task.title}
+                      secondary={task.short_description}
+                    />
+                  </Link>
                   <ListItemSecondaryAction className={classes.status}>
                     <Select
                       value={task.status}
