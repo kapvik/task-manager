@@ -43,7 +43,6 @@ function tasksData(state = [], action) {
   }
 }
 
-
 const rootReducer = combineReducers({
   dataUser,
   editing,

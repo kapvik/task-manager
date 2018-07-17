@@ -6,6 +6,8 @@ import { fetchData } from './actions'
 import ProfilePage from './components/ProfilePage'
 import TasksPage from './components/TasksPage'
 import TaskInfo from './components/TaskInfo'
+import Dashboard from './components/Dashboard'
+
 
 class App extends Component {
   componentDidMount() {
@@ -19,6 +21,7 @@ class App extends Component {
           <Route exact path='/user' component={ProfilePage} />
           <Route exact path='/tasks' component={TasksPage} />
           <Route path='/tasks/:number' component={TaskInfo} />
+          <Route exact path='/' component={Dashboard} />
         </div>
       </ Router>
     )
