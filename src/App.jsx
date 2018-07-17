@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { fetchData } from './actions'
 
 import ProfilePage from './components/ProfilePage'
+import Tasks from './components/Tasks'
 
 class App extends Component {
   componentDidMount() {
@@ -12,9 +13,12 @@ class App extends Component {
 
   render() {
     return (
-      <div className='App'>
-        <ProfilePage />
-      </div>
+      <Router>
+        <div className='App'>
+          <Route exact path='/user' component={ProfilePage} />
+          <Route exact path='/tasks' component={Tasks} />
+        </div>
+      </ Router>
     )
   }
 }
