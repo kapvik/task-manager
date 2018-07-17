@@ -3,7 +3,8 @@ import {
   EDIT_USER_START,
   EDIT_USER_STOP,
   EDIT_USER_CANCEL,
-  RECEIVE_TASK
+  RECEIVE_TASK,
+  SELECT_TASK
 } from './actionsTypes'
 import axios from 'axios'
 
@@ -34,6 +35,11 @@ export const receiveTask = tasks => ({
   tasks
 })
 
+export const selectTask = taskId => ({
+  type: SELECT_TASK,
+  taskId
+})
+
 export const fetchData = () => {
   return dispatch => {
     return axios.get('https://randomuser.me/api/')
@@ -62,4 +68,8 @@ export const fetchTasks = () => {
         dispatch(receiveTask(response.data))
       })
   }
+}
+
+export const selectedTask = (taskId) => {
+  return dispatch => dispatch(selectTask(taskId))
 }

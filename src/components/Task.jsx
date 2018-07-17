@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 import compose from 'recompose/compose'
 import { connect } from 'react-redux'
-import { fetchTasks } from '../actions'
+import { fetchTasks, selectedTask } from '../actions'
 
 import { withStyles } from '@material-ui/core/styles'
 import CircularProgress from '@material-ui/core/CircularProgress'
@@ -37,6 +37,10 @@ class Task extends Component {
     this.props.taskFetch()
   }
 
+  onClickTask(id) {
+    this.props.select(id)
+  }
+
   render() {
     const { classes } = this.props
     const tasks = this.props.tasks
@@ -48,7 +52,7 @@ class Task extends Component {
               component='ul'
             >
               { tasks.map(task => (
-                <ListItem button key={task.id}>
+                <ListItem button key={task.id} onClick={ () => this.onClickTask(task.id)}>
                   <IconButton>
                     <ChatIcon />
                   </IconButton>
@@ -82,7 +86,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  taskFetch: () => dispatch(fetchTasks())
+  taskFetch: () => dispatch(fetchTasks()),
+  select: (id) => dispatch(selectedTask(id))
 })
 
 export default compose(
