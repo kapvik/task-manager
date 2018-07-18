@@ -82,7 +82,10 @@ class TaskInfo extends Component {
         <div className={classes.root}>
           <AppBar position='sticky'>
             <Toolbar variant='dense'>
-              <IconButton className={classes.menuButton} color='inherit' aria-label='Menu'>
+              <IconButton
+                className={classes.menuButton}
+                color='inherit'
+                aria-label='Menu'>
                 <MenuIcon />
               </IconButton>
               <Typography variant='title' color='inherit'>
@@ -112,7 +115,10 @@ class TaskInfo extends Component {
             </Select>
           </Paper>
           <Paper className={classes.paper} elevation={1}>
-            <Typography variant='headline' component='h3' className={classes.relative}>
+            <Typography
+              variant='headline'
+              component='h3'
+              className={classes.relative}>
               <Button
                 mini
                 variant='fab'

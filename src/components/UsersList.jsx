@@ -1,49 +1,40 @@
 import React, { Component } from 'react'
 
-import compose from 'recompose/compose'
 import { connect } from 'react-redux'
+import compose from 'recompose/compose'
+
+import { selectedUser, openigDialog } from '../actions'
 
 import { withStyles } from '@material-ui/core/styles'
+
+import Chat from './Chat'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import Typography from '@material-ui/core/Typography'
 import ChatIcon from '@material-ui/icons/Chat'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
-import Dialog from '@material-ui/core/Dialog'
-import DialogActions from '@material-ui/core/DialogActions'
-import DialogContent from '@material-ui/core/DialogContent'
-import DialogTitle from '@material-ui/core/DialogTitle'
-import Button from '@material-ui/core/Button'
-import TextField from '@material-ui/core/TextField'
 
 const styles = () => ({
   user: {
     display: 'flex',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    alignItems: 'center'
   }
 })
 
 class UserList extends Component {
-  constructor() {
-    super()
-    this.state = {
-      open: false
-    }
-    this.handleClose = this.handleClose.bind(this)
-    this.handleClickOpen = this.handleClickOpen.bind(this)
+  onClickOpen() {
+    this.props.open()
   }
 
-  handleClickOpen() {
-    this.setState({ open: true })
-  }
-
-  handleClose() {
-    this.setState({ open: false })
+  onClickUser(id) {
+    this.props.select(id)
   }
 
   render() {
   	const { users } = this.props.users
+  	const { open } = this.props.chat
   	const { classes } = this.props
 
   	if (users) {
@@ -55,8 +46,11 @@ class UserList extends Component {
             <ListItem
               button
               key={user.user_id}
+              onClick={ () => {
+              	this.onClickUser(user.user_id)
+                this.onClickOpen()
+              }}
               className={classes.user}
-              onClick={this.handleClickOpen}
             >
               <Typography
                 variant='body1'
@@ -67,40 +61,9 @@ class UserList extends Component {
               <ListItemIcon >
                 <ChatIcon />
               </ListItemIcon>
-              <Dialog
-                open={this.state.open}
-                onClose={this.handleClose}
-                aria-labelledby='form-dialog-title'
-              >
-                <DialogTitle id='form-dialog-title'>Add Comment</DialogTitle>
-                <DialogContent>
-                  <TextField
-                    autoFocus
-                    margin='dense'
-                    id='name'
-                    label='Full Name'
-                    type='name'
-                    fullWidth
-                  />
-                  <TextField
-                    margin='dense'
-                    id='comment'
-                    label='Comment...'
-                    type='textarea'
-                    fullWidth
-                  />
-                </DialogContent>
-                <DialogActions>
-                  <Button onClick={this.handleClose} color='primary'>
-              Cancel
-                  </Button>
-                  <Button onClick={this.handleClose} color='primary'>
-              Add comment
-                  </Button>
-                </DialogActions>
-              </Dialog>
             </ListItem>
           ))}
+          {open ? <Chat /> : null}
         </List>
       )
     }
@@ -113,9 +76,16 @@ class UserList extends Component {
 }
 
 const mapStateToProps = state => ({
-  users: state.dataUser
+  users: state.dataUser,
+  chat: state.chatData
 })
+
+const mapDispatchToProps = dispatch => ({
+  select: (id) => dispatch(selectedUser(id)),
+  open: () => dispatch(openigDialog())
+})
+
 export default compose(
   withStyles(styles),
-  connect(mapStateToProps)
+  connect(mapStateToProps, mapDispatchToProps)
 )(UserList)

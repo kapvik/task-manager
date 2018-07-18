@@ -22,24 +22,24 @@ class User extends Component {
 
 
   render() {
-    const { user } = this.props.user
+    const { users } = this.props.users
     const { isEditing, editData } = this.props.isEdit
-    if (user && !isEditing && !editData) {
+    if (users && !isEditing && !editData) {
       return (
         <Grid item xs={12} >
-          <div key={ user[0].id }>
+          <div key={ users[0].id }>
             <IconButton aria-label='Delete' onClick={ () => this.onClickEdit() }>
               <EditIcon />
             </IconButton>
             <Typography variant='subheading'>
-              { user[0].firstname } { user[0].lastname }
+              { users[0].firstname } { users[0].lastname }
             </Typography>
-            <Typography variant='subheading'> { user[0].email } </Typography>
-            <Typography variant='subheading'> { user[0].dob }</Typography>
+            <Typography variant='subheading'> { users[0].email } </Typography>
+            <Typography variant='subheading'> { users[0].dob }</Typography>
             <Divider />
             <Typography variant='subheading' align='center'>Skills </Typography>
             <List component='nav'>
-              {user[0].skills.split(',').map(skill =>
+              {users[0].skills.split(',').map(skill =>
                 (<ListItem key={skill} button>
                   <ListItemText primary={skill} />
                 </ListItem>)
@@ -56,23 +56,32 @@ class User extends Component {
     } else if (editData) {
       return (
         <Grid item xs={12} >
-          <div key={ user[0].id }>
+          <div key={ users[0].id }>
             <IconButton aria-label='Delete' onClick={ () => this.onClickEdit() }>
               <EditIcon />
             </IconButton>
             <Typography variant='subheading'>
-              { editData.first || user[0].firstname } { editData.last || user[0].lastname }
+              { editData.first || users[0].firstname } { editData.last || users[0].lastname }
             </Typography>
-            <Typography variant='subheading'> { editData.email || user[0].email } </Typography>
-            <Typography variant='subheading'> { editData.data || user[0].dob }</Typography>
+            <Typography variant='subheading'>
+              { editData.email || users[0].email }
+            </Typography>
+            <Typography variant='subheading'>
+              { editData.data || users[0].dob }
+            </Typography>
             <Divider />
-            <Typography variant='subheading' align='center'>Skills </Typography>
+            <Typography
+              variant='subheading'
+              align='center'
+            >
+            Skills
+            </Typography>
             <List component='nav'>
               { editData.skills ? editData.skills.split(',').map(skill =>
                 (<ListItem key={skill} button>
                   <ListItemText primary={skill} />
                 </ListItem>)
-              ) : user[0].skills.split(',').map(skill =>
+              ) : users[0].skills.split(',').map(skill =>
                 (<ListItem key={skill} button>
                   <ListItemText primary={skill} />
                 </ListItem>)
@@ -91,7 +100,7 @@ class User extends Component {
 }
 
 const mapStateToProps = state => ({
-  user: state.dataUser,
+  users: state.dataUser,
   isEdit: state.editing
 })
 
