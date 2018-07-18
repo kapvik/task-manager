@@ -7,16 +7,18 @@ import Grid from '@material-ui/core/Grid'
 import Input from '@material-ui/core/Input'
 import InputLabel from '@material-ui/core/InputLabel'
 import FormControl from '@material-ui/core/FormControl'
+import FormHelperText from '@material-ui/core/FormHelperText';
 import Button from '@material-ui/core/Button'
 
 class EditForm extends Component {
   constructor() {
     super()
     this.state = {
-      first: '',
-      last: '',
+      firstname: '',
+      lastname: '',
       email: '',
-      date: ''
+      dob: '',
+      skills: ''
     }
   }
 
@@ -38,7 +40,7 @@ class EditForm extends Component {
               <Input
                 id='name-simple'
                 name='first'
-                onChange={e => this.setState({ first: e.target.value })}/>
+                onChange={e => this.setState({ firstname: e.target.value })}/>
             </FormControl>
           </Grid>
           <Grid item md={3} >
@@ -47,7 +49,7 @@ class EditForm extends Component {
               <Input
                 id='name-simple'
                 name='last'
-                onChange={e => this.setState({ last: e.target.value })}/>
+                onChange={e => this.setState({ lastname: e.target.value })}/>
             </FormControl>
           </Grid>
           <Grid item md={3} >
@@ -65,7 +67,17 @@ class EditForm extends Component {
               <Input
                 id='dob-simple'
                 name='dob'
-                onChange={e => this.setState({ date: e.target.value })}/>
+                onChange={e => this.setState({ dob: e.target.value })}/>
+            </FormControl>
+          </Grid>
+          <Grid item md={3} >
+            <FormControl >
+              <InputLabel htmlFor='dob-simple'>Skills</InputLabel>
+              <Input
+                id='dob-simple'
+                name='dob'
+                onChange={e => this.setState({ skills: e.target.value })}/>
+              <FormHelperText>Separate by coma</FormHelperText>
             </FormControl>
           </Grid>
           <Grid container justify='center' >

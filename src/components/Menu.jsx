@@ -2,21 +2,13 @@ import React, { Component } from 'react'
 
 import { Link } from 'react-router-dom'
 
-import Task from './Task'
-import UsersList from './UsersList'
-
-import classNames from 'classnames'
 import { withStyles } from '@material-ui/core/styles'
-import AppBar from '@material-ui/core/AppBar'
-import Toolbar from '@material-ui/core/Toolbar'
-import Typography from '@material-ui/core/Typography'
-import IconButton from '@material-ui/core/IconButton'
-import MenuIcon from '@material-ui/icons/Menu'
-import Grid from '@material-ui/core/Grid'
 import Drawer from '@material-ui/core/Drawer'
 import List from '@material-ui/core/List'
 import Divider from '@material-ui/core/Divider'
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
+import Typography from '@material-ui/core/Typography'
+import IconButton from '@material-ui/core/IconButton'
 
 const drawerWidth = 240
 
@@ -25,6 +17,7 @@ const styles = theme => ({
     flexGrow: 1
   },
   appFrame: {
+    height: 430,
     zIndex: 1,
     overflow: 'hidden',
     position: 'relative',
@@ -93,17 +86,15 @@ const styles = theme => ({
 
 })
 
-
-class Dashboard extends Component {
+class Menu extends Component {
   constructor() {
     super()
     this.state = {
-      open: false
+      open: true
     }
     this.handleDrawerOpen = this.handleDrawerOpen.bind(this)
     this.handleDrawerClose = this.handleDrawerClose.bind(this)
   }
-
   handleDrawerOpen() {
     this.setState({ open: true })
   }
@@ -111,11 +102,9 @@ class Dashboard extends Component {
   handleDrawerClose() {
     this.setState({ open: false })
   }
-
   render() {
   	const { classes } = this.props
-  	const { open } = this.state
-    const drawer = (
+    return (
       <Drawer
         variant='persistent'
         open={open}
@@ -150,62 +139,7 @@ class Dashboard extends Component {
           <List>User page</List>
         </Link>
       </Drawer>)
-    return (
-      <div className={classes.root}>
-        <div className={classes.appFrame}>
-          <AppBar
-            className={classNames(classes.appBar, {
-              [classes.appBarShift]: open,
-              [classes.appBarShiftLeft]: open
-            })}
-            position='sticky'
-          >
-            <Toolbar disableGutters={!open}>
-              <IconButton
-                color='inherit'
-                aria-label='Open drawer'
-                onClick={this.handleDrawerOpen}
-                className={classNames(classes.menuButton, open && classes.hide)}
-              >
-                <MenuIcon />
-              </IconButton>
-              <Typography variant='title' color='inherit' noWrap>
-                Dashboard
-              </Typography>
-            </Toolbar>
-          </AppBar>
-          { drawer }
-          <main
-            className={classNames(classes.content, classes.contentLeft,
-              { [classes.contentShift]: open,
-                [classes.contentShiftLeft]: open
-              })}>
-            <div className={classes.drawerHeader} />
-            <Grid container>
-              <Grid item xs={6}>
-                <Typography
-                  variant='title'
-                  align='center'
-                  color='primary'
-                > Tasks
-                </Typography>
-                <Task />
-              </Grid>
-              <Grid item xs={6}>
-                <Typography
-                  variant='title'
-                  align='center'
-                  color='primary'
-                > Users
-                </Typography>
-                <UsersList />
-              </Grid>
-            </Grid>
-          </main>
-        </div>
-      </div>
-    )
   }
 }
 
-export default withStyles(styles, { withTheme: true })(Dashboard)
+export default withStyles(styles, { withTheme: true })(Menu)

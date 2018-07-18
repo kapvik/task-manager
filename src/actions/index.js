@@ -42,9 +42,9 @@ export const selectTask = taskId => ({
 
 export const fetchData = () => {
   return dispatch => {
-    return axios.get('https://randomuser.me/api/')
+    return axios.get('users.json')
       .then(response => {
-        dispatch(receiveData(response.data.results))
+        dispatch(receiveData(response.data))
       })
   }
 }

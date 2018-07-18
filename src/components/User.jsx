@@ -27,27 +27,25 @@ class User extends Component {
     if (user && !isEditing && !editData) {
       return (
         <Grid item xs={12} >
-          { user.map((item) =>
-            (<div key={ item.email }>
-              <img alt='User Avatar' src={ item.picture.large } />
-              <IconButton aria-label='Delete' onClick={ () => this.onClickEdit() }>
-                <EditIcon />
-              </IconButton>
-              <Typography variant='subheading'>
-                { item.name.first } { item.name.last }
-              </Typography>
-              <Typography variant='subheading'> { item.email } </Typography>
-              <Typography variant='subheading'> { item.dob.date }</Typography>
-              <Divider />
-              <Typography variant='subheading' align='center'>Skills </Typography>
-              <List component='nav'>
-                <ListItem button>
-                  <ListItemText primary='Skill 1' />
-                </ListItem>
-              </List>
-            </div>)
-          )
-          }
+          <div key={ user[0].id }>
+            <IconButton aria-label='Delete' onClick={ () => this.onClickEdit() }>
+              <EditIcon />
+            </IconButton>
+            <Typography variant='subheading'>
+              { user[0].firstname } { user[0].lastname }
+            </Typography>
+            <Typography variant='subheading'> { user[0].email } </Typography>
+            <Typography variant='subheading'> { user[0].dob }</Typography>
+            <Divider />
+            <Typography variant='subheading' align='center'>Skills </Typography>
+            <List component='nav'>
+              {user[0].skills.split(',').map(skill =>
+                (<ListItem key={skill} button>
+                  <ListItemText primary={skill} />
+                </ListItem>)
+              )}
+            </List>
+          </div>
         </Grid>
 
       )
@@ -58,26 +56,29 @@ class User extends Component {
     } else if (editData) {
       return (
         <Grid item xs={12} >
-          { user.map((item, index) =>
-            (<div key={ index }>
-              <img alt='User Avatar' src={ item.picture.large } />
-              <IconButton aria-label='Delete' onClick={ () => this.onClickEdit() }>
-                <EditIcon />
-              </IconButton>
-              <Typography variant='subheading'>
-                { editData.first || item.name.first } { editData.last || item.name.last }
-              </Typography>
-              <Typography variant='subheading'> { editData.email || item.email } </Typography>
-              <Typography variant='subheading'> { editData.data || item.dob.date }</Typography>
-              <Divider />
-              <Typography variant='subheading' align='center'>Skills </Typography>
-              <List component='nav'>
-                <ListItem button>
-                  <ListItemText primary='Skill 1' />
-                </ListItem>
-              </List>
-            </div>)
-          ) }
+          <div key={ user[0].id }>
+            <IconButton aria-label='Delete' onClick={ () => this.onClickEdit() }>
+              <EditIcon />
+            </IconButton>
+            <Typography variant='subheading'>
+              { editData.first || user[0].firstname } { editData.last || user[0].lastname }
+            </Typography>
+            <Typography variant='subheading'> { editData.email || user[0].email } </Typography>
+            <Typography variant='subheading'> { editData.data || user[0].dob }</Typography>
+            <Divider />
+            <Typography variant='subheading' align='center'>Skills </Typography>
+            <List component='nav'>
+              { editData.skills ? editData.skills.split(',').map(skill =>
+                (<ListItem key={skill} button>
+                  <ListItemText primary={skill} />
+                </ListItem>)
+              ) : user[0].skills.split(',').map(skill =>
+                (<ListItem key={skill} button>
+                  <ListItemText primary={skill} />
+                </ListItem>)
+              )}
+            </List>
+          </div>
         </Grid>
       )
     }
