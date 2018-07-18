@@ -35,8 +35,8 @@ class TasksPage extends Component {
         </AppBar>
         <Grid container >
           <Grid item xs={12}>
-        <Task />
-        </Grid>
+            <Task />
+          </Grid>
         </Grid>
       </div>)
   }

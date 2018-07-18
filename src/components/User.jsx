@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 
 import { connect } from 'react-redux'
 import { startEditingUser } from '../actions'
+import compose from 'recompose/compose'
 
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
@@ -12,9 +13,25 @@ import ListItemText from '@material-ui/core/ListItemText'
 import IconButton from '@material-ui/core/IconButton'
 import EditIcon from '@material-ui/icons/Edit'
 import CircularProgress from '@material-ui/core/CircularProgress'
+import { withStyles } from '@material-ui/core/styles'
 
 import EditForm from './EditForm'
 
+const styles = () => ({
+  listSkills: {
+    display: 'flex',
+    flexDirection: 'column'
+  },
+  listSkillsItem: {
+    textAlign: 'center',
+    paddingTop: 0
+  },
+  listTitle: {
+    marginTop: '1em',
+    fontSize: '1.5em',
+    textTransform: 'uppercase'
+  }
+})
 class User extends Component {
   onClickEdit() {
     this.props.editProfile()
@@ -24,6 +41,7 @@ class User extends Component {
   render() {
     const { users } = this.props.users
     const { isEditing, editData } = this.props.isEdit
+    const { classes } = this.props
     if (users && !isEditing && !editData) {
       return (
         <Grid item xs={12} >
@@ -37,11 +55,23 @@ class User extends Component {
             <Typography variant='subheading'> { users[0].email } </Typography>
             <Typography variant='subheading'> { users[0].dob }</Typography>
             <Divider />
-            <Typography variant='subheading' align='center'>Skills </Typography>
-            <List component='nav'>
+            <Typography
+              variant='subheading'
+              align='center'
+              color='primary'
+              className={classes.listTitle}
+            >
+            Skills
+            </Typography>
+            <List component='ul' className={ classes.listSkills }>
               {users[0].skills.split(',').map(skill =>
-                (<ListItem key={skill} button>
-                  <ListItemText primary={skill} />
+                (<ListItem
+                  component='li'
+                  key={skill}
+                  button
+                  className={ classes.listSkillsItem }
+                >
+                  <ListItemText component='span' primary={skill} />
                 </ListItem>)
               )}
             </List>
@@ -51,7 +81,9 @@ class User extends Component {
       )
     } else if (isEditing) {
       return (
-        <EditForm />
+        <Grid container spacing={16} justify='center'>
+          <EditForm />
+        </Grid>
       )
     } else if (editData) {
       return (
@@ -61,7 +93,7 @@ class User extends Component {
               <EditIcon />
             </IconButton>
             <Typography variant='subheading'>
-              { editData.first || users[0].firstname } { editData.last || users[0].lastname }
+              { editData.firstname || users[0].firstname } { editData.lastname || users[0].lastname }
             </Typography>
             <Typography variant='subheading'>
               { editData.email || users[0].email }
@@ -108,4 +140,7 @@ const mapDispatchToProps = dispatch => ({
   editProfile: () => dispatch(startEditingUser())
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(User)
+export default compose(
+  withStyles(styles),
+  connect(mapStateToProps, mapDispatchToProps)
+)(User)
