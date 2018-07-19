@@ -7,7 +7,6 @@ import { fetchTasks, selectedTask } from '../actions'
 
 import { withStyles } from '@material-ui/core/styles'
 import CircularProgress from '@material-ui/core/CircularProgress'
-import Grid from '@material-ui/core/Grid'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
@@ -50,34 +49,35 @@ class Task extends Component {
     const tasks = this.props.tasks
     if (tasks) {
       return (
-        <Grid container >
-          <Grid item xs={12}>
-            <List
-              component='ul'
+        <List
+          component='ul'
+        >
+          { tasks.map(task => (
+            <ListItem
+              button
+              key={task.task_id}
+              onClick={ () => this.onClickTask(task.task_id)}
             >
-              { tasks.map(task => (
-                <ListItem button key={task.id} onClick={ () => this.onClickTask(task.id)}>
-                  <Link to={`/tasks/${task.id}`} className={classes.task}>
-                    <ListItemText
-                      primary={task.title}
-                      secondary={task.short_description}
-                    />
-                  </Link>
-                  <ListItemSecondaryAction className={classes.status}>
-                    <Select
-                      value={task.status}
-                    >
-                      <MenuItem value='To Do'>To Do</MenuItem>
-                      <MenuItem value='In Progress'>In Progress</MenuItem>
-                      <MenuItem value='Peer Review'>Peer Review</MenuItem>
-                      <MenuItem value='Done'>Done</MenuItem>
-                    </Select>
-                  </ListItemSecondaryAction>
-                </ListItem>
-              ))}
-            </List>
-          </Grid>
-        </Grid>)
+              <Link to={`/tasks/${task.task_id}`} className={classes.task}>
+                <ListItemText
+                  primary={task.title}
+                  secondary={task.short_description}
+                />
+              </Link>
+              <ListItemSecondaryAction className={classes.status}>
+                <Select
+                  value={task.status}
+                >
+                  <MenuItem value='To Do'>To Do</MenuItem>
+                  <MenuItem value='In Progress'>In Progress</MenuItem>
+                  <MenuItem value='Peer Review'>Peer Review</MenuItem>
+                  <MenuItem value='Done'>Done</MenuItem>
+                </Select>
+              </ListItemSecondaryAction>
+            </ListItem>
+          ))}
+        </List>
+      )
     }
     return (
       <div>

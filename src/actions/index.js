@@ -4,11 +4,14 @@ import {
   EDIT_USER_STOP,
   EDIT_USER_CANCEL,
   RECEIVE_TASK,
-  SELECT_TASK
+  SELECT_TASK,
+  SELECT_USER,
+  OPEN_DIALOG,
+  CLOSE_DIALOG
 } from './actionsTypes'
 import axios from 'axios'
 
-
+// receive all users information
 export const receiveData = data => ({
   type: RECEIVE_DATA,
   data
@@ -30,6 +33,7 @@ export const stopEditData = newData => ({
   isEdit: false
 })
 
+// receive all tasks
 export const receiveTask = tasks => ({
   type: RECEIVE_TASK,
   tasks
@@ -42,12 +46,26 @@ export const selectTask = taskId => ({
 
 export const fetchData = () => {
   return dispatch => {
-    return axios.get('https://randomuser.me/api/')
+    return axios.get('users.json')
       .then(response => {
-        dispatch(receiveData(response.data.results))
+        dispatch(receiveData(response.data))
       })
   }
 }
+export const selectUser = userId => ({
+  type: SELECT_USER,
+  userId
+})
+
+export const startChating = () => ({
+  type: OPEN_DIALOG,
+  open: false
+})
+
+export const stopChating = () => ({
+  type: CLOSE_DIALOG,
+  open: false
+})
 
 export const startEditingUser = () => {
   return dispatch => dispatch(startEditData())
@@ -70,6 +88,18 @@ export const fetchTasks = () => {
   }
 }
 
-export const selectedTask = (taskId) => {
+export const selectedTask = taskId => {
   return dispatch => dispatch(selectTask(taskId))
+}
+
+export const selectedUser = userId => {
+  return dispatch => dispatch(selectUser(userId))
+}
+
+export const openigDialog = () => {
+  return dispatch => dispatch(startChating())
+}
+
+export const closingDialog = () => {
+  return dispatch => dispatch(stopChating())
 }

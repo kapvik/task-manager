@@ -1,17 +1,21 @@
 import { combineReducers } from 'redux'
+import { reducer as formReducer } from 'redux-form'
 import {
   RECEIVE_DATA,
   EDIT_USER_START,
   EDIT_USER_STOP,
   EDIT_USER_CANCEL,
   RECEIVE_TASK,
-  SELECT_TASK
+  SELECT_TASK,
+  SELECT_USER,
+  OPEN_DIALOG,
+  CLOSE_DIALOG
 } from '../actions/actionsTypes'
 
 function dataUser(state = [], action) {
   switch (action.type) {
   case RECEIVE_DATA:
-    return Object.assign({}, state, { user: action.data })
+    return Object.assign({}, state, { users: action.data })
   default:
     return state
   }
@@ -43,10 +47,28 @@ function tasksData(state = [], action) {
   }
 }
 
+function chatData(state = {
+  open: false
+}, action) {
+  switch (action.type) {
+  case SELECT_USER:
+  case OPEN_DIALOG:
+    return Object.assign({}, state, {
+      currentUser: action.userId,
+      open: true })
+  case CLOSE_DIALOG:
+    return Object.assign({}, state, { open: false })
+  default:
+    return state
+  }
+}
+
 const rootReducer = combineReducers({
   dataUser,
   editing,
-  tasksData
+  tasksData,
+  chatData,
+  form: formReducer
 })
 
 export default rootReducer
