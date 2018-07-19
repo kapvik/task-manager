@@ -10,7 +10,9 @@ import {
   CLOSE_DIALOG,
   SEND_MESSAGE,
   RECEIVE_MESSAGE,
-  MESSAGE_DATA
+  MESSAGE_DATA,
+  AUTH_LOGIN,
+  AUTH_REGISTER
 } from './actionsTypes'
 import axios from 'axios'
 
@@ -79,6 +81,15 @@ export const receiveMessage = (msgFrom, to) => ({
   to
 })
 
+export const authLogin = (loginData) => ({
+  type: AUTH_LOGIN,
+  loginData
+})
+export const authRegister = (regData) => ({
+  type: AUTH_LOGIN,
+  regData
+})
+
 export const fetchData = () => {
   return dispatch => {
     return axios.get('users.json')
@@ -140,4 +151,12 @@ export const sendingMessage = (msg, from = 'admin') => {
 
 export const receivingMessage = (msg, to) => {
   return dispatch => dispatch(receiveMessage(msg, to))
+}
+
+export const login = (loginData) => {
+  return dispatch => dispatch(authLogin(loginData))
+}
+
+export const register = (regData) => {
+  return dispatch => dispatch(authLogin(regData))
 }
