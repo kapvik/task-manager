@@ -9,7 +9,10 @@ import {
   SELECT_TASK,
   SELECT_USER,
   OPEN_DIALOG,
-  CLOSE_DIALOG
+  CLOSE_DIALOG,
+  SEND_MESSAGE,
+  RECEIVE_MESSAGE,
+  MESSAGE_DATA
 } from '../actions/actionsTypes'
 
 function dataUser(state = [], action) {
@@ -52,16 +55,38 @@ function chatData(state = {
 }, action) {
   switch (action.type) {
   case SELECT_USER:
+    return Object.assign({}, state, {
+      currentUser: action.userId
+    })
   case OPEN_DIALOG:
     return Object.assign({}, state, {
-      currentUser: action.userId,
-      open: true })
+      currentUser: state.currentUser,
+      open: action.open
+    })
+  case MESSAGE_DATA:
+    return Object.assign({}, state, {
+      currentUser: state.currentUser,
+      open: state.open,
+      msg: action.msgData[state.currentUser] })
   case CLOSE_DIALOG:
-    return Object.assign({}, state, { open: false })
+    return Object.assign({}, state, { open: action.open })
+  case SEND_MESSAGE:
+    return Object.assign({}, state, {
+      open: state.open,
+      msgTo: action.msgTo,
+      from: action.from
+    })
+  case RECEIVE_MESSAGE:
+    return Object.assign({}, state, {
+      open: state.open,
+      msgFrom: action.msgFrom,
+      to: state.currentUser
+    })
   default:
     return state
   }
 }
+
 
 const rootReducer = combineReducers({
   dataUser,

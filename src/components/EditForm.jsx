@@ -43,10 +43,6 @@ class Edit extends Component {
       </Grid>)
   }
 
-  onClickSubmit(values) {
-    this.props.submit(values)
-  }
-
   onClickCancel() {
     this.props.cancel()
   }
