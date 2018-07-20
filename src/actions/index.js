@@ -7,7 +7,12 @@ import {
   SELECT_TASK,
   SELECT_USER,
   OPEN_DIALOG,
-  CLOSE_DIALOG
+  CLOSE_DIALOG,
+  SEND_MESSAGE,
+  RECEIVE_MESSAGE,
+  MESSAGE_DATA,
+  AUTH_LOGIN,
+  AUTH_REGISTER
 } from './actionsTypes'
 import axios from 'axios'
 
@@ -44,6 +49,47 @@ export const selectTask = taskId => ({
   taskId
 })
 
+export const selectUser = userId => ({
+  type: SELECT_USER,
+  userId
+})
+
+export const startChating = () => ({
+  type: OPEN_DIALOG,
+  open: true
+})
+
+export const stopChating = () => ({
+  type: CLOSE_DIALOG,
+  open: false
+})
+
+export const receiveMessageData = msgData => ({
+  type: MESSAGE_DATA,
+  msgData
+})
+
+export const sendMessage = (msgTo, from) => ({
+  type: SEND_MESSAGE,
+  msgTo,
+  from
+})
+
+export const receiveMessage = (msgFrom, to) => ({
+  type: RECEIVE_MESSAGE,
+  msgFrom,
+  to
+})
+
+export const authLogin = (loginData) => ({
+  type: AUTH_LOGIN,
+  loginData
+})
+export const authRegister = (regData) => ({
+  type: AUTH_LOGIN,
+  regData
+})
+
 export const fetchData = () => {
   return dispatch => {
     return axios.get('users.json')
@@ -52,20 +98,6 @@ export const fetchData = () => {
       })
   }
 }
-export const selectUser = userId => ({
-  type: SELECT_USER,
-  userId
-})
-
-export const startChating = () => ({
-  type: OPEN_DIALOG,
-  open: false
-})
-
-export const stopChating = () => ({
-  type: CLOSE_DIALOG,
-  open: false
-})
 
 export const startEditingUser = () => {
   return dispatch => dispatch(startEditData())
@@ -102,4 +134,29 @@ export const openigDialog = () => {
 
 export const closingDialog = () => {
   return dispatch => dispatch(stopChating())
+}
+
+export const fetchMessages = () => {
+  return dispatch => {
+    return axios.get('chatMsg.json')
+      .then(response => {
+        dispatch(receiveMessageData(response.data))
+      })
+  }
+}
+
+export const sendingMessage = (msg, from = 'admin') => {
+  return dispatch => dispatch(sendMessage(msg, from))
+}
+
+export const receivingMessage = (msg, to) => {
+  return dispatch => dispatch(receiveMessage(msg, to))
+}
+
+export const login = (loginData) => {
+  return dispatch => dispatch(authLogin(loginData))
+}
+
+export const register = (regData) => {
+  return dispatch => dispatch(authLogin(regData))
 }

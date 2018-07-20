@@ -2,26 +2,29 @@ import React, { Component } from 'react'
 
 import compose from 'recompose/compose'
 import { connect } from 'react-redux'
-
-import { closingDialog } from '../actions'
+import { Field, reduxForm } from 'redux-form'
+import { closingDialog, fetchMessages, sendingMessage } from '../actions'
 
 import classNames from 'classnames'
 import { withStyles } from '@material-ui/core/styles'
 
 import Dialog from '@material-ui/core/Dialog'
-import DialogActions from '@material-ui/core/DialogActions'
 import DialogContent from '@material-ui/core/DialogContent'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import DialogContentText from '@material-ui/core/DialogContentText'
 import Button from '@material-ui/core/Button'
-import TextField from '@material-ui/core/TextField'
 import CancelIcon from '@material-ui/icons/Cancel'
 import SendIcon from '@material-ui/icons/Send'
 import Paper from '@material-ui/core/Paper'
+import CircularProgress from '@material-ui/core/CircularProgress'
+import InputLabel from '@material-ui/core/InputLabel'
+import FormControl from '@material-ui/core/FormControl'
+import Input from '@material-ui/core/Input'
 
 const styles = theme => ({
   button: {
-    margin: theme.spacing.unit
+    margin: theme.spacing.unit,
+    float: 'right'
   },
   rightIcon: {
     marginLeft: theme.spacing.unit
@@ -40,7 +43,7 @@ const styles = theme => ({
     right: 0
   },
   messageBoxLeft: {
-  	margin: '0 auto 10px 10px',
+  	margin: '0 60px 10px 0',
   	padding: '5px',
   	backgroundColor: '#3f51b5'
   },
@@ -49,80 +52,110 @@ const styles = theme => ({
   	color: '#fff'
   },
   messageBoxRight: {
-  	margin: '0 10px auto 10px',
+  	margin: '0 0 auto 10px',
   	padding: '5px',
-  	marginLeft: 'auto'
+  	marginLeft: '60px'
   },
   messageRight: {
   	textAlign: 'right',
   	color: '#3f51b5'
   },
   inputWrite: {
-  	paddingTop: '24px',
-  	paddingBottom: 0
+  	padding: '24px 30px'
   }
 })
 
 class Chat extends Component {
+  componentDidMount() {
+    this.props.previousMsg()
+  }
   onClose() {
     this.props.close()
   }
-  render() {
-    const { classes } = this.props
-    const { open } = this.props.chat
+
+  renderField({ input, label, type }) {
     return (
-      <Dialog
-        open={open}
-        maxWidth='xs'
-        onClose={ () => this.onClose()}
-        aria-labelledby='form-dialog-title'
-      >
-        <DialogTitle
-          id='form-dialog-title'
-          className={classes.user}
+      <FormControl >
+        <InputLabel>{label}</InputLabel>
+        <Input
+          margin='dense'
+          fullWidth
+          multiline
+          {...input} type={type}
+        />
+      </FormControl>)
+  }
+
+  render() {
+    const { classes, handleSubmit } = this.props
+    const { open, msg, msgTo } = this.props.chat
+    if (open) {
+      return (
+        <Dialog
+          open={open}
+          maxWidth='xs'
+          onClose={ () => this.onClose()}
+          aria-labelledby='form-dialog-title'
         >
-        Chat
-          <Button
-            onClick={ () => this.onClose()}
-            color='primary'
-            className={classes.canselBtn}
+          <DialogTitle
+            id='form-dialog-title'
+            className={classes.user}
           >
-            <CancelIcon />
-          </Button>
-        </DialogTitle>
-        <Paper className={classes.messageBoxLeft}>
-          <DialogContentText className={classes.messageLeft}>
-                    Text Message
-          </DialogContentText>
-        </Paper>
-        <Paper className={classes.messageBoxRight}>
-          <DialogContentText className={classes.messageRight}>
-                    Another Message
-          </DialogContentText>
-        </Paper>
-        <DialogContent className={classes.inputWrite}>
-          <TextField
-            margin='dense'
-            id='message'
-            label='Write a message...'
-            type='textarea'
-            fullWidth
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button
-            variant='contained'
-            color='primary'
-            className={classes.button}
-            size='small'
+          Chat
+            <Button
+              onClick={ () => this.onClose()}
+              color='primary'
+              className={classes.canselBtn}
+            >
+              <CancelIcon />
+            </Button>
+          </DialogTitle>
+          <DialogContent>
+            {msg ? (<div>
+              { msg.receive.map(recMsg => (
+                <Paper key={recMsg.date.day} className={classes.messageBoxLeft}>
+                  <DialogContentText className={classes.messageLeft}>
+                    {recMsg.msg}
+                  </DialogContentText>
+                </Paper>))}
+            </div>) : null }
+            {msgTo ? (
+              <Paper className={classes.messageBoxRight}>
+                <DialogContentText className={classes.messageRight}>
+                  {msgTo.msg}
+                </DialogContentText>
+              </Paper>) : null }
+          </DialogContent>
+          <form
+            className={classes.inputWrite}
+            onSubmit={handleSubmit(this.props.send, this.props.reset)}
           >
-                    Send
-            <SendIcon
-              className={classNames(classes.rightIcon, classes.iconSmall)}
+            <Field
+              label='Write a message...'
+              name='msg'
+              component={this.renderField}
+              type='text'
             />
-          </Button>
-        </DialogActions>
-      </Dialog>)
+            <Button
+              variant='contained'
+              color='primary'
+              className={classes.button}
+              size='small'
+              type='submit'
+            >
+                    Send
+              <SendIcon
+                className={classNames(classes.rightIcon, classes.iconSmall)}
+              />
+            </Button>
+          </form>
+        </Dialog>)
+    }
+    return (
+      <div>
+        <CircularProgress />
+      </div>
+    )
   }
 }
 
@@ -132,9 +165,14 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  close: () => dispatch(closingDialog())
+  close: () => dispatch(closingDialog()),
+  previousMsg: () => dispatch(fetchMessages()),
+  send: (msg) => dispatch(sendingMessage(msg))
 })
 export default compose(
   withStyles(styles),
+  reduxForm({
+    form: 'sendMsg'
+  }),
   connect(mapStateToProps, mapDispatchToProps)
 )(Chat)

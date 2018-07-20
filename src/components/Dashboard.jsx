@@ -17,6 +17,9 @@ import Drawer from '@material-ui/core/Drawer'
 import List from '@material-ui/core/List'
 import Divider from '@material-ui/core/Divider'
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
+import PermIdentityIcon from '@material-ui/icons/PermIdentity'
+import InputIcon from '@material-ui/icons/Input'
+import Popover from '@material-ui/core/Popover'
 
 const drawerWidth = 240
 
@@ -89,6 +92,22 @@ const styles = theme => ({
   },
   menuItem: {
   	textDecoration: 'none'
+  },
+  topMenu: {
+    justifyContent: 'space-between'
+  },
+  leftMenuGroup: {
+    display: 'flex',
+    alignItems: 'center'
+  },
+  userBtn: {
+    color: '#fff'
+  },
+  paper: {
+    padding: theme.spacing.unit
+  },
+  popover: {
+    pointerEvents: 'none'
   }
 
 })
@@ -98,8 +117,11 @@ class Dashboard extends Component {
   constructor() {
     super()
     this.state = {
-      open: false
+      open: false,
+      anchorExit: null
     }
+    this.handlePopoverOpen = this.handlePopoverOpen.bind(this)
+    this.handlePopoverClose = this.handlePopoverClose.bind(this)
     this.handleDrawerOpen = this.handleDrawerOpen.bind(this)
     this.handleDrawerClose = this.handleDrawerClose.bind(this)
   }
@@ -112,9 +134,18 @@ class Dashboard extends Component {
     this.setState({ open: false })
   }
 
+  handlePopoverOpen(e) {
+    this.setState({ anchorExit: e.target })
+  }
+
+  handlePopoverClose() {
+    this.setState({ anchorExit: null })
+  }
+
   render() {
   	const { classes } = this.props
-  	const { open } = this.state
+  	const { open, anchorExit } = this.state
+    const show = Boolean(anchorExit)
     const drawer = (
       <Drawer
         variant='persistent'
@@ -142,14 +173,36 @@ class Dashboard extends Component {
         >
           <List>Tasks page</List>
         </Link>
-        <Divider />
         <Link
           to='/user'
           className={classes.menuItem}
         >
           <List>User page</List>
         </Link>
+        <Divider />
       </Drawer>)
+    const popoverExit = (text) => (
+      <Popover
+        className={classes.popover}
+        classes={{
+          paper: classes.paper
+        }}
+        open={show}
+        anchorEl={anchorExit}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left'
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'left'
+        }}
+        onClose={this.handlePopoverClose}
+        disableRestoreFocus
+      >
+        <Typography>{text}</Typography>
+      </Popover>
+    )
     return (
       <div className={classes.root}>
         <div className={classes.appFrame}>
@@ -160,21 +213,50 @@ class Dashboard extends Component {
             })}
             position='sticky'
           >
-            <Toolbar disableGutters={!open}>
-              <IconButton
-                color='inherit'
-                aria-label='Open drawer'
-                onClick={this.handleDrawerOpen}
-                className={classNames(classes.menuButton, open && classes.hide)}
+            <Toolbar disableGutters={!open}
+              className={classes.topMenu}
+            >
+              <div
+                className={classes.leftMenuGroup}
               >
-                <MenuIcon />
-              </IconButton>
-              <Typography variant='title' color='inherit' noWrap>
-                Dashboard
-              </Typography>
+                <IconButton
+                  color='inherit'
+                  aria-label='Open drawer'
+                  onClick={this.handleDrawerOpen}
+                  className={classNames(classes.menuButton, open && classes.hide)}
+                >
+                  <MenuIcon />
+                </IconButton>
+                <Typography variant='title' color='inherit' noWrap>
+                  Dashboard
+                </Typography>
+              </div>
+              <div
+                className={classes.btnGroup}
+              >
+                <Link
+                  to='/user'
+                  className={classes.menuItem}
+                >
+                  <IconButton
+                    color='inherit'
+                    className={classes.userBtn}
+                  >
+                    <PermIdentityIcon />
+                  </IconButton>
+                </Link>
+                <IconButton
+                  color='inherit'
+                  onMouseEnter={this.handlePopoverOpen}
+                  onMouseLeave={this.handlePopoverClose}
+                >
+                  <InputIcon />
+                </IconButton>
+              </div>
             </Toolbar>
           </AppBar>
           { drawer }
+          { popoverExit('Exit') }
           <main
             className={classNames(classes.content, classes.contentLeft,
               { [classes.contentShift]: open,
