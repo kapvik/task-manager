@@ -1,5 +1,8 @@
 import { combineReducers } from 'redux'
+
 import { reducer as formReducer } from 'redux-form'
+import { authentication } from './authentication.reducer'
+import { registration } from './registration.reducer'
 import {
   RECEIVE_DATA,
   EDIT_USER_START,
@@ -108,6 +111,8 @@ const rootReducer = combineReducers({
   tasksData,
   chatData,
   authForm,
+  authentication,
+  registration,
   form: formReducer
 })
 

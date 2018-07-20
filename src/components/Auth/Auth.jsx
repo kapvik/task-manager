@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-
 import { connect } from 'react-redux'
 import { showFormAuth } from '../../actions'
 import compose from 'recompose/compose'

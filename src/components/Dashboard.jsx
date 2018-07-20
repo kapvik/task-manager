@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
 
 import { Link } from 'react-router-dom'
+import compose from 'recompose/compose'
+import { connect } from 'react-redux'
 
+import { logoutUser } from '../actions'
 import Task from './Task'
 import UsersList from './UsersList'
 
@@ -20,7 +23,6 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
 import PermIdentityIcon from '@material-ui/icons/PermIdentity'
 import InputIcon from '@material-ui/icons/Input'
 import Popover from '@material-ui/core/Popover'
-
 const drawerWidth = 240
 
 const styles = theme => ({
@@ -124,6 +126,7 @@ class Dashboard extends Component {
     this.handlePopoverClose = this.handlePopoverClose.bind(this)
     this.handleDrawerOpen = this.handleDrawerOpen.bind(this)
     this.handleDrawerClose = this.handleDrawerClose.bind(this)
+    this.handleLogout = this.handleLogout.bind(this)
   }
 
   handleDrawerOpen() {
@@ -140,6 +143,10 @@ class Dashboard extends Component {
 
   handlePopoverClose() {
     this.setState({ anchorExit: null })
+  }
+
+  handleLogout() {
+    this.props.logout()
   }
 
   render() {
@@ -245,24 +252,20 @@ class Dashboard extends Component {
                     <PermIdentityIcon />
                   </IconButton>
                 </Link>
-                <Link
-                  to='/auth'
-                  className={classes.menuItem}
-                >
                 <IconButton
                   color='inherit'
                   className={classes.userBtn}
                   onMouseEnter={this.handlePopoverOpen}
                   onMouseLeave={this.handlePopoverClose}
+                  onClick={ this.handleLogout }
                 >
                   <InputIcon />
                 </IconButton>
-                </Link>
               </div>
             </Toolbar>
           </AppBar>
           { drawer }
-          { popoverExit('Exit') }
+          { popoverExit('Log out') }
           <main
             className={classNames(classes.content, classes.contentLeft,
               { [classes.contentShift]: open,
@@ -295,5 +298,15 @@ class Dashboard extends Component {
     )
   }
 }
+const mapStateToProps = state => ({
+  user: state.dataUser,
+  auth: state.authentication
+})
 
-export default withStyles(styles, { withTheme: true })(Dashboard)
+const mapDispatchToProps = dispatch => ({
+  logout: () => dispatch(logoutUser())
+})
+export default compose(
+  withStyles(styles),
+  connect(mapStateToProps, mapDispatchToProps)
+)(Dashboard)

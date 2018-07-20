@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import compose from 'recompose/compose'
 
-import { selectedUser, openigDialog } from '../actions'
+import { fetchData, selectedUser, openigDialog } from '../actions'
 
 import { withStyles } from '@material-ui/core/styles'
 
@@ -24,6 +24,10 @@ const styles = () => ({
 })
 
 class UserList extends Component {
+  componentDidMount() {
+    this.props.dataFetch()
+  }
+
   onClickOpen() {
     this.props.open()
   }
@@ -81,6 +85,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
+  dataFetch: () => dispatch(fetchData()),
   select: (id) => dispatch(selectedUser(id)),
   open: () => dispatch(openigDialog())
 })

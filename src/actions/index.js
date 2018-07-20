@@ -11,11 +11,11 @@ import {
   SEND_MESSAGE,
   RECEIVE_MESSAGE,
   MESSAGE_DATA,
-  AUTH_LOGIN,
-  AUTH_REGISTER,
   FORM_SHOW
 } from './actionsTypes'
 import axios from 'axios'
+
+export * from './auth.actions'
 
 // receive all users information
 export const receiveData = data => ({
@@ -80,15 +80,6 @@ export const receiveMessage = (msgFrom, to) => ({
   type: RECEIVE_MESSAGE,
   msgFrom,
   to
-})
-
-export const authLogin = (loginData) => ({
-  type: AUTH_LOGIN,
-  loginData
-})
-export const authRegister = (regData) => ({
-  type: AUTH_LOGIN,
-  regData
 })
 
 export const showForm = show => ({
@@ -157,14 +148,6 @@ export const sendingMessage = (msg, from = 'admin') => {
 
 export const receivingMessage = (msg, to) => {
   return dispatch => dispatch(receiveMessage(msg, to))
-}
-
-export const login = (loginData) => {
-  return dispatch => dispatch(authLogin(loginData))
-}
-
-export const register = (regData) => {
-  return dispatch => dispatch(authLogin(regData))
 }
 
 export const showFormAuth = show => {
