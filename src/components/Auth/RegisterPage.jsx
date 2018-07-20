@@ -47,7 +47,7 @@ class RegisterPage extends Component {
   renderField({ input, label, type }) {
     return (
       <Grid item md={3} >
-        <FormControl >
+        <FormControl required>
           <InputLabel>{label}</InputLabel>
           <Input
             {...input} type={type}

@@ -13,7 +13,6 @@ import Input from '@material-ui/core/Input'
 import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid'
 
-
 const styles = () => ({
   btnGroup: {
     marginTop: '20px',
@@ -35,7 +34,6 @@ const styles = () => ({
   }
 })
 
-
 class LoginPage extends Component {
   constructor() {
     super()
@@ -50,7 +48,7 @@ class LoginPage extends Component {
   renderField({ input, label, type }) {
     return (
       <Grid item md={3} >
-        <FormControl >
+        <FormControl required>
           <InputLabel>{label}</InputLabel>
           <Input
             {...input} type={type}
