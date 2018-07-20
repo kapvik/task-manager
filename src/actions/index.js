@@ -12,7 +12,8 @@ import {
   RECEIVE_MESSAGE,
   MESSAGE_DATA,
   AUTH_LOGIN,
-  AUTH_REGISTER
+  AUTH_REGISTER,
+  FORM_SHOW
 } from './actionsTypes'
 import axios from 'axios'
 
@@ -90,6 +91,11 @@ export const authRegister = (regData) => ({
   regData
 })
 
+export const showForm = show => ({
+  type: FORM_SHOW,
+  show
+})
+
 export const fetchData = () => {
   return dispatch => {
     return axios.get('users.json')
@@ -160,3 +166,8 @@ export const login = (loginData) => {
 export const register = (regData) => {
   return dispatch => dispatch(authLogin(regData))
 }
+
+export const showFormAuth = show => {
+  return dispatch => dispatch(showForm(show))
+}
+

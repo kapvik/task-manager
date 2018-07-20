@@ -11,3 +11,5 @@ export const SEND_MESSAGE = 'SEND_MESSAGE'
 export const RECEIVE_MESSAGE = 'RECEIVE_MESSAGE'
 export const MESSAGE_DATA = 'MESSAGE_DATA'
 export const AUTH_LOGIN = 'AUTH_LOGIN'
+export const FORM_SHOW = 'FORM_SHOW'
+

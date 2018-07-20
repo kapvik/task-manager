@@ -245,13 +245,19 @@ class Dashboard extends Component {
                     <PermIdentityIcon />
                   </IconButton>
                 </Link>
+                <Link
+                  to='/auth'
+                  className={classes.menuItem}
+                >
                 <IconButton
                   color='inherit'
+                  className={classes.userBtn}
                   onMouseEnter={this.handlePopoverOpen}
                   onMouseLeave={this.handlePopoverClose}
                 >
                   <InputIcon />
                 </IconButton>
+                </Link>
               </div>
             </Toolbar>
           </AppBar>

@@ -70,7 +70,7 @@ class LoginPage extends Component {
             variant='outlined'
             type='submit'
             className={classes.btn}>
-                    Submit
+                   Log in
           </Button>
         </div>
       </form>)

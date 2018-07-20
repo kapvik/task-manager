@@ -12,7 +12,8 @@ import {
   CLOSE_DIALOG,
   SEND_MESSAGE,
   RECEIVE_MESSAGE,
-  MESSAGE_DATA
+  MESSAGE_DATA,
+  FORM_SHOW
 } from '../actions/actionsTypes'
 
 function dataUser(state = [], action) {
@@ -87,12 +88,26 @@ function chatData(state = {
   }
 }
 
+function authForm(state = {
+  value: 0
+}, action) {
+  switch (action.type) {
+  case FORM_SHOW:
+    return Object.assign({}, state, {
+      ...action.show
+    })
+  default:
+    return state
+  }
+}
+
 
 const rootReducer = combineReducers({
   dataUser,
   editing,
   tasksData,
   chatData,
+  authForm,
   form: formReducer
 })
 
