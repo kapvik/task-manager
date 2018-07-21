@@ -1,5 +1,8 @@
 import { combineReducers } from 'redux'
+
 import { reducer as formReducer } from 'redux-form'
+import { authentication } from './authentication.reducer'
+import { registration } from './registration.reducer'
 import {
   RECEIVE_DATA,
   EDIT_USER_START,
@@ -12,7 +15,8 @@ import {
   CLOSE_DIALOG,
   SEND_MESSAGE,
   RECEIVE_MESSAGE,
-  MESSAGE_DATA
+  MESSAGE_DATA,
+  FORM_SHOW
 } from '../actions/actionsTypes'
 
 function dataUser(state = [], action) {
@@ -87,12 +91,28 @@ function chatData(state = {
   }
 }
 
+function authForm(state = {
+  value: 0
+}, action) {
+  switch (action.type) {
+  case FORM_SHOW:
+    return Object.assign({}, state, {
+      ...action.show
+    })
+  default:
+    return state
+  }
+}
+
 
 const rootReducer = combineReducers({
   dataUser,
   editing,
   tasksData,
   chatData,
+  authForm,
+  authentication,
+  registration,
   form: formReducer
 })
 

@@ -1,4 +1,7 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { showFormAuth } from '../../actions'
+import compose from 'recompose/compose'
 
 import LoginPage from './LoginPage'
 import RegisterPage from './RegisterPage'
@@ -18,27 +21,25 @@ const styles = theme => ({
 
 class Auth extends Component {
   constructor() {
-  	super()
-  	this.state = {
-  		value: 0
-  	}
+    super()
     this.handleChange = this.handleChange.bind(this)
   }
 
   handleChange(event, value) {
-    this.setState({ value })
+    this.props.showForm({ value })
+    console.log({ value })
   }
 
 
   render() {
   	const { classes } = this.props
-  	const { value } = this.state
+  	const { value } = this.props.auth
     return (
       <Grid container className={classes.root}>
         <Grid item xs={12}>
           <AppBar position='static' color='default'>
             <Tabs
-              value={value}
+              value={ value }
               onChange={this.handleChange}
               indicatorColor='primary'
               textColor='primary'
@@ -49,11 +50,22 @@ class Auth extends Component {
               <Tab label='Register' />
             </Tabs>
           </AppBar>
-          {value === 0 && <LoginPage />}
-          {value === 1 && <RegisterPage/>}
+          { value === 0 && <LoginPage /> }
+          { value === 1 && <RegisterPage/> }
         </Grid>
       </Grid>)
   }
 }
 
-export default withStyles(styles, { withTheme: true })(Auth)
+const mapStateToProps = state => ({
+  auth: state.authForm
+})
+
+const mapDispatchToProps = dispatch => ({
+  showForm: (value) => dispatch((showFormAuth(value)))
+})
+
+export default compose(
+  withStyles(styles, { withTheme: true }),
+  connect(mapStateToProps, mapDispatchToProps)
+)(Auth)

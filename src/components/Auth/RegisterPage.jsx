@@ -3,6 +3,7 @@ import { Field, reduxForm } from 'redux-form'
 
 import compose from 'recompose/compose'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 
 import { register } from '../../actions'
 import { withStyles } from '@material-ui/core/styles'
@@ -34,10 +35,19 @@ const styles = () => ({
 })
 
 class RegisterPage extends Component {
-	renderField({ input, label, type }) {
+  constructor() {
+    super()
+    this.handleSubmitForm = this.handleSubmitForm.bind(this)
+  }
+
+  handleSubmitForm(user) {
+    this.props.reg(user)
+  }
+
+  renderField({ input, label, type }) {
     return (
       <Grid item md={3} >
-        <FormControl >
+        <FormControl required>
           <InputLabel>{label}</InputLabel>
           <Input
             {...input} type={type}
@@ -49,7 +59,7 @@ class RegisterPage extends Component {
   	const { handleSubmit, classes } = this.props
     return (
       <form
-        onSubmit={handleSubmit(this.props.submit)}
+        onSubmit={handleSubmit(this.handleSubmitForm)}
         className={classes.formLogin}>
         <Field
           label='Username'
@@ -74,7 +84,7 @@ class RegisterPage extends Component {
             variant='outlined'
             type='submit'
             className={classes.btn}>
-                    Submit
+                    Register
           </Button>
         </div>
       </form>)
@@ -82,11 +92,12 @@ class RegisterPage extends Component {
 }
 
 const mapStateToProps = state => ({
-  user: state.dataUser
+  user: state.dataUser,
+  auth: state.regitering
 })
 
 const mapDispatchToProps = dispatch => ({
-  submit: (user) => dispatch(register(user))
+  reg: (user) => dispatch(register(user))
 })
 
 
@@ -95,5 +106,6 @@ export default compose(
   reduxForm({
     form: 'register'
   }),
+  withRouter,
   connect(mapStateToProps, mapDispatchToProps)
 )(RegisterPage)

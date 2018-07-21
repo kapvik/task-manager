@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Field, reduxForm } from 'redux-form'
+import { withRouter } from 'react-router-dom'
 
 import compose from 'recompose/compose'
 import { connect } from 'react-redux'
@@ -33,12 +34,21 @@ const styles = () => ({
   }
 })
 
-
 class LoginPage extends Component {
+  constructor() {
+    super()
+    this.handleSubmitForm = this.handleSubmitForm.bind(this)
+  }
+
+  handleSubmitForm(user) {
+    this.props.submit(user).then(() =>
+      this.props.history.push('/'))
+  }
+
   renderField({ input, label, type }) {
     return (
       <Grid item md={3} >
-        <FormControl >
+        <FormControl required>
           <InputLabel>{label}</InputLabel>
           <Input
             {...input} type={type}
@@ -46,12 +56,13 @@ class LoginPage extends Component {
         </FormControl>
       </Grid>)
   }
+
   render() {
   	const { handleSubmit, classes } = this.props
 
     return (
       <form
-        onSubmit={handleSubmit(this.props.submit)}
+        onSubmit={handleSubmit(this.handleSubmitForm)}
         className={classes.formLogin}>
         <Field
           label='Username or email'
@@ -70,7 +81,7 @@ class LoginPage extends Component {
             variant='outlined'
             type='submit'
             className={classes.btn}>
-                    Submit
+                   Log in
           </Button>
         </div>
       </form>)
@@ -78,7 +89,8 @@ class LoginPage extends Component {
 }
 
 const mapStateToProps = state => ({
-  user: state.dataUser
+  user: state.dataUser,
+  auth: state.authentication
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -91,5 +103,6 @@ export default compose(
   reduxForm({
     form: 'login'
   }),
+  withRouter,
   connect(mapStateToProps, mapDispatchToProps)
 )(LoginPage)

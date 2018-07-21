@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { Route, Redirect, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { fetchData } from './actions'
+import compose from 'recompose/compose'
 
 import ProfilePage from './components/ProfilePage'
 import TasksPage from './components/TasksPage'
@@ -11,35 +11,46 @@ import Auth from './components/Auth/Auth'
 
 
 class App extends Component {
-  componentDidMount() {
-    this.props.dataFetch()
-  }
-
   render() {
+    const { loggedIn } = this.props.auth
+    const { regitering } = this.props.registration
+    const PrivateRoute = ({ component: Components, ...rest }) => (
+      <Route
+        {...rest}
+        render={props =>
+          (loggedIn || regitering) ? (
+            <Components {...props} />
+          ) : (
+            <Redirect
+              to={{
+                pathname: '/auth',
+                state: { from: props.location }
+              }}
+            />
+          )
+        }
+      />
+    )
     return (
-      <Router>
-        <div className='App'>
-          <Switch>
-            <Route path='/auth' component={Auth} />
-            <Route exact path='/' component={Dashboard} />
-          </Switch>
-          <Route exact path='/user' component={ProfilePage} />
-          <Route exact path='/tasks' component={TasksPage} />
-          <Route path='/tasks/:number' component={TaskInfo} />
-        </div>
-      </ Router>
+      <div className='App'>       
+        <Route path='/auth' component={Auth} />
+        <PrivateRoute exact path='/' component={Dashboard} />
+        <PrivateRoute path='/user' component={ProfilePage} />
+        <PrivateRoute path='/tasks' component={TasksPage} />
+        <PrivateRoute path='/tasks/:number' component={TaskInfo} />
+      </div>
     )
   }
 }
 
 const mapStateToProps = state => {
   return {
-    userData: state.dataUser
+    auth: state.authentication,
+    registration: state.registration
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  dataFetch: () => dispatch(fetchData())
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default compose(
+  withRouter,
+  connect(mapStateToProps)
+)(App)
