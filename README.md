@@ -1,6 +1,8 @@
 ## To login use
-username: admin
-password: any
+
+**username:** admin
+
+**password:** any
 
 ## What is done for now
 - [x] Log in
