@@ -19,11 +19,12 @@ const styles = () => ({
     display: 'flex',
     justifyContent: 'center'
   },
-  formLogin: {
-    marginTop: '50px',
+  formStyle: {
     display: 'flex',
     flexDirection: 'column',
-    textAlign: 'center'
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: '100vh'
   },
   btn: {
     color: '#fff',
@@ -46,7 +47,7 @@ class RegisterPage extends Component {
 
   renderField({ input, label, type }) {
     return (
-      <Grid item md={3} >
+      <Grid item md={3}>
         <FormControl required>
           <InputLabel>{label}</InputLabel>
           <Input
@@ -56,11 +57,12 @@ class RegisterPage extends Component {
       </Grid>)
   }
   render() {
-  	const { handleSubmit, classes } = this.props
+  	const { handleSubmit, pristine, submitting, classes } = this.props
     return (
+      <div className={classes.formStyle}>
       <form
         onSubmit={handleSubmit(this.handleSubmitForm)}
-        className={classes.formLogin}>
+      >
         <Field
           label='Username'
           name='user[login]'
@@ -83,11 +85,13 @@ class RegisterPage extends Component {
           <Button
             variant='outlined'
             type='submit'
+            disabled={pristine || submitting}
             className={classes.btn}>
                     Register
           </Button>
         </div>
-      </form>)
+      </form>
+      </div>)
   }
 }
 

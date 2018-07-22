@@ -2,19 +2,14 @@ const mongoose = require('mongoose')
 
 let UserSchema = new mongoose.Schema(
   {
-    user_id: {
-      type: Number,
-      index: true,
-      unique: true
-    },
+    _id: mongoose.Schema.Types.ObjectId,
     firstname: String,
     lastname: String,
     email: String,
-    dob: Date,
+    dateOfBirth: Date,
     skills: {
     	type: [String]
     }
-
   }
 )
 

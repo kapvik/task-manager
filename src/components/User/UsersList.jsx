@@ -3,17 +3,17 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import compose from 'recompose/compose'
 
-import { fetchData, selectedUser, openigDialog } from '../actions'
+import { fetchData, selectedUser, openigDialog } from '../../actions'
 
 import { withStyles } from '@material-ui/core/styles'
 
-import Chat from './Chat'
+import Chat from '../Chat'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import Typography from '@material-ui/core/Typography'
 import ChatIcon from '@material-ui/icons/Chat'
-import ListItemIcon from '@material-ui/core/ListItemIcon'
+import IconButton from '@material-ui/core/IconButton'
 
 const styles = () => ({
   user: {
@@ -24,6 +24,12 @@ const styles = () => ({
 })
 
 class UserList extends Component {
+  constructor(props) {
+    super(props)
+
+    this.onClickOpen = this.onClickOpen.bind(this)
+    this.onClickUser = this.onClickUser.bind(this)
+  }
   componentDidMount() {
     this.props.dataFetch()
   }
@@ -62,9 +68,9 @@ class UserList extends Component {
               >
                 {user.firstname} {user.lastname}
               </Typography>
-              <ListItemIcon >
+              <IconButton color='primary'>
                 <ChatIcon />
-              </ListItemIcon>
+              </IconButton>
             </ListItem>
           ))}
           {open ? <Chat /> : null}

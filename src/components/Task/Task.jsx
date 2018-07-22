@@ -2,15 +2,15 @@ import React, { Component } from 'react'
 
 import compose from 'recompose/compose'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
-import { fetchTasks, selectedTask } from '../actions'
+import { withRouter } from 'react-router-dom'
+
+import { fetchTasks, selectedTask } from '../../actions'
 
 import { withStyles } from '@material-ui/core/styles'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction'
 import MenuItem from '@material-ui/core/MenuItem'
 import Select from '@material-ui/core/Select'
 
@@ -25,13 +25,16 @@ const styles = theme => ({
     paddingLeft: theme.spacing.unit * 4
   },
   status: {
-    display: 'flex',
-    justifyContent: 'flex-end'
+    color: theme.palette.primary.main,
+    fontWeight: 700
   },
   task: {
     display: 'flex',
-    textDecoration: 'none',
-    maxWidth: '90%'
+    flexWrap: 'wrap',
+    justifyContent: 'space-between'
+  },
+  taskInfo: {
+    maxWidth: '75%'
   }
 })
 
@@ -42,6 +45,10 @@ class Task extends Component {
 
   onClickTask(id) {
     this.props.select(id)
+  }
+
+  onClickTaskInfo(id) {
+    this.props.history.push('/task/'+ id)
   }
 
   render() {
@@ -56,24 +63,24 @@ class Task extends Component {
             <ListItem
               button
               key={task.task_id}
-              onClick={ () => this.onClickTask(task.task_id)}
+              onClick={() => this.onClickTask(task.task_id)}
+              className={classes.task}
             >
-              <Link to={`/tasks/${task.task_id}`} className={classes.task}>
                 <ListItemText
                   primary={task.title}
                   secondary={task.short_description}
+                  onClick={() => this.onClickTaskInfo(task.task_id)}
+                  className={classes.taskInfo}
                 />
-              </Link>
-              <ListItemSecondaryAction className={classes.status}>
                 <Select
                   value={task.status}
+                  className={classes.status}
                 >
-                  <MenuItem value='To Do'>To Do</MenuItem>
-                  <MenuItem value='In Progress'>In Progress</MenuItem>
-                  <MenuItem value='Peer Review'>Peer Review</MenuItem>
-                  <MenuItem value='Done'>Done</MenuItem>
+                  <MenuItem value='To Do' selected>To Do</MenuItem>
+                  <MenuItem value='In Progress' selected>In Progress</MenuItem>
+                  <MenuItem value='Peer Review' selected>Peer Review</MenuItem>
+                  <MenuItem value='Done' selected>Done</MenuItem>
                 </Select>
-              </ListItemSecondaryAction>
             </ListItem>
           ))}
         </List>
@@ -97,6 +104,7 @@ const mapDispatchToProps = dispatch => ({
 })
 
 export default compose(
+  withRouter,
   withStyles(styles),
   connect(mapStateToProps, mapDispatchToProps)
 )(Task)

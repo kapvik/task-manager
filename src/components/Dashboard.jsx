@@ -5,8 +5,8 @@ import compose from 'recompose/compose'
 import { connect } from 'react-redux'
 
 import { logoutUser } from '../actions'
-import Task from './Task'
-import UsersList from './UsersList'
+import Task from './Task/Task'
+import UsersList from './User/UsersList'
 
 import classNames from 'classnames'
 import { withStyles } from '@material-ui/core/styles'

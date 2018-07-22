@@ -1,23 +1,20 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 
 import { connect } from 'react-redux'
-import { startEditingUser } from '../actions'
 import compose from 'recompose/compose'
 
-import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import Divider from '@material-ui/core/Divider'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
-import IconButton from '@material-ui/core/IconButton'
-import EditIcon from '@material-ui/icons/Edit'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import { withStyles } from '@material-ui/core/styles'
+import Grid from '@material-ui/core/Grid'
 
 import EditForm from './EditForm'
 
-const styles = () => ({
+const styles = theme => ({
   listSkills: {
     display: 'flex',
     flexDirection: 'column'
@@ -30,30 +27,32 @@ const styles = () => ({
     marginTop: '1em',
     fontSize: '1.5em',
     textTransform: 'uppercase'
+  },
+  topListInfo: {
+    display: 'flex',
+    flexDirection: 'column',
+    textAlign: 'center',
+    margin: '30px auto'
+  },
+  subTitle: {
+    color: theme.palette.primary.main
   }
 })
 class User extends Component {
-  onClickEdit() {
-    this.props.editProfile()
-  }
-
-
   render() {
     const { users } = this.props.users
     const { isEditing, editData } = this.props.isEdit
     const { classes } = this.props
     if (users && !isEditing && !editData) {
       return (
-        <Grid item xs={12} >
-          <div key={ users[0].id }>
-            <IconButton aria-label='Delete' onClick={ () => this.onClickEdit() }>
-              <EditIcon />
-            </IconButton>
+          <Fragment>
+            <div className={classes.topListInfo}>
             <Typography variant='subheading'>
-              { users[0].firstname } { users[0].lastname }
+              <b className={classes.subTitle}>Name:</b> { users[0].firstname } { users[0].lastname }
             </Typography>
-            <Typography variant='subheading'> { users[0].email } </Typography>
-            <Typography variant='subheading'> { users[0].dob }</Typography>
+            <Typography variant='subheading'> <b className={classes.subTitle}>Email:</b> { users[0].email } </Typography>
+            <Typography variant='subheading'> <b className={classes.subTitle}>Registred since:</b> { users[0].dob }</Typography>
+            </div>
             <Divider />
             <Typography
               variant='subheading'
@@ -75,9 +74,7 @@ class User extends Component {
                 </ListItem>)
               )}
             </List>
-          </div>
-        </Grid>
-
+          </Fragment>
       )
     } else if (isEditing) {
       return (
@@ -87,30 +84,34 @@ class User extends Component {
       )
     } else if (editData) {
       return (
-        <Grid item xs={12} >
-          <div key={ users[0].id }>
-            <IconButton aria-label='Delete' onClick={ () => this.onClickEdit() }>
-              <EditIcon />
-            </IconButton>
+          <Fragment>
+            <div className={classes.topListInfo}>
             <Typography variant='subheading'>
-              { editData.firstname || users[0].firstname } { editData.lastname || users[0].lastname }
+              <b className={classes.subTitle}>Name:</b> { editData.firstname || users[0].firstname } { editData.lastname || users[0].lastname }
             </Typography>
             <Typography variant='subheading'>
-              { editData.email || users[0].email }
+              <b className={classes.subTitle}>Email:</b> { editData.email || users[0].email }
             </Typography>
             <Typography variant='subheading'>
-              { editData.data || users[0].dob }
+              <b className={classes.subTitle}>Registred since:</b> { editData.data || users[0].dob }
             </Typography>
+            </div>
             <Divider />
             <Typography
               variant='subheading'
               align='center'
+              color='primary'
+              className={classes.listTitle}
             >
             Skills
             </Typography>
-            <List component='nav'>
+            <List component='ul' className={ classes.listSkills }>
               { editData.skills ? editData.skills.split(',').map(skill =>
-                (<ListItem key={skill} button>
+                (<ListItem
+                    key={skill}
+                    button
+                    className={ classes.listSkillsItem }
+                  >
                   <ListItemText primary={skill} />
                 </ListItem>)
               ) : users[0].skills.split(',').map(skill =>
@@ -119,8 +120,7 @@ class User extends Component {
                 </ListItem>)
               )}
             </List>
-          </div>
-        </Grid>
+          </Fragment>
       )
     }
     return (
@@ -136,11 +136,7 @@ const mapStateToProps = state => ({
   isEdit: state.editing
 })
 
-const mapDispatchToProps = dispatch => ({
-  editProfile: () => dispatch(startEditingUser())
-})
-
 export default compose(
   withStyles(styles),
-  connect(mapStateToProps, mapDispatchToProps)
+  connect(mapStateToProps)
 )(User)

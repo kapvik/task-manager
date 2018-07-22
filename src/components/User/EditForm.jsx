@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 import { Field, reduxForm } from 'redux-form'
 import { connect } from 'react-redux'
-import { stopEditingUser, cancelEditingUser } from '../actions'
+import { stopEditingUser, cancelEditingUser } from '../../actions'
 import compose from 'recompose/compose'
 
 import { withStyles } from '@material-ui/core/styles'
@@ -30,7 +30,12 @@ const styles = () => ({
     }
   }
 })
-class Edit extends Component {
+class EditForm extends Component {
+  constructor(props) {
+    super(props)
+
+    this.onClickCancel = this.onClickCancel.bind(this)
+  }
   renderField({ input, label, type }) {
     return (
       <Grid item md={3} >
@@ -48,11 +53,12 @@ class Edit extends Component {
   }
 
   render() {
-    const { handleSubmit, classes } = this.props
+    const { handleSubmit, submitting, pristine, classes } = this.props
     return (
       <form
-        onSubmit={handleSubmit(this.props.submit)}
-        className={classes.formEdit}>
+        onSubmit={handleSubmit(this.props.submitForm)}
+        className={classes.formEdit}
+      >
         <Typography
           color='primary'
           variant='title'
@@ -78,7 +84,7 @@ class Edit extends Component {
           type='email' />
         <Field
           label='Date of Birth'
-          name='dod'
+          name='dob'
           component={this.renderField}
           type='text'
         />
@@ -92,13 +98,15 @@ class Edit extends Component {
           <Button
             variant='outlined'
             type='submit'
-            className={classes.btn}>
+            disabled={pristine || submitting }
+            className={classes.btn}
+            >
                     Submit
           </Button>
           <Button
             variant='outlined'
             type='reset'
-            onClick={ () => this.onClickCancel() }
+            onClick={ this.onClickCancel }
             className={classes.btn}
           >
                     Cancel
@@ -110,20 +118,20 @@ class Edit extends Component {
 }
 
 const mapStateToProps = state => ({
-  user: state.dataUser,
-  isEdit: state.editing
+  isEdit: state.editing,
+  initialValues: state.dataUser.users[0]
 })
 
 const mapDispatchToProps = dispatch => ({
   cancel: () => dispatch(cancelEditingUser()),
-  submit: (newData) => dispatch(stopEditingUser(newData))
+  submitForm: (newData) => dispatch(stopEditingUser(newData))
 })
 
 
 export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
   withStyles(styles),
   reduxForm({
     form: 'editUser'
-  }),
-  connect(mapStateToProps, mapDispatchToProps)
-)(Edit)
+  })
+)(EditForm)

@@ -57,13 +57,14 @@ const styles = theme => ({
 })
 
 class TaskInfo extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
       open: false
     }
     this.handleClose = this.handleClose.bind(this)
     this.handleClickOpen = this.handleClickOpen.bind(this)
+    this.changeStatus = this.changeStatus.bind(this)
   }
 
   handleClickOpen() {
@@ -72,6 +73,10 @@ class TaskInfo extends Component {
 
   handleClose() {
     this.setState({ open: false })
+  }
+
+  changeStatus({value}) {
+    
   }
 
   render() {
@@ -107,6 +112,7 @@ class TaskInfo extends Component {
             </Typography>
             <Select
               value={taskInfo.status}
+              onChange={this.changeStatus}
             >
               <MenuItem value='To Do'>To Do</MenuItem>
               <MenuItem value='In Progress'>In Progress</MenuItem>

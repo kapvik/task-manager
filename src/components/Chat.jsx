@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 
 import compose from 'recompose/compose'
 import { connect } from 'react-redux'
@@ -52,7 +52,7 @@ const styles = theme => ({
   	color: '#fff'
   },
   messageBoxRight: {
-  	margin: '0 0 auto 10px',
+  	margin: '10px 0 auto 10px',
   	padding: '5px',
   	marginLeft: '60px'
   },
@@ -61,11 +61,20 @@ const styles = theme => ({
   	color: '#3f51b5'
   },
   inputWrite: {
-  	padding: '24px 30px'
+  	padding: '24px 30px',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'baseline'
   }
 })
 
 class Chat extends Component {
+  constructor(props) {
+    super(props)
+
+    this.onClose = this.onClose.bind(this)
+  }
+
   componentDidMount() {
     this.props.previousMsg()
   }
@@ -75,7 +84,7 @@ class Chat extends Component {
 
   renderField({ input, label, type }) {
     return (
-      <FormControl >
+      <FormControl>
         <InputLabel>{label}</InputLabel>
         <Input
           margin='dense'
@@ -88,13 +97,13 @@ class Chat extends Component {
 
   render() {
     const { classes, handleSubmit } = this.props
-    const { open, msg, msgTo } = this.props.chat
+    const { open, send, receive } = this.props.chat
     if (open) {
       return (
         <Dialog
           open={open}
-          maxWidth='xs'
-          onClose={ () => this.onClose()}
+          onClose={ this.onClose }
+          maxWidth='sm'
           aria-labelledby='form-dialog-title'
         >
           <DialogTitle
@@ -103,7 +112,7 @@ class Chat extends Component {
           >
           Chat
             <Button
-              onClick={ () => this.onClose()}
+              onClick={ this.onClose }
               color='primary'
               className={classes.canselBtn}
             >
@@ -111,24 +120,26 @@ class Chat extends Component {
             </Button>
           </DialogTitle>
           <DialogContent>
-            {msg ? (<div>
-              { msg.receive.map(recMsg => (
-                <Paper key={recMsg.date.day} className={classes.messageBoxLeft}>
-                  <DialogContentText className={classes.messageLeft}>
+            {receive ? (<Fragment>
+              { receive.map(recMsg => (
+                <Paper className={ classes.messageBoxLeft } key={ recMsg.date }>
+                  <DialogContentText className={ classes.messageLeft } >
                     {recMsg.msg}
                   </DialogContentText>
                 </Paper>))}
-            </div>) : null }
-            {msgTo ? (
-              <Paper className={classes.messageBoxRight}>
-                <DialogContentText className={classes.messageRight}>
-                  {msgTo.msg}
-                </DialogContentText>
-              </Paper>) : null }
+            </Fragment>) : null }
+            { send ? (<Fragment>
+              { send.map(sendMsg => (
+                <Paper className={classes.messageBoxRight} key={ sendMsg.date }>
+                  <DialogContentText className={ classes.messageRight }>
+                    {sendMsg.msg.msg || sendMsg.msg}
+                  </DialogContentText>
+                </Paper>))}
+            </Fragment>) : null }
           </DialogContent>
           <form
             className={classes.inputWrite}
-            onSubmit={handleSubmit(this.props.send, this.props.reset)}
+            onSubmit={ handleSubmit(this.props.send) }
           >
             <Field
               label='Write a message...'
@@ -169,10 +180,14 @@ const mapDispatchToProps = dispatch => ({
   previousMsg: () => dispatch(fetchMessages()),
   send: (msg) => dispatch(sendingMessage(msg))
 })
+
 export default compose(
   withStyles(styles),
   reduxForm({
-    form: 'sendMsg'
+    form: 'sendMsg',
+    onSubmitSuccess: (result, dispatch, props) => {
+      props.reset('sendMsg')
+    }
   }),
   connect(mapStateToProps, mapDispatchToProps)
 )(Chat)
