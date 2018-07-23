@@ -27,7 +27,6 @@ class Auth extends Component {
 
   handleChange(event, value) {
     this.props.showForm({ value })
-    console.log({ value })
   }
 
 

@@ -19,11 +19,12 @@ const styles = () => ({
     display: 'flex',
     justifyContent: 'center'
   },
-  formLogin: {
-    marginTop: '50px',
+  formStyle: {
     display: 'flex',
     flexDirection: 'column',
-    textAlign: 'center'
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: '100vh'
   },
   btn: {
     color: '#fff',
@@ -35,8 +36,9 @@ const styles = () => ({
 })
 
 class LoginPage extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
+    
     this.handleSubmitForm = this.handleSubmitForm.bind(this)
   }
 
@@ -61,9 +63,10 @@ class LoginPage extends Component {
   	const { handleSubmit, classes } = this.props
 
     return (
+      <div className={classes.formStyle}>
       <form
         onSubmit={handleSubmit(this.handleSubmitForm)}
-        className={classes.formLogin}>
+      >
         <Field
           label='Username or email'
           name='user[login]'
@@ -84,7 +87,8 @@ class LoginPage extends Component {
                    Log in
           </Button>
         </div>
-      </form>)
+      </form>
+      </div>)
   }
 }
 

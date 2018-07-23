@@ -2,59 +2,29 @@
   {
     "send": [
       {
-        "date": [
-          {
-            "day": "06:36 19-06-2018",
-            "time": "12:34"
-          }
-        ],
+        "date":"06:36 19-06-2018",
         "msg": "laborum ex enim ipsum cillum"
       },
       {
-        "date": [
-          {
-            "day": "11:58 29-06-2018",
-            "time": "10:29"
-          }
-        ],
+        "date":"11:58 29-06-2018",
         "msg": "et pariatur esse eiusmod voluptate"
       },
       {
-        "date": [
-          {
-            "day": "03:38 25-06-2018",
-            "time": "09:31"
-          }
-        ],
+        "date":"03:38 25-06-2018",
         "msg": "nostrud tempor sit irure fugiat"
       }
     ],
     "receive": [
       {
-        "date": [
-          {
-            "day": "03:09 02-06-2018",
-            "time": "05:51"
-          }
-        ],
+        "date":"03:09 02-06-2018",
         "msg": "sint amet aute labore officia"
       },
       {
-        "date": [
-          {
-            "day": "12:02 07-06-2018",
-            "time": "01:36"
-          }
-        ],
+        "date":"12:02 07-06-2018",
         "msg": "dolor voluptate adipisicing est irure"
       },
       {
-        "date": [
-          {
-            "day": "11:19 07-06-2018",
-            "time": "12:20"
-          }
-        ],
+        "date":"11:19 07-06-2018",
         "msg": "culpa nostrud velit id nisi"
       }
     ]
@@ -62,59 +32,29 @@
   {
     "send": [
       {
-        "date": [
-          {
-            "day": "02:34 16-07-2018",
-            "time": "01:19"
-          }
-        ],
+        "date":"02:34 16-07-2018",
         "msg": "eiusmod ut laboris est veniam"
       },
       {
-        "date": [
-          {
-            "day": "12:11 27-06-2018",
-            "time": "06:47"
-          }
-        ],
+        "date":"12:11 27-06-2018",
         "msg": "pariatur adipisicing fugiat eu duis"
       },
       {
-        "date": [
-          {
-            "day": "02:48 18-07-2018",
-            "time": "01:48"
-          }
-        ],
+        "date":"02:48 18-07-2018",
         "msg": "magna eu ad id excepteur"
       }
     ],
     "receive": [
       {
-        "date": [
-          {
-            "day": "02:07 16-07-2018",
-            "time": "06:39"
-          }
-        ],
+        "date":"02:07 16-07-2018",
         "msg": "deserunt et fugiat laborum sunt"
       },
       {
-        "date": [
-          {
-            "day": "02:03 22-06-2018",
-            "time": "02:43"
-          }
-        ],
+        "date":"02:03 22-06-2018",
         "msg": "proident adipisicing laboris excepteur consectetur"
       },
       {
-        "date": [
-          {
-            "day": "07:53 02-06-2018",
-            "time": "12:03"
-          }
-        ],
+        "date":"07:53 02-06-2018",
         "msg": "voluptate ex incididunt commodo amet"
       }
     ]
@@ -122,59 +62,29 @@
   {
     "send": [
       {
-        "date": [
-          {
-            "day": "10:18 08-07-2018",
-            "time": "04:33"
-          }
-        ],
+        "date":"10:18 08-07-2018",
         "msg": "officia aute aliqua exercitation do"
       },
       {
-        "date": [
-          {
-            "day": "04:16 09-07-2018",
-            "time": "12:44"
-          }
-        ],
+        "date":"04:16 09-07-2018",
         "msg": "in eu exercitation tempor cillum"
       },
       {
-        "date": [
-          {
-            "day": "11:14 10-06-2018",
-            "time": "08:13"
-          }
-        ],
+        "date":"11:14 10-06-2018",
         "msg": "laborum reprehenderit qui ex excepteur"
       }
     ],
     "receive": [
       {
-        "date": [
-          {
-            "day": "06:51 08-07-2018",
-            "time": "11:43"
-          }
-        ],
+        "date": "06:51 08-07-2018",
         "msg": "mollit exercitation adipisicing quis nisi"
       },
       {
-        "date": [
-          {
-            "day": "11:00 11-06-2018",
-            "time": "12:54"
-          }
-        ],
+        "date": "11:00 11-06-2018",
         "msg": "cillum adipisicing reprehenderit consequat enim"
       },
       {
-        "date": [
-          {
-            "day": "10:49 08-07-2018",
-            "time": "11:34"
-          }
-        ],
+        "date": "10:49 08-07-2018",
         "msg": "incididunt aliqua dolor velit non"
       }
     ]
@@ -182,59 +92,29 @@
   {
     "send": [
       {
-        "date": [
-          {
-            "day": "05:35 08-07-2018",
-            "time": "11:10"
-          }
-        ],
+        "date": "05:35 08-07-2018",
         "msg": "nisi mollit Lorem aliqua consequat"
       },
       {
-        "date": [
-          {
-            "day": "11:20 17-07-2018",
-            "time": "08:08"
-          }
-        ],
+        "date": "11:20 17-07-2018",
         "msg": "aliquip incididunt dolor id in"
       },
       {
-        "date": [
-          {
-            "day": "01:20 10-07-2018",
-            "time": "11:56"
-          }
-        ],
+        "date": "01:20 10-07-2018",
         "msg": "duis reprehenderit pariatur nostrud non"
       }
     ],
     "receive": [
       {
-        "date": [
-          {
-            "day": "06:14 09-06-2018",
-            "time": "01:20"
-          }
-        ],
+        "date": "06:14 09-06-2018",
         "msg": "non culpa veniam incididunt nulla"
       },
       {
-        "date": [
-          {
-            "day": "06:34 30-06-2018",
-            "time": "05:41"
-          }
-        ],
+        "date": "06:34 30-06-2018",
         "msg": "et exercitation sunt sint mollit"
       },
       {
-        "date": [
-          {
-            "day": "07:07 06-07-2018",
-            "time": "12:15"
-          }
-        ],
+        "date": "07:07 06-07-2018",
         "msg": "laboris officia aliqua irure anim"
       }
     ]
@@ -242,59 +122,29 @@
   {
     "send": [
       {
-        "date": [
-          {
-            "day": "02:34 18-07-2018",
-            "time": "04:06"
-          }
-        ],
+        "date": "02:34 18-07-2018",
         "msg": "aute do adipisicing Lorem non"
       },
       {
-        "date": [
-          {
-            "day": "01:24 15-06-2018",
-            "time": "01:02"
-          }
-        ],
+        "date": "01:24 15-06-2018",
         "msg": "minim sunt ea eiusmod fugiat"
       },
       {
-        "date": [
-          {
-            "day": "01:30 01-06-2018",
-            "time": "10:29"
-          }
-        ],
+        "date": "01:30 01-06-2018",
         "msg": "labore reprehenderit amet pariatur excepteur"
       }
     ],
     "receive": [
       {
-        "date": [
-          {
-            "day": "03:08 06-07-2018",
-            "time": "06:13"
-          }
-        ],
+        "date": "03:08 06-07-2018",
         "msg": "dolor cupidatat ea id consequat"
       },
       {
-        "date": [
-          {
-            "day": "12:46 19-07-2018",
-            "time": "04:47"
-          }
-        ],
+        "date": "12:46 19-07-2018",
         "msg": "ullamco sunt veniam dolor sunt"
       },
       {
-        "date": [
-          {
-            "day": "06:01 15-06-2018",
-            "time": "09:47"
-          }
-        ],
+        "date": "06:01 15-06-2018",
         "msg": "in voluptate velit ad laborum"
       }
     ]
@@ -302,59 +152,29 @@
   {
     "send": [
       {
-        "date": [
-          {
-            "day": "06:14 24-06-2018",
-            "time": "06:32"
-          }
-        ],
+        "date": "06:14 24-06-2018",
         "msg": "cupidatat id sit laborum ad"
       },
       {
-        "date": [
-          {
-            "day": "06:01 30-06-2018",
-            "time": "11:11"
-          }
-        ],
+        "date": "06:01 30-06-2018",
         "msg": "aliqua labore laboris nostrud dolore"
       },
       {
-        "date": [
-          {
-            "day": "03:44 12-06-2018",
-            "time": "09:04"
-          }
-        ],
+        "date": "03:44 12-06-2018",
         "msg": "minim aliquip commodo qui dolore"
       }
     ],
     "receive": [
       {
-        "date": [
-          {
-            "day": "08:01 19-06-2018",
-            "time": "11:26"
-          }
-        ],
+        "date": "08:01 19-06-2018",
         "msg": "velit velit esse qui qui"
       },
       {
-        "date": [
-          {
-            "day": "09:49 09-06-2018",
-            "time": "03:18"
-          }
-        ],
+        "date": "09:49 09-06-2018",
         "msg": "mollit duis tempor ullamco culpa"
       },
       {
-        "date": [
-          {
-            "day": "10:22 04-06-2018",
-            "time": "04:48"
-          }
-        ],
+        "date": "10:22 04-06-2018",
         "msg": "nulla esse consectetur pariatur ipsum"
       }
     ]
@@ -362,59 +182,29 @@
   {
     "send": [
       {
-        "date": [
-          {
-            "day": "12:44 16-06-2018",
-            "time": "12:47"
-          }
-        ],
+        "date": "12:44 16-06-2018",
         "msg": "ea ad et deserunt adipisicing"
       },
       {
-        "date": [
-          {
-            "day": "12:07 01-06-2018",
-            "time": "02:08"
-          }
-        ],
+        "date": "12:07 01-06-2018",
         "msg": "pariatur aliqua amet fugiat et"
       },
       {
-        "date": [
-          {
-            "day": "07:08 13-06-2018",
-            "time": "10:10"
-          }
-        ],
+        "date": "07:08 13-06-2018",
         "msg": "elit sit nisi consequat incididunt"
       }
     ],
     "receive": [
       {
-        "date": [
-          {
-            "day": "09:46 24-06-2018",
-            "time": "06:32"
-          }
-        ],
+        "date": "09:46 24-06-2018",
         "msg": "reprehenderit veniam eu ullamco do"
       },
       {
-        "date": [
-          {
-            "day": "02:35 01-07-2018",
-            "time": "02:24"
-          }
-        ],
+        "date": "02:35 01-07-2018",
         "msg": "sit officia enim commodo aliqua"
       },
       {
-        "date": [
-          {
-            "day": "02:01 12-07-2018",
-            "time": "09:05"
-          }
-        ],
+        "date": "02:01 12-07-2018",
         "msg": "aute quis et sint reprehenderit"
       }
     ]
@@ -422,59 +212,29 @@
   {
     "send": [
       {
-        "date": [
-          {
-            "day": "01:57 27-06-2018",
-            "time": "07:17"
-          }
-        ],
+        "date": "01:57 27-06-2018",
         "msg": "ea non ut laborum et"
       },
       {
-        "date": [
-          {
-            "day": "08:54 27-06-2018",
-            "time": "11:07"
-          }
-        ],
+        "date": "08:54 27-06-2018",
         "msg": "quis nulla ipsum cupidatat consectetur"
       },
       {
-        "date": [
-          {
-            "day": "01:01 14-06-2018",
-            "time": "05:22"
-          }
-        ],
+        "date": "01:01 14-06-2018",
         "msg": "incididunt labore excepteur nostrud cillum"
       }
     ],
     "receive": [
       {
-        "date": [
-          {
-            "day": "04:21 04-07-2018",
-            "time": "05:00"
-          }
-        ],
+        "date": "04:21 04-07-2018",
         "msg": "eiusmod sunt adipisicing Lorem proident"
       },
       {
-        "date": [
-          {
-            "day": "12:46 13-07-2018",
-            "time": "07:57"
-          }
-        ],
+        "date": "12:46 13-07-2018",
         "msg": "cupidatat reprehenderit proident fugiat anim"
       },
       {
-        "date": [
-          {
-            "day": "05:26 15-07-2018",
-            "time": "07:57"
-          }
-        ],
+        "date": "05:26 15-07-2018",
         "msg": "laborum ea ipsum ullamco ex"
       }
     ]
@@ -482,59 +242,29 @@
   {
     "send": [
       {
-        "date": [
-          {
-            "day": "02:02 29-06-2018",
-            "time": "04:35"
-          }
-        ],
+        "date": "02:02 29-06-2018",
         "msg": "cupidatat id exercitation et minim"
       },
       {
-        "date": [
-          {
-            "day": "05:40 02-07-2018",
-            "time": "04:08"
-          }
-        ],
+        "date": "05:40 02-07-2018",
         "msg": "in sunt occaecat occaecat ad"
       },
       {
-        "date": [
-          {
-            "day": "02:44 03-07-2018",
-            "time": "12:16"
-          }
-        ],
+        "date": "02:44 03-07-2018",
         "msg": "quis amet ea est consequat"
       }
     ],
     "receive": [
       {
-        "date": [
-          {
-            "day": "06:28 23-06-2018",
-            "time": "06:21"
-          }
-        ],
+        "date": "06:28 23-06-2018",
         "msg": "consectetur ea Lorem consectetur esse"
       },
       {
-        "date": [
-          {
-            "day": "01:04 07-07-2018",
-            "time": "06:28"
-          }
-        ],
+        "date": "01:04 07-07-2018",
         "msg": "id do elit labore fugiat"
       },
       {
-        "date": [
-          {
-            "day": "01:01 17-06-2018",
-            "time": "01:05"
-          }
-        ],
+        "date": "01:01 17-06-2018",
         "msg": "irure nulla ut laborum amet"
       }
     ]
@@ -542,59 +272,29 @@
   {
     "send": [
       {
-        "date": [
-          {
-            "day": "09:49 15-06-2018",
-            "time": "10:24"
-          }
-        ],
+        "date": "09:49 15-06-2018",
         "msg": "non dolore eiusmod sint labore"
       },
       {
-        "date": [
-          {
-            "day": "01:08 10-07-2018",
-            "time": "08:05"
-          }
-        ],
+        "date": "01:08 10-07-2018",
         "msg": "mollit veniam commodo magna nostrud"
       },
       {
-        "date": [
-          {
-            "day": "05:33 01-06-2018",
-            "time": "10:00"
-          }
-        ],
+        "date":"05:33 01-06-2018",
         "msg": "nulla qui ullamco ad occaecat"
       }
     ],
     "receive": [
       {
-        "date": [
-          {
-            "day": "10:43 11-06-2018",
-            "time": "07:42"
-          }
-        ],
+        "date": "10:43 11-06-2018",
         "msg": "dolor incididunt consequat cupidatat et"
       },
       {
-        "date": [
-          {
-            "day": "02:05 20-06-2018",
-            "time": "12:20"
-          }
-        ],
+        "date": "02:05 20-06-2018",
         "msg": "eu sunt occaecat cupidatat aute"
       },
       {
-        "date": [
-          {
-            "day": "02:03 13-07-2018",
-            "time": "10:06"
-          }
-        ],
+        "date": "02:03 13-07-2018",
         "msg": "officia consequat fugiat exercitation aute"
       }
     ]
@@ -602,59 +302,29 @@
   {
     "send": [
       {
-        "date": [
-          {
-            "day": "04:24 01-06-2018",
-            "time": "04:03"
-          }
-        ],
+        "date": "04:24 01-06-2018",
         "msg": "ipsum adipisicing cillum cupidatat fugiat"
       },
       {
-        "date": [
-          {
-            "day": "09:37 15-07-2018",
-            "time": "04:54"
-          }
-        ],
+        "date": "09:37 15-07-2018",
         "msg": "id enim laboris ipsum commodo"
       },
       {
-        "date": [
-          {
-            "day": "06:34 04-07-2018",
-            "time": "04:15"
-          }
-        ],
+        "date": "06:34 04-07-2018",
         "msg": "consectetur proident magna laborum elit"
       }
     ],
     "receive": [
       {
-        "date": [
-          {
-            "day": "04:14 07-06-2018",
-            "time": "03:55"
-          }
-        ],
+        "date": "04:14 07-06-2018",
         "msg": "duis ex voluptate labore labore"
       },
       {
-        "date": [
-          {
-            "day": "09:46 03-07-2018",
-            "time": "09:37"
-          }
-        ],
+        "date": "09:46 03-07-2018",
         "msg": "sunt anim magna consectetur magna"
       },
       {
-        "date": [
-          {
-            "day": "01:08 12-07-2018",
-            "time": "12:29"
-          }
-        ],
+        "date": "01:08 12-07-2018",
         "msg": "ut fugiat sunt culpa magna"
       }
     ]
@@ -662,59 +332,29 @@
   {
     "send": [
       {
-        "date": [
-          {
-            "day": "07:27 21-06-2018",
-            "time": "10:32"
-          }
-        ],
+        "date": "07:27 21-06-2018",
         "msg": "cupidatat magna aliqua fugiat enim"
       },
       {
-        "date": [
-          {
-            "day": "11:10 10-07-2018",
-            "time": "10:02"
-          }
-        ],
+        "date": "11:10 10-07-2018",
         "msg": "incididunt et sint proident in"
       },
       {
-        "date": [
-          {
-            "day": "05:55 08-06-2018",
-            "time": "08:32"
-          }
-        ],
+        "date": "05:55 08-06-2018",
         "msg": "deserunt ipsum nisi minim officia"
       }
     ],
     "receive": [
       {
-        "date": [
-          {
-            "day": "02:54 03-06-2018",
-            "time": "03:07"
-          }
-        ],
+        "date": "02:54 03-06-2018",
         "msg": "ullamco laborum sint sint amet"
       },
       {
-        "date": [
-          {
-            "day": "04:44 24-06-2018",
-            "time": "01:59"
-          }
-        ],
+        "date": "04:44 24-06-2018",
         "msg": "sit anim anim labore incididunt"
       },
       {
-        "date": [
-          {
-            "day": "03:57 10-06-2018",
-            "time": "05:42"
-          }
-        ],
+        "date": "03:57 10-06-2018",
         "msg": "nulla sit quis ullamco nostrud"
       }
     ]
@@ -722,59 +362,29 @@
   {
     "send": [
       {
-        "date": [
-          {
-            "day": "12:31 11-06-2018",
-            "time": "05:08"
-          }
-        ],
+        "date": "12:31 11-06-2018",
         "msg": "reprehenderit laborum adipisicing consectetur eiusmod"
       },
       {
-        "date": [
-          {
-            "day": "03:07 12-06-2018",
-            "time": "07:21"
-          }
-        ],
+        "date": "03:07 12-06-2018",
         "msg": "consectetur reprehenderit minim sint excepteur"
       },
       {
-        "date": [
-          {
-            "day": "12:45 13-06-2018",
-            "time": "03:58"
-          }
-        ],
+        "date": "12:45 13-06-2018",
         "msg": "eu ipsum sunt adipisicing excepteur"
       }
     ],
     "receive": [
       {
-        "date": [
-          {
-            "day": "09:26 11-06-2018",
-            "time": "09:07"
-          }
-        ],
+        "date": "09:26 11-06-2018",
         "msg": "do fugiat sit consectetur magna"
       },
       {
-        "date": [
-          {
-            "day": "12:31 12-06-2018",
-            "time": "07:33"
-          }
-        ],
+        "date": "12:31 12-06-2018",
         "msg": "sunt ut dolor laborum ullamco"
       },
       {
-        "date": [
-          {
-            "day": "05:34 07-07-2018",
-            "time": "04:03"
-          }
-        ],
+        "date": "05:34 07-07-2018",
         "msg": "adipisicing ut deserunt ex quis"
       }
     ]
@@ -782,59 +392,29 @@
   {
     "send": [
       {
-        "date": [
-          {
-            "day": "07:41 21-06-2018",
-            "time": "11:52"
-          }
-        ],
+        "date": "07:41 21-06-2018",
         "msg": "laboris consectetur minim deserunt do"
       },
       {
-        "date": [
-          {
-            "day": "11:07 24-06-2018",
-            "time": "05:37"
-          }
-        ],
+        "date": "11:07 24-06-2018",
         "msg": "sunt deserunt labore ullamco consequat"
       },
       {
-        "date": [
-          {
-            "day": "01:42 26-06-2018",
-            "time": "11:10"
-          }
-        ],
+        "date": "01:42 26-06-2018",
         "msg": "non commodo nulla est occaecat"
       }
     ],
     "receive": [
       {
-        "date": [
-          {
-            "day": "11:01 05-07-2018",
-            "time": "07:12"
-          }
-        ],
+        "date": "11:01 05-07-2018",
         "msg": "esse velit ullamco nostrud nostrud"
       },
       {
-        "date": [
-          {
-            "day": "06:30 02-07-2018",
-            "time": "06:39"
-          }
-        ],
+        "date": "06:30 02-07-2018",
         "msg": "voluptate culpa tempor aute quis"
       },
       {
-        "date": [
-          {
-            "day": "05:59 04-07-2018",
-            "time": "09:33"
-          }
-        ],
+        "date": "05:59 04-07-2018",
         "msg": "anim deserunt voluptate enim do"
       }
     ]
@@ -842,59 +422,29 @@
   {
     "send": [
       {
-        "date": [
-          {
-            "day": "09:56 23-06-2018",
-            "time": "05:49"
-          }
-        ],
+        "date": "09:56 23-06-2018",
         "msg": "qui dolor minim minim do"
       },
       {
-        "date": [
-          {
-            "day": "11:53 11-06-2018",
-            "time": "01:55"
-          }
-        ],
+        "date": "11:53 11-06-2018",
         "msg": "minim fugiat tempor tempor eu"
       },
       {
-        "date": [
-          {
-            "day": "11:49 26-06-2018",
-            "time": "06:45"
-          }
-        ],
+        "date": "11:49 26-06-2018",
         "msg": "esse aute aute eu elit"
       }
     ],
     "receive": [
       {
-        "date": [
-          {
-            "day": "12:39 12-07-2018",
-            "time": "07:38"
-          }
-        ],
+        "date": "12:39 12-07-2018",
         "msg": "adipisicing in et exercitation qui"
       },
       {
-        "date": [
-          {
-            "day": "09:06 25-06-2018",
-            "time": "04:33"
-          }
-        ],
+        "date": "09:06 25-06-2018",
         "msg": "adipisicing esse aliqua consectetur esse"
       },
       {
-        "date": [
-          {
-            "day": "05:27 10-07-2018",
-            "time": "01:22"
-          }
-        ],
+        "date": "05:27 10-07-2018",
         "msg": "ea quis excepteur sunt pariatur"
       }
     ]

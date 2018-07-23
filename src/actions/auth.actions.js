@@ -14,7 +14,6 @@ export const login = (userData) => {
   	  	const success = response.data.map(
         	user => user.username)
   	  	const req = success.includes(userData.user.login)
-        console.log(userData.user.login)
         if (req) {
         	localStorage.setItem('user', JSON.stringify(userData.user.login))
         }
@@ -27,6 +26,7 @@ export const login = (userData) => {
 export const logout = () => ({
   type: authConstants.LOGOUT
 })
+
 export const logoutUser = () => {
   return dispatch => {
     return (
