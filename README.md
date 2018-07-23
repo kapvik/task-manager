@@ -12,10 +12,11 @@
 - [x] List of task and task page
 - [x] Dashboard page
 - [x] Editing a user's info
+- [x] Add comments to task
+- [x] Change task status
+- [x] Task media
 
 ## What is not done yet
-- [ ] Add comments to task
-- [ ] Check user role
 - [ ] Registration
 - [ ] Validation
-- [ ] Change task status
+- [ ] Check user role

@@ -1,6 +1,6 @@
 import { chatConstants } from '../constants'
 import axios from 'axios'
-
+import { NOW } from '../utils/date'
 export const startChating = () => ({
   type: chatConstants.OPEN_DIALOG,
   open: true
@@ -37,25 +37,9 @@ export const sendMessage = (msg, from) => ({
   type: chatConstants.SEND_MESSAGE,
   send: {
     msg,
-    from,
-    date: NOW() 
+    from
   }
 })
-
-// function to get current date in 'hh:mm dd-mm-yyyy' format 
-function NOW() {
-
-  let date = new Date()
-  let yyyy = date.getFullYear()
-  let dd = date.getDate()
-  let mm = (date.getMonth() + 1)
-  let hours = date.getHours()
-  let minutes = date.getMinutes()
-
-  let cur_day = `${dd}-${mm}-${yyyy}`
-
-  return `${hours}:${minutes} ${cur_day}`
-}
 
 export const sendingMessage = (msg, from = 'admin') => {
   return dispatch => dispatch(sendMessage(msg, from))

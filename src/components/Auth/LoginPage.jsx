@@ -64,30 +64,30 @@ class LoginPage extends Component {
 
     return (
       <div className={classes.formStyle}>
-      <form
-        onSubmit={handleSubmit(this.handleSubmitForm)}
-      >
-        <Field
-          label='Username or email'
-          name='user[login]'
-          component={this.renderField}
-          type='text'
-        />
-        <Field
-          label='Password'
-          name='user[password]'
-          component={this.renderField}
-          type='password'
-        />
-        <div className={ classes.btnGroup }>
-          <Button
-            variant='outlined'
-            type='submit'
-            className={classes.btn}>
+        <form
+          onSubmit={handleSubmit(this.handleSubmitForm)}
+        >
+          <Field
+            label='Username or email'
+            name='user[login]'
+            component={this.renderField}
+            type='text'
+          />
+          <Field
+            label='Password'
+            name='user[password]'
+            component={this.renderField}
+            type='password'
+          />
+          <div className={ classes.btnGroup }>
+            <Button
+              variant='outlined'
+              type='submit'
+              className={classes.btn}>
                    Log in
-          </Button>
-        </div>
-      </form>
+            </Button>
+          </div>
+        </form>
       </div>)
   }
 }

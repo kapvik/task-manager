@@ -26,3 +26,26 @@ export const selectTask = taskId => ({
 export const selectedTask = taskId => {
   return dispatch => dispatch(selectTask(taskId))
 }
+
+export const addComment = (comment) => ({
+  type: taskConstants.ADD_COMMENT,
+  comment
+})
+
+export const addedComment = (comment) => {
+  return dispatch => dispatch(addComment(comment))
+}
+
+export const receiveComment = commentData => ({
+  type: taskConstants.RECEIVE_COMMENT,
+  commentData
+})
+
+export const fetchComments = () => {
+  return dispatch => {
+    return axios.get('/comments.json')
+      .then(response => {
+        dispatch(receiveComment(response.data))
+      })
+  }
+}

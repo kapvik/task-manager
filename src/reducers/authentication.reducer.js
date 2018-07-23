@@ -1,7 +1,8 @@
 import { authConstants } from '../constants'
 
 const initialState = {
-  loggedIn: false
+  loggedIn: false,
+  admin: false
 }
 
 export function authentication(state = initialState, action) {

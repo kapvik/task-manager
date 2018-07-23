@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import { Route, Redirect, Switch, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
-import compose from 'recompose/compose'
 
 import ProfilePage from './components/User/ProfilePage'
 import TasksPage from './components/Task/TasksPage'
@@ -32,13 +31,13 @@ class App extends Component {
       />
     )
     return (
-      <Fragment>       
+      <Fragment>
         <Switch>
           <Route path='/auth' component={Auth} />
           <PrivateRoute exact path='/' component={Dashboard} />
-          <PrivateRoute exat path='/user' component={ProfilePage} />
-          <PrivateRoute exat path='/tasks' component={TasksPage} />
-          <PrivateRoute exact path='/task/:number' component={TaskInfo} />
+          <PrivateRoute exact path='/user' component={ProfilePage} />
+          <PrivateRoute exact path='/tasks' component={TasksPage} />
+          <PrivateRoute exact path='/tasks/:number' component={TaskInfo} />
         </Switch>
       </Fragment>
     )
@@ -52,7 +51,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default compose(
-  withRouter,
-  connect(mapStateToProps)
-)(App)
+export default withRouter(connect(mapStateToProps)(App))
