@@ -12,9 +12,9 @@
 - [x] List of task and task page
 - [x] Dashboard page
 - [x] Editing a user's info
+- [x] Add comments to task
 
 ## What is not done yet
-- [ ] Add comments to task
 - [ ] Check user role
 - [ ] Registration
 - [ ] Validation

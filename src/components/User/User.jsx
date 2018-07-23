@@ -45,36 +45,38 @@ class User extends Component {
     const { classes } = this.props
     if (users && !isEditing && !editData) {
       return (
-          <Fragment>
-            <div className={classes.topListInfo}>
+        <Fragment>
+          <div className={classes.topListInfo}>
             <Typography variant='subheading'>
               <b className={classes.subTitle}>Name:</b> { users[0].firstname } { users[0].lastname }
             </Typography>
-            <Typography variant='subheading'> <b className={classes.subTitle}>Email:</b> { users[0].email } </Typography>
-            <Typography variant='subheading'> <b className={classes.subTitle}>Registred since:</b> { users[0].dob }</Typography>
-            </div>
-            <Divider />
-            <Typography
-              variant='subheading'
-              align='center'
-              color='primary'
-              className={classes.listTitle}
-            >
+            <Typography variant='subheading'>
+              <b className={classes.subTitle}>Email:</b> { users[0].email } </Typography>
+            <Typography variant='subheading'>
+              <b className={classes.subTitle}>Registred since:</b> { users[0].dob }</Typography>
+          </div>
+          <Divider />
+          <Typography
+            variant='subheading'
+            align='center'
+            color='primary'
+            className={classes.listTitle}
+          >
             Skills
-            </Typography>
-            <List component='ul' className={ classes.listSkills }>
-              {users[0].skills.split(',').map(skill =>
-                (<ListItem
-                  component='li'
-                  key={skill}
-                  button
-                  className={ classes.listSkillsItem }
-                >
-                  <ListItemText component='span' primary={skill} />
-                </ListItem>)
-              )}
-            </List>
-          </Fragment>
+          </Typography>
+          <List component='ul' className={ classes.listSkills }>
+            {users[0].skills.split(',').map(skill =>
+              (<ListItem
+                component='li'
+                key={skill}
+                button
+                className={ classes.listSkillsItem }
+              >
+                <ListItemText component='span' primary={skill} />
+              </ListItem>)
+            )}
+          </List>
+        </Fragment>
       )
     } else if (isEditing) {
       return (
@@ -84,8 +86,8 @@ class User extends Component {
       )
     } else if (editData) {
       return (
-          <Fragment>
-            <div className={classes.topListInfo}>
+        <Fragment>
+          <div className={classes.topListInfo}>
             <Typography variant='subheading'>
               <b className={classes.subTitle}>Name:</b> { editData.firstname || users[0].firstname } { editData.lastname || users[0].lastname }
             </Typography>
@@ -95,32 +97,32 @@ class User extends Component {
             <Typography variant='subheading'>
               <b className={classes.subTitle}>Registred since:</b> { editData.data || users[0].dob }
             </Typography>
-            </div>
-            <Divider />
-            <Typography
-              variant='subheading'
-              align='center'
-              color='primary'
-              className={classes.listTitle}
-            >
+          </div>
+          <Divider />
+          <Typography
+            variant='subheading'
+            align='center'
+            color='primary'
+            className={classes.listTitle}
+          >
             Skills
-            </Typography>
-            <List component='ul' className={ classes.listSkills }>
-              { editData.skills ? editData.skills.split(',').map(skill =>
-                (<ListItem
-                    key={skill}
-                    button
-                    className={ classes.listSkillsItem }
-                  >
-                  <ListItemText primary={skill} />
-                </ListItem>)
-              ) : users[0].skills.split(',').map(skill =>
-                (<ListItem key={skill} button>
-                  <ListItemText primary={skill} />
-                </ListItem>)
-              )}
-            </List>
-          </Fragment>
+          </Typography>
+          <List component='ul' className={ classes.listSkills }>
+            { editData.skills ? editData.skills.split(',').map(skill =>
+              (<ListItem
+                key={skill}
+                button
+                className={ classes.listSkillsItem }
+              >
+                <ListItemText primary={skill} />
+              </ListItem>)
+            ) : users[0].skills.split(',').map(skill =>
+              (<ListItem key={skill} button>
+                <ListItemText primary={skill} />
+              </ListItem>)
+            )}
+          </List>
+        </Fragment>
       )
     }
     return (

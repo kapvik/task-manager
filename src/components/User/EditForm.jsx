@@ -100,7 +100,7 @@ class EditForm extends Component {
             type='submit'
             disabled={pristine || submitting }
             className={classes.btn}
-            >
+          >
                     Submit
           </Button>
           <Button

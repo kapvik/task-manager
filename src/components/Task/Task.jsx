@@ -2,8 +2,7 @@ import React, { Component } from 'react'
 
 import compose from 'recompose/compose'
 import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom'
-
+import { Link } from 'react-router-dom'
 import { fetchTasks, selectedTask } from '../../actions'
 
 import { withStyles } from '@material-ui/core/styles'
@@ -35,6 +34,9 @@ const styles = theme => ({
   },
   taskInfo: {
     maxWidth: '75%'
+  },
+  taskLink: {
+    textDecoration: 'none'
   }
 })
 
@@ -48,7 +50,7 @@ class Task extends Component {
   }
 
   onClickTaskInfo(id) {
-    this.props.history.push('/task/'+ id)
+    this.props.history.push('/tasks/' + id)
   }
 
   render() {
@@ -66,21 +68,22 @@ class Task extends Component {
               onClick={() => this.onClickTask(task.task_id)}
               className={classes.task}
             >
+              <Link to={ `/tasks/${task.task_id}` } className={classes.taskLink}>
                 <ListItemText
                   primary={task.title}
                   secondary={task.short_description}
-                  onClick={() => this.onClickTaskInfo(task.task_id)}
                   className={classes.taskInfo}
                 />
-                <Select
-                  value={task.status}
-                  className={classes.status}
-                >
-                  <MenuItem value='To Do' selected>To Do</MenuItem>
-                  <MenuItem value='In Progress' selected>In Progress</MenuItem>
-                  <MenuItem value='Peer Review' selected>Peer Review</MenuItem>
-                  <MenuItem value='Done' selected>Done</MenuItem>
-                </Select>
+              </Link>
+              <Select
+                value={task.status}
+                className={classes.status}
+              >
+                <MenuItem value='To Do' selected>To Do</MenuItem>
+                <MenuItem value='In Progress' selected>In Progress</MenuItem>
+                <MenuItem value='Peer Review' selected>Peer Review</MenuItem>
+                <MenuItem value='Done' selected>Done</MenuItem>
+              </Select>
             </ListItem>
           ))}
         </List>
@@ -104,7 +107,6 @@ const mapDispatchToProps = dispatch => ({
 })
 
 export default compose(
-  withRouter,
   withStyles(styles),
   connect(mapStateToProps, mapDispatchToProps)
 )(Task)

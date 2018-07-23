@@ -2,6 +2,10 @@ import React, { Component } from 'react'
 
 import { connect } from 'react-redux'
 import compose from 'recompose/compose'
+import { Field, reduxForm } from 'redux-form'
+
+import Comment from './Comment'
+import { addedComment, fetchComments } from '../../actions'
 
 import { withStyles } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
@@ -16,12 +20,15 @@ import Paper from '@material-ui/core/Paper'
 import Button from '@material-ui/core/Button'
 import AddIcon from '@material-ui/icons/Add'
 import DownIcon from '@material-ui/icons/KeyboardArrowDown'
-import TextField from '@material-ui/core/TextField'
 import Dialog from '@material-ui/core/Dialog'
 import DialogActions from '@material-ui/core/DialogActions'
 import DialogContent from '@material-ui/core/DialogContent'
 import DialogTitle from '@material-ui/core/DialogTitle'
-
+import InputLabel from '@material-ui/core/InputLabel'
+import FormControl from '@material-ui/core/FormControl'
+import Input from '@material-ui/core/Input'
+import Collapse from '@material-ui/core/Collapse'
+import Switch from '@material-ui/core/Switch'
 const styles = theme => ({
   root: {
     flexGrow: 1
@@ -53,6 +60,10 @@ const styles = theme => ({
   },
   relative: {
   	position: 'relative'
+  },
+  commentTitle: {
+    textAlign: 'center',
+    color: theme.palette.primary.main
   }
 })
 
@@ -60,11 +71,27 @@ class TaskInfo extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      open: false
+      open: false,
+      checked: false
     }
     this.handleClose = this.handleClose.bind(this)
     this.handleClickOpen = this.handleClickOpen.bind(this)
     this.changeStatus = this.changeStatus.bind(this)
+    this.handleChange = this.handleChange.bind(this)
+  }
+
+  componentDidMount() {
+    this.props.commentFetch()
+  }
+  renderField({ input, label, type }) {
+    return (
+      <FormControl fullWidth>
+        <InputLabel>{label}</InputLabel>
+        <Input
+          {...input} type={type}
+          multiline         
+        />
+      </FormControl>)
   }
 
   handleClickOpen() {
@@ -75,14 +102,17 @@ class TaskInfo extends Component {
     this.setState({ open: false })
   }
 
-  changeStatus({value}) {
-    
+  handleChange() {
+    this.setState(state => ({ checked: !state.checked }))
+  }
+  changeStatus(value) {
+
   }
 
   render() {
-  	const taskInfo = this.props.task
-  	const { classes } = this.props
-    if (taskInfo) {
+  	const { currentTaskInfo, comment } = this.props.task
+  	const { classes, handleSubmit, submitting, pristine } = this.props
+    if (currentTaskInfo) {
       return (
         <div className={classes.root}>
           <AppBar position='sticky'>
@@ -100,10 +130,10 @@ class TaskInfo extends Component {
           </AppBar>
           <Paper className={classes.paper} elevation={1}>
             <Typography variant='headline' component='h3'>
-              { taskInfo.title }
+              { currentTaskInfo.title }
             </Typography>
             <Typography component='p'>
-              {taskInfo.full_description}
+              {currentTaskInfo.full_description}
             </Typography>
           </Paper>
           <Paper className={classes.paper} elevation={1}>
@@ -111,7 +141,7 @@ class TaskInfo extends Component {
               Status
             </Typography>
             <Select
-              value={taskInfo.status}
+              value={currentTaskInfo.status}
               onChange={this.changeStatus}
             >
               <MenuItem value='To Do'>To Do</MenuItem>
@@ -136,59 +166,85 @@ class TaskInfo extends Component {
                 <AddIcon />
               </Button>
               Comments
-              <Button variant='fab' mini className={classes.fab}>
-                <DownIcon />
-              </Button>
-              <Dialog
-                open={this.state.open}
-                onClose={this.handleClose}
-                aria-labelledby='form-dialog-title'
+              <Switch
+                variant='fab'
+                className={classes.fab}
+                onChange={this.handleChange}
+                checked={this.state.checked}
+                color='primary'
               >
-                <DialogTitle id='form-dialog-title'>Add Comment</DialogTitle>
-                <DialogContent>
-                  <TextField
-                    autoFocus
-                    margin='dense'
-                    id='name'
-                    label='Full Name'
-                    type='name'
-                    fullWidth
-                  />
-                  <TextField
-                    margin='dense'
-                    id='comment'
-                    label='Comment...'
-                    type='textarea'
-                    fullWidth
-                  />
-                </DialogContent>
-                <DialogActions>
-                  <Button onClick={this.handleClose} color='primary'>
-              Cancel
-                  </Button>
-                  <Button onClick={this.handleClose} color='primary'>
-              Add comment
-                  </Button>
-                </DialogActions>
-              </Dialog>
+                <DownIcon />
+              </Switch>
             </Typography>
+            <Collapse in={this.state.checked}>
+              <Paper elevation={4} className={classes.paper}>
+                { comment ? <Comment /> : <p className={classes.commentTitle}>No comments to show</p>}
+              </Paper>
+            </Collapse>
           </Paper>
+          <Dialog
+            open={this.state.open}
+            onClose={this.handleClose}
+            aria-labelledby='form-dialog-title'
+          >
+            <DialogTitle id='form-dialog-title'>Add Comment</DialogTitle>
+            <form onSubmit={handleSubmit(this.props.addComment)}>
+              <DialogContent>
+                <Field
+                  label='Full Name'
+                  name='from'
+                  component={this.renderField}
+                  type='text'
+                />
+                <Field
+                  label='Comment...'
+                  name='msg'
+                  component={this.renderField}
+                  type='textarea'
+                />
+              </DialogContent>
+              <DialogActions>
+                <Button
+                  type='button'
+                  onClick={this.handleClose}
+                  color='primary'>
+              Cancel
+                </Button>
+                <Button
+                  type='submit'
+                  onClick={this.handleClose}
+                  disabled={pristine || submitting }
+                  color='primary'>
+              Add comment
+                </Button>
+              </DialogActions>
+            </form>
+          </Dialog>
         </div>)
     }
     return (
-      <div>
-        <CircularProgress />
-      </div>
+      <CircularProgress />
     )
   }
 }
 
 const mapStateToProps = state => ({
-  task: state.tasksData.currentTaskInfo
+  task: state.tasksData
+})
+
+const mapDispatchToProps = dispatch => ({
+  addComment: (comment) => dispatch(addedComment(comment)),
+  commentFetch: () => dispatch(fetchComments())
 })
 
 
 export default compose(
   withStyles(styles),
-  connect(mapStateToProps)
+  connect(mapStateToProps, mapDispatchToProps),
+  reduxForm({
+    form: 'comments',
+    onSubmitSuccess: (result, dispatch, props) => {
+      props.reset('sendMsg')
+    }
+  })
 )(TaskInfo)

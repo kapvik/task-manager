@@ -7,7 +7,16 @@ export function tasksData(state = [], action) {
   case taskConstants.SELECT_TASK:
     return Object.assign({}, state, {
       currentTask: action.taskId,
-      currentTaskInfo: state.tasks[action.taskId] })
+      currentTaskInfo: state.tasks[action.taskId]
+    })
+  case taskConstants.ADD_COMMENT:
+    return Object.assign({}, state, {
+      comment: state.comment.concat(action.comment)
+    })
+  case taskConstants.RECEIVE_COMMENT:
+    return Object.assign({}, state, {
+      comment: action.commentData
+    })
   default:
     return state
   }
