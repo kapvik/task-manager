@@ -10,9 +10,6 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
-import MenuItem from '@material-ui/core/MenuItem'
-import Select from '@material-ui/core/Select'
-
 
 const styles = theme => ({
   root: {
@@ -75,15 +72,9 @@ class Task extends Component {
                   className={classes.taskInfo}
                 />
               </Link>
-              <Select
-                value={task.status}
-                className={classes.status}
-              >
-                <MenuItem value='To Do' selected>To Do</MenuItem>
-                <MenuItem value='In Progress' selected>In Progress</MenuItem>
-                <MenuItem value='Peer Review' selected>Peer Review</MenuItem>
-                <MenuItem value='Done' selected>Done</MenuItem>
-              </Select>
+              <span className={classes.status}>
+                {task.status}
+              </span>
             </ListItem>
           ))}
         </List>

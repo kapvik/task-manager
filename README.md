@@ -13,9 +13,10 @@
 - [x] Dashboard page
 - [x] Editing a user's info
 - [x] Add comments to task
+- [x] Change task status
+- [x] Task media
 
 ## What is not done yet
-- [ ] Check user role
 - [ ] Registration
 - [ ] Validation
-- [ ] Change task status
+- [ ] Check user role

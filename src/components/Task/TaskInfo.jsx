@@ -5,7 +5,9 @@ import compose from 'recompose/compose'
 import { Field, reduxForm } from 'redux-form'
 
 import Comment from './Comment'
+import Attachments from './Attachments'
 import { addedComment, fetchComments } from '../../actions'
+import classNames from 'classnames'
 
 import { withStyles } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
@@ -64,6 +66,14 @@ const styles = theme => ({
   commentTitle: {
     textAlign: 'center',
     color: theme.palette.primary.main
+  },
+  status: {
+    color: theme.palette.primary.main,
+    fontWeight: 700
+  },
+  attachments: {
+    display: 'flex',
+    justifyContent: 'space-between'
   }
 })
 
@@ -72,7 +82,8 @@ class TaskInfo extends Component {
     super(props)
     this.state = {
       open: false,
-      checked: false
+      checked: false,
+      status: this.props.task.currentTaskInfo.status
     }
     this.handleClose = this.handleClose.bind(this)
     this.handleClickOpen = this.handleClickOpen.bind(this)
@@ -89,7 +100,7 @@ class TaskInfo extends Component {
         <InputLabel>{label}</InputLabel>
         <Input
           {...input} type={type}
-          multiline         
+          multiline
         />
       </FormControl>)
   }
@@ -105,8 +116,8 @@ class TaskInfo extends Component {
   handleChange() {
     this.setState(state => ({ checked: !state.checked }))
   }
-  changeStatus(value) {
-
+  changeStatus(e) {
+    this.setState({ status: e.target.value })
   }
 
   render() {
@@ -136,19 +147,22 @@ class TaskInfo extends Component {
               {currentTaskInfo.full_description}
             </Typography>
           </Paper>
-          <Paper className={classes.paper} elevation={1}>
-            <Typography variant='headline' component='h3'>
-              Status
-            </Typography>
-            <Select
-              value={currentTaskInfo.status}
-              onChange={this.changeStatus}
-            >
-              <MenuItem value='To Do'>To Do</MenuItem>
-              <MenuItem value='In Progress'>In Progress</MenuItem>
-              <MenuItem value='Peer Review'>Peer Review</MenuItem>
-              <MenuItem value='Done'>Done</MenuItem>
-            </Select>
+          <Paper className={classNames(classes.paper, classes.attachments)} elevation={1}>
+            <div>
+              <Typography variant='headline' component='h3'>
+                Status
+              </Typography>
+              <Select
+                value={this.state.status}
+                onChange={this.changeStatus}
+              >
+                <MenuItem value='To Do'>To Do</MenuItem>
+                <MenuItem value='In Progress'>In Progress</MenuItem>
+                <MenuItem value='Peer Review'>Peer Review</MenuItem>
+                <MenuItem value='Done'>Done</MenuItem>
+              </Select>
+            </div>
+            <Attachments />
           </Paper>
           <Paper className={classes.paper} elevation={1}>
             <Typography
