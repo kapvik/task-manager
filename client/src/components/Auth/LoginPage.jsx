@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { Field, reduxForm } from 'redux-form'
+import { withRouter } from 'react-router-dom'
 
 import compose from 'recompose/compose'
 import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom'
 
-import { register } from '../../actions'
+import { login } from '../../actions'
 import { withStyles } from '@material-ui/core/styles'
 import InputLabel from '@material-ui/core/InputLabel'
 import FormControl from '@material-ui/core/FormControl'
@@ -35,19 +35,21 @@ const styles = () => ({
   }
 })
 
-class RegisterPage extends Component {
-  constructor() {
-    super()
+class LoginPage extends Component {
+  constructor(props) {
+    super(props)
+  
     this.handleSubmitForm = this.handleSubmitForm.bind(this)
   }
 
   handleSubmitForm(user) {
-    this.props.reg(user)
+    this.props.submit(user).then(() =>
+      this.props.history.push('/'))
   }
 
   renderField({ input, label, type }) {
     return (
-      <Grid item md={3}>
+      <Grid item md={3} >
         <FormControl required>
           <InputLabel>{label}</InputLabel>
           <Input
@@ -56,60 +58,55 @@ class RegisterPage extends Component {
         </FormControl>
       </Grid>)
   }
+
   render() {
-  	const { handleSubmit, pristine, submitting, classes } = this.props
+  	const { handleSubmit, classes } = this.props
+
     return (
       <div className={classes.formStyle}>
-      <form
-        onSubmit={handleSubmit(this.handleSubmitForm)}
-      >
-        <Field
-          label='Username'
-          name='user[login]'
-          component={this.renderField}
-          type='text'
-        />
-        <Field
-          label='Email'
-          name='user[email]'
-          component={this.renderField}
-          type='email'
-        />
-        <Field
-          label='Password'
-          name='user[password]'
-          component={this.renderField}
-          type='password'
-        />
-        <div className={ classes.btnGroup }>
-          <Button
-            variant='outlined'
-            type='submit'
-            disabled={pristine || submitting}
-            className={classes.btn}>
-                    Register
-          </Button>
-        </div>
-      </form>
+        <form
+          onSubmit={handleSubmit(this.handleSubmitForm)}
+        >
+          <Field
+            label='Username or email'
+            name='user[login]'
+            component={this.renderField}
+            type='text'
+          />
+          <Field
+            label='Password'
+            name='user[password]'
+            component={this.renderField}
+            type='password'
+          />
+          <div className={ classes.btnGroup }>
+            <Button
+              variant='outlined'
+              type='submit'
+              className={classes.btn}>
+                   Log in
+            </Button>
+          </div>
+        </form>
       </div>)
   }
 }
 
 const mapStateToProps = state => ({
   user: state.dataUser,
-  auth: state.regitering
+  auth: state.authentication
 })
 
 const mapDispatchToProps = dispatch => ({
-  reg: (user) => dispatch(register(user))
+  submit: (user) => dispatch(login(user))
 })
 
 
 export default compose(
   withStyles(styles),
   reduxForm({
-    form: 'register'
+    form: 'login'
   }),
   withRouter,
   connect(mapStateToProps, mapDispatchToProps)
-)(RegisterPage)
+)(LoginPage)
