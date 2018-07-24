@@ -1,18 +1,17 @@
 // import dependencies…
-import express from 'express'
-import bodyParser from 'body-parser'
-import logger from 'morgan'
-import mongoose from 'mongoose'
-import path from 'path';
-
-import User from './models/User'
+const express = require('express');
+const bodyParser = require('body-parser')
+const morgan = require('morgan')
+const mongoose = require('mongoose');
+const path = require('path');
+const { passport } = require('./passport');
 
 // import routes
-import userRoutes from './routes/user.server.route';
+const userRoutes = require('./routes/user.server.route');
+const taskRoutes = require('./routes/task.server.route');
 
 // create instances
 const app = express()
-const router = express.Router()
 
 // allow-cors
 app.use(function(req,res,next){
@@ -22,19 +21,19 @@ app.use(function(req,res,next){
 })
 
 // configure app
-app.use(logger('dev'));
+app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Authorization
+// app.use(passport.initialize());
+
 // set the port
-const API_PORT = process.env.API_PORT || 3001
+const API_PORT = process.env.API_PORT || 3007
 
-app.use('/api', userRoutes);
-
-app.get('/', (req,res) => {
-  return res.end('Api working');
-})
+app.use('/', userRoutes);
+app.use('/', taskRoutes);
 
 // catch 404
 app.use((req, res, next) => {
@@ -44,7 +43,6 @@ app.use((req, res, next) => {
 // connect to database
 mongoose.Promise = global.Promise;
 const db = mongoose.connect('mongodb://127.0.0.1:27017/test')
-
 mongoose.connection.once('connected', function() {
 	console.log('Database connected successfully')
 })
