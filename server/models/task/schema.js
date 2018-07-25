@@ -30,26 +30,24 @@ const schema = new Schema({
       default: 'Jane Doe'
     }
   },
-  comments: {
+  comments: [{
      _id: ObjectId,
     from: {
-      username: {
       type: String,
       required: true,
       default: 'John Doe'
     },
-  },
-  msg:{
-    type: String,
-    required: true,
-    default: 'message to task'
-  },
-  date: {
-    type: Date,
-    required: true,
-    default: Date.now
+    msg:{
+      type: String,
+      required: true,
+      default: 'message to task'
+    },
+    date: {
+      type: Date,
+      required: true,
+      default: Date.now
     }
-  }
+  }]
 });
 
 module.exports = { schema };

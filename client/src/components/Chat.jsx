@@ -96,7 +96,7 @@ class Chat extends Component {
   }
 
   render() {
-    const { classes, handleSubmit } = this.props
+    const { classes, handleSubmit, submitting, pristine } = this.props
     const { open, send, receive } = this.props.chat
     if (open) {
       return (
@@ -122,7 +122,7 @@ class Chat extends Component {
           <DialogContent>
             {receive ? (<Fragment>
               { receive.map(recMsg => (
-                <Paper className={ classes.messageBoxLeft } key={ recMsg.date }>
+                <Paper className={ classes.messageBoxLeft } key={ recMsg.id }>
                   <DialogContentText className={ classes.messageLeft } >
                     {recMsg.msg}
                   </DialogContentText>
@@ -130,7 +130,7 @@ class Chat extends Component {
             </Fragment>) : null }
             { send ? (<Fragment>
               { send.map(sendMsg => (
-                <Paper className={classes.messageBoxRight} key={ sendMsg.date }>
+                <Paper className={classes.messageBoxRight} key={ sendMsg.id }>
                   <DialogContentText className={ classes.messageRight }>
                     {sendMsg.msg.msg || sendMsg.msg}
                   </DialogContentText>
@@ -153,6 +153,7 @@ class Chat extends Component {
               className={classes.button}
               size='small'
               type='submit'
+              disabled={ pristine || submitting}
             >
                     Send
               <SendIcon

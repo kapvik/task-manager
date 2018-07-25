@@ -37,7 +37,9 @@ export const sendMessage = (msg, from) => ({
   type: chatConstants.SEND_MESSAGE,
   send: {
     msg,
-    from
+    from,
+    date: NOW(),
+    id: Date.now()
   }
 })
 

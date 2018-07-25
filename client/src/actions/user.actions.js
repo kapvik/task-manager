@@ -9,9 +9,9 @@ export const receiveData = data => ({
 
 export const fetchData = () => {
   return dispatch => {
-    return axios.get('/users.json')
+    return axios.get('http://localhost:3007/users')
       .then(response => {
-        dispatch(receiveData(response.data))
+        dispatch(receiveData(response.data.users))
       })
   }
 }
