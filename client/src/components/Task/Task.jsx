@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import compose from 'recompose/compose'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { fetchTasks, selectedTask } from '../../actions'
+import { fetchAllTasks, selectedTask, fetchCurrentTask } from '../../actions'
 
 import { withStyles } from '@material-ui/core/styles'
 import CircularProgress from '@material-ui/core/CircularProgress'
@@ -39,11 +39,12 @@ const styles = theme => ({
 
 class Task extends Component {
   componentDidMount() {
-    this.props.taskFetch()
+    this.props.tasksFetch()
   }
 
   onClickTask(id) {
     this.props.select(id)
+    this.props.fetchCurrTask(id)
   }
 
   onClickTaskInfo(id) {
@@ -61,11 +62,11 @@ class Task extends Component {
           { tasks.map(task => (
             <ListItem
               button
-              key={task.task_id}
-              onClick={() => this.onClickTask(task.task_id)}
+              key={task._id}
+              onClick={() => this.onClickTask(task._id)}
               className={classes.task}
             >
-              <Link to={ `/tasks/${task.task_id}` } className={classes.taskLink}>
+              <Link to={ `/tasks/${task._id}` } className={classes.taskLink}>
                 <ListItemText
                   primary={task.title}
                   secondary={task.short_description}
@@ -93,8 +94,9 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  taskFetch: () => dispatch(fetchTasks()),
-  select: (id) => dispatch(selectedTask(id))
+  tasksFetch: () => dispatch(fetchAllTasks()),
+  select: (id) => dispatch(selectedTask(id)),
+  fetchCurrTask: (id) => dispatch(fetchCurrentTask(id))
 })
 
 export default compose(

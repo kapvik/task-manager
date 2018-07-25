@@ -31,6 +31,7 @@ import FormControl from '@material-ui/core/FormControl'
 import Input from '@material-ui/core/Input'
 import Collapse from '@material-ui/core/Collapse'
 import Switch from '@material-ui/core/Switch'
+
 const styles = theme => ({
   root: {
     flexGrow: 1
@@ -82,8 +83,7 @@ class TaskInfo extends Component {
     super(props)
     this.state = {
       open: false,
-      checked: false,
-      status: this.props.task.currentTaskInfo.status
+      checked: false
     }
     this.handleClose = this.handleClose.bind(this)
     this.handleClickOpen = this.handleClickOpen.bind(this)
@@ -150,10 +150,16 @@ class TaskInfo extends Component {
           <Paper className={classNames(classes.paper, classes.attachments)} elevation={1}>
             <div>
               <Typography variant='headline' component='h3'>
+                Performer
+              </Typography>
+              <p> {currentTaskInfo.performer.username} </p>
+            </div>
+            <div>
+              <Typography variant='headline' component='h3'>
                 Status
               </Typography>
               <Select
-                value={this.state.status}
+                value={currentTaskInfo.status}
                 onChange={this.changeStatus}
               >
                 <MenuItem value='To Do'>To Do</MenuItem>
@@ -202,7 +208,7 @@ class TaskInfo extends Component {
             aria-labelledby='form-dialog-title'
           >
             <DialogTitle id='form-dialog-title'>Add Comment</DialogTitle>
-            <form onSubmit={handleSubmit(this.props.addComment)}>
+            <form onSubmit={handleSubmit(this.props.addComment(currentTaskInfo._id))}>
               <DialogContent>
                 <Field
                   label='Full Name'
@@ -247,7 +253,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  addComment: (comment) => dispatch(addedComment(comment)),
+  addComment: (comment, task_id) => dispatch(addedComment(comment, task_id)),
   commentFetch: () => dispatch(fetchComments())
 })
 

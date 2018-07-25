@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-
+import { timeDateFormat } from '../../utils/date'
 import compose from 'recompose/compose'
 import { connect } from 'react-redux'
 
@@ -30,13 +30,15 @@ class Comment extends Component {
   	return (
   		<div className={classes.commentMsg}>
   			{comments.map(comment =>
-  				(<div key={ comment.comment_id || null }>
+  				(<div key={ comment.comment_id }>
   					<Divider />
   				  <p className={classes.smallText}>
   				    <b>From:</b> {comment.from}
   				  </p>
   				  <p className={classes.msg}>{comment.msg}</p>
-  				  <p className={classNames(classes.smallText, classes.date)}>{comment.date || null}</p>
+  				  <p className={classNames(classes.smallText, classes.date)}>
+              {timeDateFormat(comment.date) }
+            </p>
   				  <Divider />
   				</div>
   				))}
@@ -46,7 +48,7 @@ class Comment extends Component {
 }
 
 const mapStateToProps = state => ({
-  comments: state.tasksData.comment
+  comments: state.tasksData.currentTaskInfo.comments
 })
 
 

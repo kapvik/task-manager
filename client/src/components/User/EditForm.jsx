@@ -6,12 +6,10 @@ import { stopEditingUser, cancelEditingUser } from '../../actions'
 import compose from 'recompose/compose'
 
 import { withStyles } from '@material-ui/core/styles'
-import InputLabel from '@material-ui/core/InputLabel'
-import FormControl from '@material-ui/core/FormControl'
-import Input from '@material-ui/core/Input'
 import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
+import TextField from '@material-ui/core/TextField'
 
 const styles = () => ({
   btnGroup: {
@@ -39,12 +37,11 @@ class EditForm extends Component {
   renderField({ input, label, type }) {
     return (
       <Grid item md={3} >
-        <FormControl >
-          <InputLabel>{label}</InputLabel>
-          <Input
-            {...input} type={type}
-          />
-        </FormControl>
+        <TextField
+          label={label}
+          {...input}
+          type={type}
+        />
       </Grid>)
   }
 
@@ -84,9 +81,10 @@ class EditForm extends Component {
           type='email' />
         <Field
           label='Date of Birth'
-          name='dob'
+          name='dateOfBirth'
           component={this.renderField}
-          type='text'
+          type='date'
+          fullWidth
         />
         <Field
           label='Skills'

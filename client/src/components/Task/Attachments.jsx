@@ -1,7 +1,17 @@
 import React, { Component } from 'react'
 
 import Typography from '@material-ui/core/Typography'
+import { withStyles } from '@material-ui/core/styles'
 
+const styles = () => ({
+  imgContainer: {
+    marginTop: '20px'
+  },
+  imgSize: {
+    maxWidth: '200px',
+    maxHeight: '100px'
+  }
+})
 class Attachments extends Component {
   constructor(props) {
   	super(props)
@@ -19,6 +29,7 @@ class Attachments extends Component {
   }
   render() {
   	const { src } = this.state
+    const { classes } = this.props
     return (
       <div>
         <Typography variant='headline' component='h3'>
@@ -29,12 +40,12 @@ class Attachments extends Component {
           onChange={ this.onPickFile }
         />
         {src && (
-        	<div>
-        	  <img src={src} alt='task attachments'/>
+        	<div className={classes.imgContainer}>
+        	  <img className= {classes.imgSize} src={src} alt='task attachments'/>
         	</div>
         )}
       </div>)
   }
 }
 
-export default Attachments
+export default withStyles(styles)(Attachments)

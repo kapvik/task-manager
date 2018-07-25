@@ -6,6 +6,7 @@ const { localAuth } = require('./local');
 passport.use(new LocalStrategy({
   usernameField: 'email',
   passwordField: 'password',
+  passReqToCallback : true
 }, localAuth(User)));
 
 passport.serializeUser(User.serializeUser());

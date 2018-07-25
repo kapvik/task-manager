@@ -7,18 +7,11 @@ export const loginReq = (user, loggedIn) => ({
   loggedIn
 })
 
-export const login = (userData) => {
+export const login = () => {
   return dispatch => {
-  	return axios.get('role.users.json')
-  	  .then(response => {
-  	  	const success = response.data.map(
-        	user => user.username)
-  	  	const req = success.includes(userData.user.login)
-        if (req) {
-        	localStorage.setItem('user', JSON.stringify(userData.user.login))
-        }
-
-        dispatch(loginReq(userData, req))
+    return axios.post('http://localhost:3007/sign-in')
+      .then(response => {
+        dispatch(loginReq(response))
       })
   }
 }
@@ -29,10 +22,10 @@ export const logout = () => ({
 
 export const logoutUser = () => {
   return dispatch => {
-    return (
-      localStorage.removeItem('user'),
-      location.reload(true),
-      dispatch(logout()))
+    return axios.post('http://localhost:3007/sign-out')
+      .then(() => {
+        dispatch(logout())
+      })
   }
 }
 
@@ -41,6 +34,11 @@ export const registerReq = (user) => ({
   user
 })
 
-export const register = (userData) => {
-  return dispatch => dispatch(registerReq(userData))
+export const register = () => {
+  return dispatch => {
+    return axios.post('http://localhost:3007/sign-up')
+      .then(response => {
+        dispatch(registerReq(response))
+      })
+  }
 }

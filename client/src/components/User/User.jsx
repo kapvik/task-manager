@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react'
 
 import { connect } from 'react-redux'
 import compose from 'recompose/compose'
+import { birthdayFormat } from '../../utils/date'
 
 import Typography from '@material-ui/core/Typography'
 import Divider from '@material-ui/core/Divider'
@@ -53,7 +54,7 @@ class User extends Component {
             <Typography variant='subheading'>
               <b className={classes.subTitle}>Email:</b> { users[0].email } </Typography>
             <Typography variant='subheading'>
-              <b className={classes.subTitle}>Registred since:</b> { users[0].dob }</Typography>
+              <b className={classes.subTitle}>Date of birth:</b> { birthdayFormat(users[0].dateOfBirth) }</Typography>
           </div>
           <Divider />
           <Typography
@@ -95,7 +96,7 @@ class User extends Component {
               <b className={classes.subTitle}>Email:</b> { editData.email || users[0].email }
             </Typography>
             <Typography variant='subheading'>
-              <b className={classes.subTitle}>Registred since:</b> { editData.data || users[0].dob }
+              <b className={classes.subTitle}>Registred since:</b> { editData.data || birthdayFormat(users[0].dateOfBirth) }
             </Typography>
           </div>
           <Divider />

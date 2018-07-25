@@ -1,14 +1,16 @@
 // import dependencies…
-const express = require('express');
-const bodyParser = require('body-parser')
-const morgan = require('morgan')
-const mongoose = require('mongoose');
-const path = require('path');
+const express      = require('express');
+const bodyParser   = require('body-parser')
+const logger       = require('morgan')
+const mongoose     = require('mongoose');
+const path 		   = require('path');
 const { passport } = require('./passport');
+const CONFIG       = require('./config/config');
 
 // import routes
 const userRoutes = require('./routes/user.server.route');
 const taskRoutes = require('./routes/task.server.route');
+const authRoutes = require('./routes/auth.server.route');
 
 // create instances
 const app = express()
@@ -21,19 +23,17 @@ app.use(function(req,res,next){
 })
 
 // configure app
-app.use(morgan('dev'));
+app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Authorization
-// app.use(passport.initialize());
-
-// set the port
-const API_PORT = process.env.API_PORT || 3007
+// Authorization with Passport
+app.use(passport.initialize());
 
 app.use('/', userRoutes);
 app.use('/', taskRoutes);
+app.use('/', authRoutes);
 
 // catch 404
 app.use((req, res, next) => {
@@ -42,12 +42,13 @@ app.use((req, res, next) => {
 
 // connect to database
 mongoose.Promise = global.Promise;
-const db = mongoose.connect('mongodb://127.0.0.1:27017/test')
+const db = mongoose.connect(CONFIG.mongoUrl)
 mongoose.connection.once('connected', function() {
 	console.log('Database connected successfully')
 })
 
+
 // start the server
-app.listen(API_PORT,() => {
-  console.log(`App Server Listening at ${API_PORT}`);
+app.listen(CONFIG.port,() => {
+  console.log(`App Server Listening at ${CONFIG.port}`);
 });

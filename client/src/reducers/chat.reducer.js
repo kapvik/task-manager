@@ -1,7 +1,8 @@
 import { chatConstants } from '../constants'
 
 export function chatData(state = {
-  open: false
+  open: false,
+  send: []
 }, action) {
   switch (action.type) {
   case chatConstants.SELECT_USER:

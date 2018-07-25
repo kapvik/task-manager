@@ -55,9 +55,9 @@ class UserList extends Component {
           { users.map(user => (
             <ListItem
               button
-              key={user.user_id}
+              key={user._id}
               onClick={ () => {
-              	this.onClickUser(user.user_id)
+              	this.onClickUser(user._id)
                 this.onClickOpen()
               }}
               className={classes.user}
