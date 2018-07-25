@@ -1,9 +1,15 @@
-import express from 'express';
+const express = require('express');
+
 //import controller file
-import * as userController from '../controllers/user.server.controller';
+const userController = require('../controllers/user.server.controller');
+
 // get an instance of express router
-const router = express.Router();
+const router = express.Router()
 router.route('/')
-    .get(userController.getUser)
-    .put(userController.updateUser);
-export default router;
+  .get(userController.getUsers)
+
+router.route('/user/:_id')
+  .get(userController.getUser)
+  .put(userController.updateUser)
+
+module.exports = router
