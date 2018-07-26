@@ -20,7 +20,7 @@ const styles = theme => ({
   editBtn: {
     color: theme.palette.primary.contrastText,
     position: 'absolute',
-    right: '1%',
+    right: '5%',
     top: 0
   },
   homeBtn: {
@@ -28,7 +28,7 @@ const styles = theme => ({
   },
   btnLink: {
     position: 'absolute',
-    right: '5%'
+    right: '1%'
   }
 })
 
