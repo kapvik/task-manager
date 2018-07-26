@@ -65,19 +65,19 @@ class RegisterPage extends Component {
         >
           <Field
             label='Username'
-            name='user[login]'
+            name='username'
             component={this.renderField}
             type='text'
           />
           <Field
             label='Email'
-            name='user[email]'
+            name='email'
             component={this.renderField}
             type='email'
           />
           <Field
             label='Password'
-            name='user[password]'
+            name='password'
             component={this.renderField}
             type='password'
           />

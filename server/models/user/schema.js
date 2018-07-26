@@ -4,10 +4,8 @@ const mongoose = require('mongoose'),
       SALT_WORK_FACTOR = 10;
 
 const Schema = mongoose.Schema
-const ObjectId = Schema.Types.ObjectId;
 const schema = new Schema(
   {
-    _id: ObjectId,
     username: {
       type: String,
       required: true,
@@ -20,11 +18,10 @@ const schema = new Schema(
         message: 'Invalid email address'
       },
       required: true,
-      default: 'john.dow@example.com'
+      unique: true
     },
     password: {
-      type: String,
-      required: true
+      type: String
     },
     admin: {
       type: Boolean,
@@ -54,7 +51,7 @@ const schema = new Schema(
   }
 )
 
-// Execute before each user.save() call
+// // Execute before each user.save() call
 schema.pre('save', function(next) {
     const user = this;
 

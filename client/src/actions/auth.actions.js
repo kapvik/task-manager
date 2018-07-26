@@ -34,7 +34,7 @@ export const registerReq = (user) => ({
   user
 })
 
-export const register = () => {
+export const register = (user) => {
   return dispatch => {
     return axios.post('http://localhost:3007/sign-up')
       .then(response => {

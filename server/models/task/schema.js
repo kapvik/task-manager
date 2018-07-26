@@ -1,9 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const ObjectId = Schema.Types.ObjectId;
 
 const schema = new Schema({
-  _id: Schema.Types.ObjectId,
   short_description: {
     type: String
   },
@@ -31,7 +29,6 @@ const schema = new Schema({
     }
   },
   comments: [{
-     _id: ObjectId,
     from: {
       type: String,
       required: true,
