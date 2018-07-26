@@ -6,7 +6,9 @@ import { Field, reduxForm } from 'redux-form'
 
 import Comment from './Comment'
 import Attachments from './Attachments'
-import { addedComment, fetchComments } from '../../actions'
+import EditTask from './EditTask'
+
+import { addedComment, fetchComments, startEditingTask } from '../../actions'
 import classNames from 'classnames'
 
 import { withStyles } from '@material-ui/core/styles'
@@ -14,7 +16,6 @@ import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import IconButton from '@material-ui/core/IconButton'
-import MenuIcon from '@material-ui/icons/Menu'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import MenuItem from '@material-ui/core/MenuItem'
 import Select from '@material-ui/core/Select'
@@ -31,6 +32,8 @@ import FormControl from '@material-ui/core/FormControl'
 import Input from '@material-ui/core/Input'
 import Collapse from '@material-ui/core/Collapse'
 import Switch from '@material-ui/core/Switch'
+import EditIcon from '@material-ui/icons/Edit'
+import Grid from '@material-ui/core/Grid'
 
 const styles = theme => ({
   root: {
@@ -75,6 +78,12 @@ const styles = theme => ({
   attachments: {
     display: 'flex',
     justifyContent: 'space-between'
+  },
+  editBtn: {
+    color: '#fff',
+    position: 'absolute',
+    right: '1%',
+    top: 0
   }
 })
 
@@ -89,6 +98,7 @@ class TaskInfo extends Component {
     this.handleClickOpen = this.handleClickOpen.bind(this)
     this.changeStatus = this.changeStatus.bind(this)
     this.handleChange = this.handleChange.bind(this)
+    this.onClickEditTask = this.onClickEditTask.bind(this)
   }
 
   componentDidMount() {
@@ -120,23 +130,27 @@ class TaskInfo extends Component {
     this.setState({ status: e.target.value })
   }
 
+  onClickEditTask() {
+    this.props.startEditTask()
+  }
   render() {
-  	const { currentTaskInfo, comment } = this.props.task
+  	const { currentTaskInfo, comment, currentTask, isEditTask } = this.props.task
   	const { classes, handleSubmit, submitting, pristine } = this.props
-    if (currentTaskInfo) {
+    if (currentTaskInfo && !isEditTask) {
       return (
         <div className={classes.root}>
           <AppBar position='sticky'>
             <Toolbar variant='dense'>
-              <IconButton
-                className={classes.menuButton}
-                color='inherit'
-                aria-label='Menu'>
-                <MenuIcon />
-              </IconButton>
               <Typography variant='title' color='inherit'>
                 Task Details
               </Typography>
+              <IconButton
+                aria-label='Delete'
+                onClick={ this.onClickEditTask }
+                className={classes.editBtn}
+              >
+                <EditIcon />
+              </IconButton>
             </Toolbar>
           </AppBar>
           <Paper className={classes.paper} elevation={1}>
@@ -208,7 +222,7 @@ class TaskInfo extends Component {
             aria-labelledby='form-dialog-title'
           >
             <DialogTitle id='form-dialog-title'>Add Comment</DialogTitle>
-            <form onSubmit={handleSubmit(this.props.addComment(currentTaskInfo._id))}>
+            <form onSubmit={handleSubmit(this.props.addComment(currentTask))}>
               <DialogContent>
                 <Field
                   label='Full Name'
@@ -241,6 +255,12 @@ class TaskInfo extends Component {
             </form>
           </Dialog>
         </div>)
+    } else if (isEditTask) {
+      return (
+        <Grid container spacing={16} justify='center'>
+          <EditTask />
+        </Grid>
+      )
     }
     return (
       <CircularProgress />
@@ -254,7 +274,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   addComment: (comment, task_id) => dispatch(addedComment(comment, task_id)),
-  commentFetch: () => dispatch(fetchComments())
+  commentFetch: () => dispatch(fetchComments()),
+  startEditTask: () => dispatch(startEditingTask())
 })
 
 

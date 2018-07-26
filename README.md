@@ -1,13 +1,15 @@
-## To login use
+## For starting app run
 
-**username:** admin
+`npm run start:dev`
 
-**password:** any
+## To login as admin use
+
+**email:** cool-guy@only.one.com
+**password:** 1234
 
 ## What is done for now
-- [x] Log in
 - [x] Private route
-- [x] Chat
+- [x] Chat modal window
 - [x] User profile page
 - [x] List of task and task page
 - [x] Dashboard page
@@ -15,8 +17,9 @@
 - [x] Add comments to task
 - [x] Change task status
 - [x] Task media
+- [x] Registration and authentication
 
 ## What is not done yet
-- [ ] Registration
 - [ ] Validation
 - [ ] Check user role
+- [ ] Edit, create and delete task

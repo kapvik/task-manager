@@ -2,8 +2,14 @@ import { userConstants } from '../constants'
 
 export function dataUser(state = [], action) {
   switch (action.type) {
-  case userConstants.RECEIVE_DATA:
-    return Object.assign({}, state, { users: action.data })
+  case userConstants.RECEIVE_ALL_USERS:
+    return Object.assign({}, state, {
+      users: action.data
+    })
+  case userConstants.RECEIVE_CURRENT_USER:
+    return Object.assign({}, state, {
+      currentUser: action.user
+    })
   default:
     return state
   }

@@ -41,7 +41,7 @@ class Attachments extends Component {
         />
         {src && (
         	<div className={classes.imgContainer}>
-        	  <img className= {classes.imgSize} src={src} alt='task attachments'/>
+        	  <img className={classes.imgSize} src={src} alt='task attachments'/>
         	</div>
         )}
       </div>)

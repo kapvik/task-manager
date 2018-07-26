@@ -42,7 +42,8 @@ class RegisterPage extends Component {
   }
 
   handleSubmitForm(user) {
-    this.props.reg(user)
+    this.props.reg(user).then(() =>
+      this.props.history.push('/'))
   }
 
   renderField({ input, label, type }) {

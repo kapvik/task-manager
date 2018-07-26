@@ -1,9 +1,10 @@
 import { userConstants } from '../constants'
 import axios from 'axios'
 
+const token = localStorage.getItem('user').substr(1).slice(0, -1)
 // receive all users information
-export const receiveData = data => ({
-  type: userConstants.RECEIVE_DATA,
+export const receiveUsers = data => ({
+  type: userConstants.RECEIVE_ALL_USERS,
   data
 })
 
@@ -11,18 +12,33 @@ export const fetchData = () => {
   return dispatch => {
     return axios.get('http://localhost:3007/users')
       .then(response => {
-        dispatch(receiveData(response.data.users))
+        dispatch(receiveUsers(response.data.users))
       })
   }
 }
 
-export const startEditData = () => ({
+// receive current user profile
+export const receiveCurrUser = user => ({
+  type: userConstants.RECEIVE_CURRENT_USER,
+  user
+})
+
+export const fetchCurrentUser = () => {
+  return dispatch => {
+    return axios.get(`http://localhost:3007/me/${token}`)
+      .then(response => {
+        dispatch(receiveCurrUser(response.data.user))
+      })
+  }
+}
+
+export const startEditProfile = () => ({
   type: userConstants.EDIT_USER_START,
   isEdit: true
 })
 
 export const startEditingUser = () => {
-  return dispatch => dispatch(startEditData())
+  return dispatch => dispatch(startEditProfile())
 }
 
 export const cancelEditData = () => ({

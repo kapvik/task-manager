@@ -8,8 +8,10 @@ const router = express.Router()
 router.route('/users')
   .get(userController.getUsers)
 
-router.route('/user/:_id')
+router.route('/me/:token')
   .get(userController.getUser)
+
+router.route('/user/:_id')
   .put(userController.updateUser)
 
 module.exports = router

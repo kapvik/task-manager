@@ -70,3 +70,39 @@ export const fetchComments = () => {
       })
   }
 }
+
+// Redirect to edit page
+export const startEditTask = () => ({
+  type: taskConstants.EDIT_TASK_START,
+  isEditTask: true
+})
+
+export const startEditingTask = () => {
+  return dispatch => dispatch(startEditTask())
+}
+
+export const cancelEditTask = () => ({
+  type: taskConstants.EDIT_TASK_CANCEL,
+  isEditTask: false
+})
+
+export const cancelEditingTask = () => {
+  return dispatch => dispatch(cancelEditTask())
+}
+
+
+// Edit current task
+export const editCurrTask = (...editData) => ({
+  type: taskConstants.EDIT_CURRENT_TASK,
+  editData,
+  isEditTask: false
+})
+
+export const editingCurrTask = (...editData) => {
+  return dispatch => {
+    return axios.put(`http://localhost:3007/tasks/${editData._id}`, { editData })
+      .then(response => {
+        dispatch(editCurrTask(response.data))
+      })
+  }
+}
