@@ -3,13 +3,16 @@ const { Strategy: LocalStrategy } = require('passport-local');
 const { User } = require('../models/user');
 const { localAuth } = require('./local');
 
+
 passport.use(new LocalStrategy({
-  usernameField: 'email',
-  passwordField: 'password',
+    usernameField: 'email',
+    passwordField: 'password',
   passReqToCallback : true
-}, localAuth(User)));
+  }, localAuth(User)
+));
 
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+
 
 module.exports = { passport };
