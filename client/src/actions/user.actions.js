@@ -32,6 +32,7 @@ export const fetchCurrentUser = () => {
   }
 }
 
+// render component with redux-form for editing user's information
 export const startEditProfile = () => ({
   type: userConstants.EDIT_USER_START,
   isEdit: true
@@ -41,6 +42,7 @@ export const startEditingUser = () => {
   return dispatch => dispatch(startEditProfile())
 }
 
+// cancel editing and rerender User component
 export const cancelEditData = () => ({
   type: userConstants.EDIT_USER_CANCEL,
   isEdit: false
@@ -50,12 +52,20 @@ export const cancelEditingUser = () => {
   return dispatch => dispatch(cancelEditData())
 }
 
+// submit edit data and rerender User component
 export const stopEditData = newData => ({
   type: userConstants.EDIT_USER_STOP,
   newData,
   isEdit: false
 })
 
-export const stopEditingUser = (...newData) => {
-  return dispatch => dispatch(stopEditData(...newData))
+export const stopEditingUser = (newData) => {
+  return dispatch => {
+        console.log('userdata===>', newData)
+
+    return axios.put(`http://localhost:3007/user/${newData._id}`)
+      .then(response => {
+        dispatch(stopEditData(newData))
+      })
+    }
 }

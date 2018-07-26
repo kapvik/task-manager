@@ -11,13 +11,7 @@ const generateAccessToken = (req, res, next) => {
   next();
 };
 
-const decodeAccessToken = (token) => {
-	const decoded = jwt.decode(token)
-	return decoded
-}
-
 module.exports =  {
   authenticate,
-  generateAccessToken,
-  decodeAccessToken
+  generateAccessToken
 };

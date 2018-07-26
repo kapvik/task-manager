@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { NotAcceptable, BadRequest } = require('rest-api-errors');
+const { NotAcceptable, BadRequest,  } = require('rest-api-errors');
 const jwt = require('jsonwebtoken');
 
 //import models
@@ -17,13 +17,12 @@ const getUsers = (req, res) => {
 
 // Receive profile current user 
 const getUser = (req,res) => {
+  // get token from local storage
   const token = req.params.token
-console.log('token ===>', token)
-console.log('token trim ===>', token)
+  // decode token 
   const userId = jwt.decode(token)
-console.log('userId ===>', userId)
+  // find user in db by id
   const user = User.findById(userId.id, (err, user) => {
-console.log('user ===>', user)
     if (err) {
       throw new BadRequest(400, 'User is not found')
     }
@@ -34,14 +33,12 @@ console.log('user ===>', user)
 // Change current user info 
 const updateUser = (req,res) => {
   const { _id } = req.params
-  const user = User.findOne({ _id }, (err, user) => {
-    if (err) {
-      throw new BadRequest(400, 'User not find')
-    }
+  console.log('_id ====>', _id)
+  const user = User.findByIdAndUpdate({ _id }, req.body, {new: true, runValidator: true}, (err, user) => {
+    // console.log('err ===>', err.errmsg)
+    if (err) throw new BadRequest(400, 'Data is invalid')
+    res.status(200).json({'success':true,'message':'Updated successfully',user})
   })
-  Object.assign({}, user, req.body)
-  user.save()
-  res.status(200).json({'success':true,'message':'Updated successfully',user})
  }
 
 module.exports = {

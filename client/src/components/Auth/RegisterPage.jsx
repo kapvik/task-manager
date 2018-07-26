@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 
 import { register } from '../../actions'
+
 import { withStyles } from '@material-ui/core/styles'
 import InputLabel from '@material-ui/core/InputLabel'
 import FormControl from '@material-ui/core/FormControl'
