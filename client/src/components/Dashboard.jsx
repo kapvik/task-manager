@@ -149,8 +149,12 @@ class Dashboard extends Component {
     this.props.logout()
   }
 
+  // openUserProfile(email) {
+  //   this.props.openProfile(email)
+  // }
+
   render() {
-  	const { classes } = this.props
+  	const { classes, auth } = this.props
   	const { open, anchorExit } = this.state
     const show = Boolean(anchorExit)
     const drawer = (
@@ -243,11 +247,12 @@ class Dashboard extends Component {
               >
                 <Link
                   to='/user'
-                  className={classes.menuItem}
+                  className={classes.menuItem} 
                 >
                   <IconButton
                     color='inherit'
                     className={classes.userBtn}
+                    // onClick={this.openUserProfile(auth.user)}
                   >
                     <PermIdentityIcon />
                   </IconButton>
@@ -305,6 +310,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   logout: () => dispatch(logoutUser())
+
 })
 export default compose(
   withStyles(styles),

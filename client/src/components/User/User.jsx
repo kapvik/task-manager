@@ -3,7 +3,7 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import compose from 'recompose/compose'
 import { birthdayFormat } from '../../utils/date'
-
+import { fetchCurrentUser } from '../../actions'
 import Typography from '@material-ui/core/Typography'
 import Divider from '@material-ui/core/Divider'
 import List from '@material-ui/core/List'
@@ -40,6 +40,10 @@ const styles = theme => ({
   }
 })
 class User extends Component {
+  componentDidMount() {
+    this.props.fetchProfile()
+  }
+
   render() {
     const { users } = this.props.users
     const { isEditing, editData } = this.props.isEdit
@@ -139,7 +143,12 @@ const mapStateToProps = state => ({
   isEdit: state.editing
 })
 
+const mapDispatchToProps = dispatch => ({
+  fetchProfile: (email) => dispatch(fetchCurrentUser(email))
+})
+
 export default compose(
   withStyles(styles),
-  connect(mapStateToProps)
+  connect(mapStateToProps, mapDispatchToProps)
+  // connect(mapStateToProps)
 )(User)

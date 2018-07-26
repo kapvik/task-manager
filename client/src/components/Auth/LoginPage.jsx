@@ -68,14 +68,14 @@ class LoginPage extends Component {
           onSubmit={handleSubmit(this.handleSubmitForm)}
         >
           <Field
-            label='Username or email'
-            name='user[login]'
+            label='Email'
+            name='email'
             component={this.renderField}
             type='text'
           />
           <Field
             label='Password'
-            name='user[password]'
+            name='password'
             component={this.renderField}
             type='password'
           />
