@@ -37,7 +37,7 @@ const styles = theme => ({
   }
 })
 
-class Task extends Component {
+class TasksList extends Component {
   componentDidMount() {
     this.props.tasksFetch()
   }
@@ -102,4 +102,4 @@ const mapDispatchToProps = dispatch => ({
 export default compose(
   withStyles(styles),
   connect(mapStateToProps, mapDispatchToProps)
-)(Task)
+)(TasksList)

@@ -5,7 +5,7 @@ import compose from 'recompose/compose'
 import { connect } from 'react-redux'
 
 import { logoutUser } from '../actions'
-import Task from './Task/Task'
+import TasksList from './Task/TasksList'
 import UsersList from './User/UsersList'
 
 import classNames from 'classnames'
@@ -280,7 +280,7 @@ class Dashboard extends Component {
                   color='primary'
                 > Tasks
                 </Typography>
-                <Task />
+                <TasksList />
               </Grid>
               <Grid item xs={6}>
                 <Typography

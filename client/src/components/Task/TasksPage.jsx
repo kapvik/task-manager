@@ -1,9 +1,15 @@
 import React, { Component } from 'react'
 
 import { Link } from 'react-router-dom'
+import compose from 'recompose/compose'
+import { connect } from 'react-redux'
+
+// Actions
+import { startingAddTask } from '../../actions'
 
 // Own component
-import Task from './Task'
+import TasksList from './TasksList'
+import TaskForm from './TaskForm'
 
 // Material ui styles component
 import { withStyles } from '@material-ui/core/styles'
@@ -19,49 +25,73 @@ const styles = theme => ({
   root: {
     flexGrow: 1
   },
-  btnLink: {
-    position: 'absolute',
-    right: '1%'
+  taskHeader: {
+    display: 'flex',
+    justifyContent: 'space-between'
   },
-  homeBtn: {
-    color: theme.palette.primary.contrastText
-  },
-  addBtn: {
-    position: 'absolute',
-    right: '5%',
+  btn: {
     color: theme.palette.primary.contrastText
   }
 })
+
 class TasksPage extends Component {
+  constructor(props) {
+    super(props)
+
+    this.addNewTask = this.addNewTask.bind(this)
+  }
+
+  addNewTask() {
+    this.props.showAddTask()
+  }
+
   render() {
-  	const { classes } = this.props
+  	const { classes, showTaskForm } = this.props
   	return (
   		<div className={classes.root}>
         <AppBar position='sticky'>
-          <Toolbar variant='dense'>
+          <Toolbar variant='dense' className={classes.taskHeader}>
             <Typography variant='title' color='inherit'>
             Tasks
             </Typography>
-            <Link
-                to='/'
-                className={classes.btnLink}
+            { !showTaskForm &&
+            <div>
+              <IconButton
+                aria-label='Add'
+                className={classes.btn}
+                onClick={this.addNewTask}
               >
-                <IconButton aria-label='Home' className={classes.homeBtn}>
+                <AddIcon />
+              </IconButton>
+              <Link
+                to='/'
+              >
+                <IconButton aria-label='Home' className={classes.btn}>
                   <HomeIcon />
                 </IconButton>
               </Link>
-            <IconButton aria-label='Home' className={classes.addBtn}>
-              <AddIcon />
-            </IconButton>
+            </div>
+            }
           </Toolbar>
         </AppBar>
         <Grid container >
           <Grid item xs={12}>
-            <Task />
+            { !showTaskForm ? <TasksList /> : <TaskForm /> }
           </Grid>
         </Grid>
       </div>)
   }
 }
 
-export default withStyles(styles)(TasksPage)
+const mapStateToProps = state => ({
+  showTaskForm: state.tasksData.showTaskForm
+})
+
+const mapDispatchToProps = dispatch => ({
+  showAddTask: () => dispatch(startingAddTask())
+})
+
+export default compose(
+  withStyles(styles),
+  connect(mapStateToProps, mapDispatchToProps)
+)(TasksPage)

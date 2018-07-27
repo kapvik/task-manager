@@ -33,7 +33,6 @@ const getUser = (req,res) => {
 // Change current user info 
 const updateUser = (req,res) => {
   const { _id } = req.params
-  console.log('_id ====>', _id)
   const user = User.findByIdAndUpdate({ _id }, req.body, {new: true, runValidator: true}, (err, user) => {
     // console.log('err ===>', err.errmsg)
     if (err) throw new BadRequest(400, 'Data is invalid')

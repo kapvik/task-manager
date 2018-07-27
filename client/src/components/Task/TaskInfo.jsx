@@ -6,9 +6,9 @@ import { Field, reduxForm } from 'redux-form'
 
 import Comment from './Comment'
 import Attachments from './Attachments'
-import EditTask from './EditTask'
+import TaskForm from './TaskForm'
 
-import { addedComment, fetchComments, startEditingTask } from '../../actions'
+import { addedComment, fetchComments, startingEditTask } from '../../actions'
 import classNames from 'classnames'
 
 import { withStyles } from '@material-ui/core/styles'
@@ -134,9 +134,9 @@ class TaskInfo extends Component {
     this.props.startEditTask()
   }
   render() {
-  	const { currentTaskInfo, comment, currentTask, isEditTask } = this.props.task
+  	const { currentTaskInfo, comment, currentTask, showTaskForm } = this.props.task
   	const { classes, handleSubmit, submitting, pristine } = this.props
-    if (currentTaskInfo && !isEditTask) {
+    if (currentTaskInfo && !showTaskForm) {
       return (
         <div className={classes.root}>
           <AppBar position='sticky'>
@@ -255,10 +255,10 @@ class TaskInfo extends Component {
             </form>
           </Dialog>
         </div>)
-    } else if (isEditTask) {
+    } else if (showTaskForm) {
       return (
         <Grid container spacing={16} justify='center'>
-          <EditTask />
+          <TaskForm />
         </Grid>
       )
     }
@@ -275,7 +275,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   addComment: (comment, task_id) => dispatch(addedComment(comment, task_id)),
   commentFetch: () => dispatch(fetchComments()),
-  startEditTask: () => dispatch(startEditingTask())
+  startEditTask: () => dispatch(startingEditTask())
 })
 
 
