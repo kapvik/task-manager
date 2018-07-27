@@ -42,19 +42,19 @@ export const fetchCurrentTask = (task_id) => {
 }
 
 // Add comment to current task
-export const addComment = (comment) => ({
-  type: taskConstants.ADD_COMMENT,
-  comment
-})
+// export const addComment = (comment) => ({
+//   type: taskConstants.ADD_COMMENT,
+//   comment
+// })
 
-export const addedComment = (task_id, comment) => {
-  return dispatch => {
-    return axios.post(`http://localhost:3007/tasks/${task_id}`)
-      .then(response => {
-        dispatch(addComment(response.data.comment))
-      })
-  }
-}
+// export const addedComment = (task_id, comment) => {
+//   return dispatch => {
+//     return axios.post(`http://localhost:3007/task/${task_id}`)
+//       .then(response => {
+//         dispatch(addComment(response.data.comment))
+//       })
+//   }
+// }
 
 // receive comments for current task
 export const receiveComment = commentData => ({
@@ -103,9 +103,9 @@ export const editCurrTask = editData => ({
 
 export const editingCurrTask = (editData) => {
   return dispatch => {
-    return axios.put(`http://localhost:3007/tasks/${editData._id}`)
-      .then(() => {
-        dispatch(editCurrTask(editData))
+    return axios.put(`http://localhost:3007/tasks/${editData._id}`, editData)
+      .then((response) => {
+        dispatch(editCurrTask(response.data.task))
       })
   }
 }
@@ -133,5 +133,38 @@ export const addingTask = task => {
   return dispatch => {
     return axios.post('http://localhost:3007/tasks', task)
       .then(() => dispatch(addTask(task)))
+  }
+}
+
+// Starting delete current task
+export const startDeleteTask = () => ({
+  type: taskConstants.DELETE_TASK_START,
+  deleteModalShow: true
+})
+
+export const startingDeleteTask = () => {
+  return dispatch => dispatch(startDeleteTask())
+}
+
+// Cancel delete
+export const cancelDeleteTask = () => ({
+  type: taskConstants.DELETE_TASK_CANCEL,
+  deleteModalShow: false
+})
+
+export const cancelingDeleteTask = () => {
+  return dispatch => dispatch(cancelDeleteTask())
+}
+
+// Delete current task
+export const deleteTask = () => ({
+  type: taskConstants.DELETE_CURRENT_TASK,
+  deleteModalShow: false
+})
+
+export const deletingTask = task_id => {
+  return dispatch => {
+    return axios.delete(`http://localhost:3007/tasks/${task_id}`)
+      .then(() => dispatch(deleteTask()))
   }
 }

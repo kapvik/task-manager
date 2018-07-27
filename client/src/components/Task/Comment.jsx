@@ -1,11 +1,16 @@
 import React, { Component } from 'react'
-import { timeDateFormat } from '../../utils/date'
+
 import compose from 'recompose/compose'
 import { connect } from 'react-redux'
 
+// Own utils
+import { timeDateFormat } from '../../utils/date'
+
+// Material ui styles component
 import { withStyles } from '@material-ui/core/styles'
 import Divider from '@material-ui/core/Divider'
 import classNames from 'classnames'
+import CircularProgress from '@material-ui/core/CircularProgress'
 
 const styles = theme => ({
   commentMsg: {
@@ -27,7 +32,8 @@ class Comment extends Component {
   render() {
 	  const comments = this.props.comments
 	  const { classes } = this.props
-  	return (
+  	if (comments) {
+      return (
   		<div className={classes.commentMsg}>
   			{comments.map(comment =>
   				(<div key={ comment.comment_id }>
@@ -37,13 +43,17 @@ class Comment extends Component {
   				  </p>
   				  <p className={classes.msg}>{comment.msg}</p>
   				  <p className={classNames(classes.smallText, classes.date)}>
-              {timeDateFormat(comment.date) }
-            </p>
+                {timeDateFormat(comment.date) }
+              </p>
   				  <Divider />
   				</div>
   				))}
   		</div>
   		)
+    }
+    return (
+      <CircularProgress />
+    )
   }
 }
 

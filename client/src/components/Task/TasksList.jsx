@@ -3,8 +3,11 @@ import React, { Component } from 'react'
 import compose from 'recompose/compose'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
+
+// Actions
 import { fetchAllTasks, selectedTask, fetchCurrentTask } from '../../actions'
 
+// Material ui styles component
 import { withStyles } from '@material-ui/core/styles'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import List from '@material-ui/core/List'
@@ -66,7 +69,7 @@ class TasksList extends Component {
               onClick={() => this.onClickTask(task._id)}
               className={classes.task}
             >
-              <Link to={ `/tasks/${task._id}` } className={classes.taskLink}>
+              <Link to={ '/task' } className={classes.taskLink}>
                 <ListItemText
                   primary={task.title}
                   secondary={task.short_description}

@@ -16,8 +16,6 @@ const getTasks = (req, res) => {
 
 // Add new task
 const addTask = (req,res) => {
-    console.log('req.body.title ===> ', req.body.title)
-    console.log('req.body ===> ', req.body)
     const newTask = req.body
     if (!req.body.title) {
       throw new NotAcceptable(405, 'Should be title');
@@ -26,7 +24,6 @@ const addTask = (req,res) => {
       throw new NotAcceptable(405, 'Should be at least short description');
     }
     const task = new Task(newTask)
-    console.log('new task====>', task)
     task.save((err, task) => {
       if (err) throw new Error(err)
       else if(!task) throw new NotAcceptable(405, 'Should not be an empty');
@@ -59,12 +56,9 @@ const updateTask = (req, res) => {
 // Delete current task
 const deleteTask = (req, res) => {
   const { _id } = req.params
-  const task = Task.findOne({ _id }, (err, task) => {
-    if (err) {
-      throw new BadRequest(400, 'Task is not find')
-    }
-    Task.remove({ _id })
-    res.status(200).send({'success':true,'message':'Task delete successfully', task})
+  const task = Task.findByIdAndRemove({ _id }, (err) => {
+    if (err) throw new BadRequest(400, 'Task is not find')
+    res.status(200).send({'success':true,'message':'Task delete successfully'})
   })
 }
 

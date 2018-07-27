@@ -3,14 +3,23 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import compose from 'recompose/compose'
 import { Field, reduxForm } from 'redux-form'
+import classNames from 'classnames'
 
+// Own component
 import Comment from './Comment'
 import Attachments from './Attachments'
 import TaskForm from './TaskForm'
+import DeleteModal from './DeleteModal'
 
-import { addedComment, fetchComments, startingEditTask, deleteCurrentTask } from '../../actions'
-import classNames from 'classnames'
+// Actions
+import {
+  addedComment,
+  fetchComments,
+  startingEditTask,
+  startingDeleteTask
+} from '../../actions'
 
+// Material ui styles component
 import { withStyles } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
@@ -137,12 +146,8 @@ class TaskInfo extends Component {
     this.props.startEditTask()
   }
 
-  onClickDeleteTask(id) {
-    this.props.delete(id)
-  }
-
   render() {
-  	const { currentTaskInfo, comment, currentTask, showTaskForm } = this.props.task
+  	const { currentTaskInfo, comment, currentTask, showTaskForm, deleteModalShow } = this.props.task
   	const { classes, handleSubmit, submitting, pristine } = this.props
     if (currentTaskInfo && !showTaskForm) {
       return (
@@ -162,7 +167,7 @@ class TaskInfo extends Component {
                 </IconButton>
                 <IconButton
                   aria-label='Delete'
-                  // onClick={ this.onClickDeleteTask(currentTaskInfo._id) }
+                  onClick={ () => this.props.show() }
                   className={classes.btn}
                 >
                   <DeleteIcon />
@@ -183,7 +188,7 @@ class TaskInfo extends Component {
               <Typography variant='headline' component='h3'>
                 Performer
               </Typography>
-              <p> {currentTaskInfo.performer.username} </p>
+              <p> { currentTaskInfo.performer ? currentTaskInfo.performer.username : 'Free' } </p>
             </div>
             <div>
               <Typography variant='headline' component='h3'>
@@ -229,7 +234,7 @@ class TaskInfo extends Component {
             </Typography>
             <Collapse in={this.state.checked}>
               <Paper elevation={4} className={classes.paper}>
-                { comment ? <Comment /> : <p className={classes.commentTitle}>No comments to show</p>}
+                // { comment ? <Comment /> : <p className={classes.commentTitle}>No comments to show</p>}
               </Paper>
             </Collapse>
           </Paper>
@@ -239,7 +244,7 @@ class TaskInfo extends Component {
             aria-labelledby='form-dialog-title'
           >
             <DialogTitle id='form-dialog-title'>Add Comment</DialogTitle>
-            <form onSubmit={handleSubmit(this.props.addComment(currentTask))}>
+            <form >
               <DialogContent>
                 <Field
                   label='Full Name'
@@ -271,6 +276,7 @@ class TaskInfo extends Component {
               </DialogActions>
             </form>
           </Dialog>
+          { deleteModalShow && <DeleteModal/> }
         </div>)
     } else if (showTaskForm) {
       return (
@@ -293,7 +299,7 @@ const mapDispatchToProps = dispatch => ({
   addComment: (comment, task_id) => dispatch(addedComment(comment, task_id)),
   commentFetch: () => dispatch(fetchComments()),
   startEditTask: () => dispatch(startingEditTask()),
-  delete: (task_id) => dispatch(deleteCurrentTask(task_id))
+  show: () => dispatch(startingDeleteTask())
 })
 
 

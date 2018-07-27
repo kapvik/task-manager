@@ -51,6 +51,20 @@ export function tasksData(state = {
       showTaskForm: action.showTaskForm,
       isAdd: action.isAdd
     })
+  case taskConstants.DELETE_TASK_START:
+    return Object.assign({}, state, {
+      deleteModalShow: action.deleteModalShow
+    })
+  case taskConstants.DELETE_CURRENT_TASK:
+    return Object.assign({}, state, {
+      currentTaskInfo: {},
+      deleteModalShow: action.deleteModalShow
+    })
+  case taskConstants.DELETE_TASK_CANCEL:
+    return Object.assign({}, state, {
+      deleteModalShow: action.deleteModalShow
+    })
+
   default:
     return state
   }
