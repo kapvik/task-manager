@@ -10,19 +10,18 @@ export function dataUser(state = [], action) {
     return Object.assign({}, state, {
       currentUser: action.user
     })
-  default:
-    return state
-  }
-}
-
-export function editing(state = [], action) {
-  switch (action.type) {
   case userConstants.EDIT_USER_START:
-    return Object.assign({}, state, { isEditing: action.isEdit })
+    return Object.assign({}, state, {
+      isEditing: action.isEdit 
+    })
   case userConstants.EDIT_USER_STOP:
-    return Object.assign({}, state, { isEditing: action.isEdit, editData: action.newData })
+    return Object.assign({}, state, {
+      isEditing: action.isEdit,
+      currentUser: action.newData })
   case userConstants.EDIT_USER_CANCEL:
-    return Object.assign({}, state, { isEditing: action.isEdit })
+    return Object.assign({}, state, {
+      isEditing: action.isEdit
+    })
   default:
     return state
   }

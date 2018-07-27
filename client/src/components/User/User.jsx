@@ -45,20 +45,19 @@ class User extends Component {
   }
 
   render() {
-    const { users } = this.props.users
-    const { isEditing, editData } = this.props.isEdit
+    const { currentUser, isEditing } = this.props.usersData
     const { classes } = this.props
-    if (users && !isEditing && !editData) {
+    if (currentUser && !isEditing ) {
       return (
         <Fragment>
           <div className={classes.topListInfo}>
             <Typography variant='subheading'>
-              <b className={classes.subTitle}>Name:</b> { users[0].firstname } { users[0].lastname }
+              <b className={classes.subTitle}>Name:</b> { currentUser.firstname } { currentUser.lastname }
             </Typography>
             <Typography variant='subheading'>
-              <b className={classes.subTitle}>Email:</b> { users[0].email } </Typography>
+              <b className={classes.subTitle}>Email:</b> { currentUser.email } </Typography>
             <Typography variant='subheading'>
-              <b className={classes.subTitle}>Date of birth:</b> { birthdayFormat(users[0].dateOfBirth) }</Typography>
+              <b className={classes.subTitle}>Date of birth:</b> { birthdayFormat(currentUser.dateOfBirth) }</Typography>
           </div>
           <Divider />
           <Typography
@@ -70,7 +69,7 @@ class User extends Component {
             Skills
           </Typography>
           <List component='ul' className={ classes.listSkills }>
-            {users[0].skills.split(',').map(skill =>
+            {currentUser.skills.split(',').map(skill =>
               (<ListItem
                 component='li'
                 key={skill}
@@ -81,28 +80,6 @@ class User extends Component {
               </ListItem>)
             )}
           </List>
-        </Fragment>
-      )
-    } else if (isEditing) {
-      return (
-        <Grid container spacing={16} justify='center'>
-          <EditForm />
-        </Grid>
-      )
-    } else if (editData) {
-      return (
-        <Fragment>
-          <div className={classes.topListInfo}>
-            <Typography variant='subheading'>
-              <b className={classes.subTitle}>Name:</b> { editData.firstname || users[0].firstname } { editData.lastname || users[0].lastname }
-            </Typography>
-            <Typography variant='subheading'>
-              <b className={classes.subTitle}>Email:</b> { editData.email || users[0].email }
-            </Typography>
-            <Typography variant='subheading'>
-              <b className={classes.subTitle}>Registred since:</b> { editData.data || birthdayFormat(users[0].dateOfBirth) }
-            </Typography>
-          </div>
           <Divider />
           <Typography
             variant='subheading'
@@ -110,24 +87,15 @@ class User extends Component {
             color='primary'
             className={classes.listTitle}
           >
-            Skills
+            Tasks
           </Typography>
-          <List component='ul' className={ classes.listSkills }>
-            { editData.skills ? editData.skills.split(',').map(skill =>
-              (<ListItem
-                key={skill}
-                button
-                className={ classes.listSkillsItem }
-              >
-                <ListItemText primary={skill} />
-              </ListItem>)
-            ) : users[0].skills.split(',').map(skill =>
-              (<ListItem key={skill} button>
-                <ListItemText primary={skill} />
-              </ListItem>)
-            )}
-          </List>
         </Fragment>
+      )
+    } else if (isEditing) {
+      return (
+        <Grid container spacing={16} justify='center'>
+          <EditForm />
+        </Grid>
       )
     }
     return (
@@ -139,8 +107,7 @@ class User extends Component {
 }
 
 const mapStateToProps = state => ({
-  users: state.dataUser,
-  isEdit: state.editing
+  usersData: state.dataUser
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -150,5 +117,4 @@ const mapDispatchToProps = dispatch => ({
 export default compose(
   withStyles(styles),
   connect(mapStateToProps, mapDispatchToProps)
-  // connect(mapStateToProps)
 )(User)

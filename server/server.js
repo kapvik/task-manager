@@ -1,7 +1,7 @@
 // import dependencies…
 const express      = require('express');
-const bodyParser   = require('body-parser')
-const logger       = require('morgan')
+const bodyParser   = require('body-parser');
+const logger       = require('morgan');
 const mongoose     = require('mongoose');
 const path 		   = require('path');
 const { passport } = require('./passport');
@@ -19,6 +19,7 @@ const app = express()
 app.use(function(req,res,next){
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS');
   next();
 })
 

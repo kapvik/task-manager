@@ -116,8 +116,8 @@ class EditForm extends Component {
 }
 
 const mapStateToProps = state => ({
-  isEdit: state.editing,
-  initialValues: state.dataUser.users[0]
+  isEdit: state.dataUser.isEditing,
+  initialValues: state.dataUser.currentUser
 })
 
 const mapDispatchToProps = dispatch => ({

@@ -1,3 +1,3 @@
-const { authenticate, generateAccessToken, decodeAccessToken } = require('./auth');
+const { authenticate, generateAccessToken } = require('./auth');
 
-module.exports = { authenticate, generateAccessToken, decodeAccessToken };
+module.exports = { authenticate, generateAccessToken };

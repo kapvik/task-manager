@@ -149,12 +149,8 @@ class Dashboard extends Component {
     this.props.logout()
   }
 
-  // openUserProfile(email) {
-  //   this.props.openProfile(email)
-  // }
-
   render() {
-  	const { classes, auth } = this.props
+  	const { classes } = this.props
   	const { open, anchorExit } = this.state
     const show = Boolean(anchorExit)
     const drawer = (
@@ -252,7 +248,6 @@ class Dashboard extends Component {
                   <IconButton
                     color='inherit'
                     className={classes.userBtn}
-                    // onClick={this.openUserProfile(auth.user)}
                   >
                     <PermIdentityIcon />
                   </IconButton>
@@ -304,8 +299,7 @@ class Dashboard extends Component {
   }
 }
 const mapStateToProps = state => ({
-  user: state.dataUser,
-  auth: state.authentication
+  user: state.dataUser
 })
 
 const mapDispatchToProps = dispatch => ({
