@@ -62,7 +62,7 @@ export const stopEditData = newData => ({
 export const stopEditingUser = (newData) => {
   return dispatch => {
     return axios.put(`http://localhost:3007/user/${newData._id}`)
-      .then(response => {
+      .then(() => {
         dispatch(stopEditData(newData))
       })
   }

@@ -34,7 +34,6 @@ const getUser = (req,res) => {
 const updateUser = (req,res) => {
   const { _id } = req.params
   const user = User.findByIdAndUpdate({ _id }, req.body, {new: true, runValidator: true}, (err, user) => {
-    // console.log('err ===>', err.errmsg)
     if (err) throw new BadRequest(400, 'Data is invalid')
     res.status(200).json({'success':true,'message':'Updated successfully',user})
   })

@@ -8,7 +8,7 @@ import Comment from './Comment'
 import Attachments from './Attachments'
 import TaskForm from './TaskForm'
 
-import { addedComment, fetchComments, startingEditTask } from '../../actions'
+import { addedComment, fetchComments, startingEditTask, deleteCurrentTask } from '../../actions'
 import classNames from 'classnames'
 
 import { withStyles } from '@material-ui/core/styles'
@@ -33,6 +33,7 @@ import Input from '@material-ui/core/Input'
 import Collapse from '@material-ui/core/Collapse'
 import Switch from '@material-ui/core/Switch'
 import EditIcon from '@material-ui/icons/Edit'
+import DeleteIcon from '@material-ui/icons/Delete'
 import Grid from '@material-ui/core/Grid'
 
 const styles = theme => ({
@@ -77,13 +78,15 @@ const styles = theme => ({
   },
   attachments: {
     display: 'flex',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    flexWrap: 'wrap'
   },
-  editBtn: {
-    color: '#fff',
-    position: 'absolute',
-    right: '1%',
-    top: 0
+  btn: {
+    color: '#fff'
+  },
+  taskHeader: {
+    display: 'flex',
+    justifyContent: 'space-between'
   }
 })
 
@@ -133,6 +136,11 @@ class TaskInfo extends Component {
   onClickEditTask() {
     this.props.startEditTask()
   }
+
+  onClickDeleteTask(id) {
+    this.props.delete(id)
+  }
+
   render() {
   	const { currentTaskInfo, comment, currentTask, showTaskForm } = this.props.task
   	const { classes, handleSubmit, submitting, pristine } = this.props
@@ -140,17 +148,26 @@ class TaskInfo extends Component {
       return (
         <div className={classes.root}>
           <AppBar position='sticky'>
-            <Toolbar variant='dense'>
+            <Toolbar variant='dense' className={classes.taskHeader}>
               <Typography variant='title' color='inherit'>
                 Task Details
               </Typography>
-              <IconButton
-                aria-label='Delete'
-                onClick={ this.onClickEditTask }
-                className={classes.editBtn}
-              >
-                <EditIcon />
-              </IconButton>
+              <div className={classes.btnGroup}>
+                <IconButton
+                  aria-label='Edit'
+                  onClick={ this.onClickEditTask }
+                  className={classes.btn}
+                >
+                  <EditIcon />
+                </IconButton>
+                <IconButton
+                  aria-label='Delete'
+                  // onClick={ this.onClickDeleteTask(currentTaskInfo._id) }
+                  className={classes.btn}
+                >
+                  <DeleteIcon />
+                </IconButton>
+              </div>
             </Toolbar>
           </AppBar>
           <Paper className={classes.paper} elevation={1}>
@@ -275,7 +292,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   addComment: (comment, task_id) => dispatch(addedComment(comment, task_id)),
   commentFetch: () => dispatch(fetchComments()),
-  startEditTask: () => dispatch(startingEditTask())
+  startEditTask: () => dispatch(startingEditTask()),
+  delete: (task_id) => dispatch(deleteCurrentTask(task_id))
 })
 
 

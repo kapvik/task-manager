@@ -31,13 +31,11 @@ const schema = new Schema({
     from: {
       type: String,
       required: true,
-      trim: true,
-      default: 'John Doe'
+      trim: true
     },
     msg:{
       type: String,
       required: true,
-      default: 'message to task',
       trim: true
     },
     date: {

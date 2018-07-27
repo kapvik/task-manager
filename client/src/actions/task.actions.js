@@ -74,7 +74,8 @@ export const fetchComments = () => {
 // Render component with redux-form for edditing new task
 export const startEditTask = () => ({
   type: taskConstants.EDIT_TASK_START,
-  showTaskForm: true
+  showTaskForm: true,
+  isEdit: true
 })
 
 export const startingEditTask = () => {
@@ -100,11 +101,11 @@ export const editCurrTask = editData => ({
   isEdit: false
 })
 
-export const editingCurrTask = editData => {
+export const editingCurrTask = (editData) => {
   return dispatch => {
-    return axios.put(`http://localhost:3007/tasks/${editData}`, { editData })
-      .then(response => {
-        dispatch(editCurrTask(response.data))
+    return axios.put(`http://localhost:3007/tasks/${editData._id}`)
+      .then(() => {
+        dispatch(editCurrTask(editData))
       })
   }
 }

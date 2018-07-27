@@ -50,13 +50,9 @@ const getTask = (req, res) => {
 // Change task info
 const updateTask = (req, res) => {
   const { _id } = req.params
-  const task = Task.findOne({ _id }, (err, task) => {
-    if (err) {
-      throw new BadRequest(400, 'Task is not find')
-    }
-    Object.assign({}, task, req.body)
-  task.save()
-  res.status(200).send({'success':true,'message':'Task update successfully', task})
+  const task = Task.findByIdAndUpdate({ _id }, req.body, {new: true, runValidator: true}, (err, task) => {
+    if (err) throw new BadRequest(400, 'Task is not find')
+    res.status(200).send({'success':true,'message':'Task update successfully', task})
   })
 }
 
