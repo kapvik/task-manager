@@ -50,10 +50,6 @@ class TasksList extends Component {
     this.props.fetchCurrTask(id)
   }
 
-  onClickTaskInfo(id) {
-    this.props.history.push('/tasks/' + id)
-  }
-
   render() {
     const { classes } = this.props
     const tasks = this.props.tasks
@@ -63,23 +59,23 @@ class TasksList extends Component {
           component='ul'
         >
           { tasks.map(task => (
+          <Link to={ `/tasks/${task._id}` } className={classes.taskLink}>
             <ListItem
               button
               key={task._id}
               onClick={() => this.onClickTask(task._id)}
               className={classes.task}
             >
-              <Link to={ '/task' } className={classes.taskLink}>
                 <ListItemText
                   primary={task.title}
                   secondary={task.short_description}
                   className={classes.taskInfo}
                 />
-              </Link>
               <span className={classes.status}>
                 {task.status}
               </span>
             </ListItem>
+          </Link>
           ))}
         </List>
       )

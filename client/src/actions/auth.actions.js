@@ -38,7 +38,6 @@ export const login = ({ email, password }) => {
   }
 }
 
-
 export const registerReq = user => ({
   type: authConstants.REGISTER_REQUEST,
   user

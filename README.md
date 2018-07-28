@@ -1,11 +1,26 @@
-## For starting app run
+## To copy env file run
+
+`cp ./server/.env.example ./server/.env`
+
+## To change env file run
+
+`nano ./server/.env`
+
+## To create an admin run
+
+`cd server && node admin.role.js`
+
+## For starting the app run
 
 `npm run start:dev`
 
 ## To login as admin use
 
 **email:** cool-guy@only.one.com
+
 **password:** 1234
+
+## To login as regular user just sign up
 
 ## What is done for now
 - [x] Private route

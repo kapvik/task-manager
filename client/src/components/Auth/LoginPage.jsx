@@ -19,19 +19,21 @@ const styles = () => ({
     display: 'flex',
     justifyContent: 'center'
   },
-  formStyle: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: '100vh'
-  },
   btn: {
     color: '#fff',
     backgroundColor: '#3f51b5',
     '&:hover': {
       backgroundColor: '#2c387e'
     }
+  },
+  formStyle: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: '90vh',
+    width: '90%',
+    position: 'absolute'
   }
 })
 

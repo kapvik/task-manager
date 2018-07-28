@@ -29,7 +29,7 @@ const styles = theme => ({
   },
   modalWrapper: {
   	backgroundColor: '#c1c6e0a8',
-  	width: '100vw',
+  	width: '99%',
   	height: '100vh',
   	position: 'absolute',
   	top: 0,
