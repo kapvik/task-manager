@@ -2,11 +2,11 @@ import React, { Component } from 'react'
 
 import { connect } from 'react-redux'
 import compose from 'recompose/compose'
-import { Field, reduxForm } from 'redux-form'
 import classNames from 'classnames'
 
 // Own component
-import Comment from './Comment'
+import Comment from '../Comments/Comment'
+import CommentAddForm from '../Comments/CommentAddForm'
 import Attachments from './Attachments'
 import TaskForm from './TaskForm'
 import DeleteModal from './DeleteModal'
@@ -14,7 +14,6 @@ import DeleteModal from './DeleteModal'
 // Actions
 import {
   addedComment,
-  fetchComments,
   startingEditTask,
   startingDeleteTask
 } from '../../actions'
@@ -32,13 +31,6 @@ import Paper from '@material-ui/core/Paper'
 import Button from '@material-ui/core/Button'
 import AddIcon from '@material-ui/icons/Add'
 import DownIcon from '@material-ui/icons/KeyboardArrowDown'
-import Dialog from '@material-ui/core/Dialog'
-import DialogActions from '@material-ui/core/DialogActions'
-import DialogContent from '@material-ui/core/DialogContent'
-import DialogTitle from '@material-ui/core/DialogTitle'
-import InputLabel from '@material-ui/core/InputLabel'
-import FormControl from '@material-ui/core/FormControl'
-import Input from '@material-ui/core/Input'
 import Collapse from '@material-ui/core/Collapse'
 import Switch from '@material-ui/core/Switch'
 import EditIcon from '@material-ui/icons/Edit'
@@ -113,20 +105,6 @@ class TaskInfo extends Component {
     this.onClickEditTask = this.onClickEditTask.bind(this)
   }
 
-  componentDidMount() {
-    this.props.commentFetch()
-  }
-  renderField({ input, label, type }) {
-    return (
-      <FormControl fullWidth>
-        <InputLabel>{label}</InputLabel>
-        <Input
-          {...input} type={type}
-          multiline
-        />
-      </FormControl>)
-  }
-
   handleClickOpen() {
     this.setState({ open: true })
   }
@@ -146,9 +124,10 @@ class TaskInfo extends Component {
     this.props.startEditTask()
   }
 
+
   render() {
-  	const { currentTaskInfo, comment, currentTask, showTaskForm, deleteModalShow } = this.props.task
-  	const { classes, handleSubmit, submitting, pristine } = this.props
+  	const { currentTaskInfo, showTaskForm, deleteModalShow, currentTask } = this.props.task
+  	const { classes } = this.props
     if (currentTaskInfo && !showTaskForm) {
       return (
         <div className={classes.root}>
@@ -204,6 +183,8 @@ class TaskInfo extends Component {
                 <MenuItem value='Done'>Done</MenuItem>
               </Select>
             </div>
+          </Paper>
+          <Paper className={classes.paper} elevation={1}>
             <Attachments />
           </Paper>
           <Paper className={classes.paper} elevation={1}>
@@ -234,48 +215,19 @@ class TaskInfo extends Component {
             </Typography>
             <Collapse in={this.state.checked}>
               <Paper elevation={4} className={classes.paper}>
-                // { comment ? <Comment /> : <p className={classes.commentTitle}>No comments to show</p>}
+                { (currentTaskInfo.comments.length > 0)
+                  ? <Comment comments={ currentTaskInfo.comments }/>
+                  : <p className={classes.commentTitle}>No comments to show</p>
+                }
               </Paper>
             </Collapse>
           </Paper>
-          <Dialog
+          <CommentAddForm
             open={this.state.open}
-            onClose={this.handleClose}
-            aria-labelledby='form-dialog-title'
-          >
-            <DialogTitle id='form-dialog-title'>Add Comment</DialogTitle>
-            <form >
-              <DialogContent>
-                <Field
-                  label='Full Name'
-                  name='from'
-                  component={this.renderField}
-                  type='text'
-                />
-                <Field
-                  label='Comment...'
-                  name='msg'
-                  component={this.renderField}
-                  type='textarea'
-                />
-              </DialogContent>
-              <DialogActions>
-                <Button
-                  type='button'
-                  onClick={this.handleClose}
-                  color='primary'>
-              Cancel
-                </Button>
-                <Button
-                  type='submit'
-                  onClick={this.handleClose}
-                  disabled={pristine || submitting }
-                  color='primary'>
-              Add comment
-                </Button>
-              </DialogActions>
-            </form>
-          </Dialog>
+            close={this.handleClose}
+            addComment={this.props.addComment}
+            initialValues={currentTaskInfo}
+          />
           { deleteModalShow && <DeleteModal/> }
         </div>)
     } else if (showTaskForm) {
@@ -296,8 +248,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  addComment: (comment, task_id) => dispatch(addedComment(comment, task_id)),
-  commentFetch: () => dispatch(fetchComments()),
+  addComment: (comment) => dispatch(addedComment(comment)),
   startEditTask: () => dispatch(startingEditTask()),
   show: () => dispatch(startingDeleteTask())
 })
@@ -306,10 +257,4 @@ const mapDispatchToProps = dispatch => ({
 export default compose(
   withStyles(styles),
   connect(mapStateToProps, mapDispatchToProps),
-  reduxForm({
-    form: 'comments',
-    onSubmitSuccess: (result, dispatch, props) => {
-      props.reset('sendMsg')
-    }
-  })
 )(TaskInfo)

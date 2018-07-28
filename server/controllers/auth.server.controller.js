@@ -36,8 +36,7 @@ const signUp = (req, res, next) => {
             console.log('err while user register', err)
             return next(err)
         }
-        // res.status(200).send({'success':true,'message':'Register is successfull', 'user':user, 'token':token})
-    	
+            	
         return next()
     })
 

@@ -15,4 +15,7 @@ router.route('/tasks/:_id')
   .put(taskController.updateTask)
   .delete(taskController.deleteTask)
 
+router.route('/tasks/:_id/comment')
+  .put(taskController.addComment)
+
 module.exports = router

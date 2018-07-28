@@ -42,19 +42,19 @@ export const fetchCurrentTask = (task_id) => {
 }
 
 // Add comment to current task
-// export const addComment = (comment) => ({
-//   type: taskConstants.ADD_COMMENT,
-//   comment
-// })
+export const addComment = task => ({
+  type: taskConstants.ADD_COMMENT,
+  task
+})
 
-// export const addedComment = (task_id, comment) => {
-//   return dispatch => {
-//     return axios.post(`http://localhost:3007/task/${task_id}`)
-//       .then(response => {
-//         dispatch(addComment(response.data.comment))
-//       })
-//   }
-// }
+export const addedComment = ({ _id, comment }) => {
+  return dispatch => {
+    return axios.put(`http://localhost:3007/tasks/${_id}/comment`, { comment })
+      .then(response => {
+        dispatch(addComment(response.data.task))
+      })
+  }
+}
 
 // receive comments for current task
 export const receiveComment = commentData => ({

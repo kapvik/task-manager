@@ -1,8 +1,5 @@
 import React, { Component } from 'react'
 
-import compose from 'recompose/compose'
-import { connect } from 'react-redux'
-
 // Own utils
 import { timeDateFormat } from '../../utils/date'
 
@@ -36,7 +33,7 @@ class Comment extends Component {
       return (
   		<div className={classes.commentMsg}>
   			{comments.map(comment =>
-  				(<div key={ comment.comment_id }>
+  				(<div key={ comment._id }>
   					<Divider />
   				  <p className={classes.smallText}>
   				    <b>From:</b> {comment.from}
@@ -57,12 +54,5 @@ class Comment extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  comments: state.tasksData.currentTaskInfo.comments
-})
 
-
-export default compose(
-  withStyles(styles),
-  connect(mapStateToProps)
-)(Comment)
+export default withStyles(styles)(Comment)

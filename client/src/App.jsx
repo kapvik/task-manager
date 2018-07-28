@@ -8,6 +8,8 @@ import TaskInfo from './components/Task/TaskInfo'
 import Dashboard from './components/Dashboard'
 import Auth from './components/Auth/Auth'
 
+const { whyDidYouUpdate } = require('why-did-you-update')
+whyDidYouUpdate(React)
 
 class App extends Component {
   render() {
@@ -37,7 +39,7 @@ class App extends Component {
           <PrivateRoute exact path='/' component={Dashboard} />
           <PrivateRoute exact path='/user' component={ProfilePage} />
           <PrivateRoute exact path='/tasks' component={TasksPage} />
-          <PrivateRoute exact path='/task' component={TaskInfo} />
+          <PrivateRoute exact path='/tasks/:id' component={TaskInfo} />
         </Switch>
       </Fragment>
     )

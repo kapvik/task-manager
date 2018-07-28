@@ -5,36 +5,17 @@ import compose from 'recompose/compose'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 
+// Actions
 import { register } from '../../actions'
 
-import { withStyles } from '@material-ui/core/styles'
-import InputLabel from '@material-ui/core/InputLabel'
-import FormControl from '@material-ui/core/FormControl'
-import Input from '@material-ui/core/Input'
-import Button from '@material-ui/core/Button'
-import Grid from '@material-ui/core/Grid'
+// Own components
+import CustomImput from '../CustomInput'
 
-const styles = () => ({
-  btnGroup: {
-    marginTop: '20px',
-    display: 'flex',
-    justifyContent: 'center'
-  },
-  formStyle: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: '100vh'
-  },
-  btn: {
-    color: '#fff',
-    backgroundColor: '#3f51b5',
-    '&:hover': {
-      backgroundColor: '#2c387e'
-    }
-  }
-})
+// Own styles
+import styles from './auth.styles'
+
+import { withStyles } from '@material-ui/core/styles'
+import Button from '@material-ui/core/Button'
 
 class RegisterPage extends Component {
   constructor() {
@@ -47,40 +28,30 @@ class RegisterPage extends Component {
       this.props.history.push('/'))
   }
 
-  renderField({ input, label, type }) {
-    return (
-      <Grid item md={3}>
-        <FormControl required>
-          <InputLabel>{label}</InputLabel>
-          <Input
-            {...input} type={type}
-          />
-        </FormControl>
-      </Grid>)
-  }
   render() {
   	const { handleSubmit, pristine, submitting, classes } = this.props
     return (
       <div className={classes.formStyle}>
         <form
           onSubmit={handleSubmit(this.handleSubmitForm)}
+          className={classes.formBlock}
         >
           <Field
             label='Username'
             name='username'
-            component={this.renderField}
+            component={CustomImput}
             type='text'
           />
           <Field
             label='Email'
             name='email'
-            component={this.renderField}
+            component={CustomImput}
             type='email'
           />
           <Field
             label='Password'
             name='password'
-            component={this.renderField}
+            component={CustomImput}
             type='password'
           />
           <div className={ classes.btnGroup }>

@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import compose from 'recompose/compose'
 import { connect } from 'react-redux'
 import classNames from 'classnames'
+import { withRouter } from 'react-router-dom'
 
 // Actions
 import { cancelingDeleteTask, deletingTask } from '../../actions'
@@ -29,7 +30,7 @@ const styles = theme => ({
   },
   modalWrapper: {
   	backgroundColor: '#c1c6e0a8',
-  	width: '100vw',
+  	width: '99%',
   	height: '100vh',
   	position: 'absolute',
   	top: 0,
@@ -43,7 +44,14 @@ const styles = theme => ({
   }
 })
 
+
 class DeleteModal extends Component {
+
+deleteTask(id) {
+  this.props.delete(id).then(() => 
+    this.props.history.push('/tasks'))
+}
+
   render() {
   	const { currentTaskInfo } = this.props.task
   	const { classes } = this.props
@@ -59,7 +67,7 @@ class DeleteModal extends Component {
           <Button
           	variant='outlined'
           	color='secondary'
-          	className={classes.submitBtn} onClick={() => this.props.delete(currentTaskInfo._id)}>Yes, I'm sure</Button>
+          	className={classes.submitBtn} onClick={() => this.deleteTask(currentTaskInfo._id)}>Yes, I'm sure</Button>
           <Button
           	variant='outlined'
           	color='primary'
@@ -85,5 +93,6 @@ const mapDispatchToProps = dispatch => ({
 
 export default compose(
   withStyles(styles),
+  withRouter,
   connect(mapStateToProps, mapDispatchToProps)
 )(DeleteModal)
