@@ -13,13 +13,10 @@ export function tasksData(state = {
     return Object.assign({}, state, {
       currentTask: action.taskId
     })
+  case taskConstants.ADD_COMMENT:
   case taskConstants.RECEIVE_CURRENT_TASK:
     return Object.assign({}, state, {
       currentTaskInfo: action.task
-    })
-  case taskConstants.ADD_COMMENT:
-    return Object.assign({}, state, {
-      comment: state.comment.concat(action.comment)
     })
   case taskConstants.RECEIVE_COMMENT:
     return Object.assign({}, state, {

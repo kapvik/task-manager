@@ -8,7 +8,7 @@ import TaskInfo from './components/Task/TaskInfo'
 import Dashboard from './components/Dashboard'
 import Auth from './components/Auth/Auth'
 
-const {whyDidYouUpdate} = require('why-did-you-update')
+const { whyDidYouUpdate } = require('why-did-you-update')
 whyDidYouUpdate(React)
 
 class App extends Component {

@@ -62,10 +62,24 @@ const deleteTask = (req, res) => {
   })
 }
 
+// Add comments to current task
+const addComment = (req, res) => {
+  console.log('req.body ===>', req.body)
+  console.log('req.params ===>', req.params )
+  const { _id } = req.params
+  console.log()
+  const task = Task.findByIdAndUpdate({ _id }, {$push: {comments: req.body.comment}}, {new: true, safe: true, upsert: true}, (err, task) => {
+    console.log('task ===>', task)
+    if (err) throw new NotAcceptable(405, 'Comment is invalid')
+    res.status(200).send({'success':true, 'message': 'Comment add successfuly', task})
+  })
+}
+
 module.exports = {
   getTasks,
   addTask,
   getTask,
   updateTask,
-  deleteTask
+  deleteTask,
+  addComment
 }

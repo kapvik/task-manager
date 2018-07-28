@@ -59,23 +59,26 @@ class TasksList extends Component {
           component='ul'
         >
           { tasks.map(task => (
-          <Link to={ `/tasks/${task._id}` } className={classes.taskLink}>
-            <ListItem
-              button
+            <Link
+              to={ `/tasks/${task._id}` }
+              className={classes.taskLink}
               key={task._id}
-              onClick={() => this.onClickTask(task._id)}
-              className={classes.task}
             >
+              <ListItem
+                button
+                onClick={() => this.onClickTask(task._id)}
+                className={classes.task}
+              >
                 <ListItemText
                   primary={task.title}
                   secondary={task.short_description}
                   className={classes.taskInfo}
                 />
-              <span className={classes.status}>
-                {task.status}
-              </span>
-            </ListItem>
-          </Link>
+                <span className={classes.status}>
+                  {task.status}
+                </span>
+              </ListItem>
+            </Link>
           ))}
         </List>
       )
