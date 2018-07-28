@@ -5,37 +5,15 @@ import { withRouter } from 'react-router-dom'
 import compose from 'recompose/compose'
 import { connect } from 'react-redux'
 
+// Own components
+import CustomImput from '../CustomInput'
+
+// Own styles
+import styles from './auth.styles'
+
 import { login } from '../../actions'
 import { withStyles } from '@material-ui/core/styles'
-import InputLabel from '@material-ui/core/InputLabel'
-import FormControl from '@material-ui/core/FormControl'
-import Input from '@material-ui/core/Input'
 import Button from '@material-ui/core/Button'
-import Grid from '@material-ui/core/Grid'
-
-const styles = () => ({
-  btnGroup: {
-    marginTop: '20px',
-    display: 'flex',
-    justifyContent: 'center'
-  },
-  btn: {
-    color: '#fff',
-    backgroundColor: '#3f51b5',
-    '&:hover': {
-      backgroundColor: '#2c387e'
-    }
-  },
-  formStyle: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: '90vh',
-    width: '90%',
-    position: 'absolute'
-  }
-})
 
 class LoginPage extends Component {
   constructor(props) {
@@ -49,18 +27,6 @@ class LoginPage extends Component {
       this.props.history.push('/'))
   }
 
-  renderField({ input, label, type }) {
-    return (
-      <Grid item md={3} >
-        <FormControl required>
-          <InputLabel>{label}</InputLabel>
-          <Input
-            {...input} type={type}
-          />
-        </FormControl>
-      </Grid>)
-  }
-
   render() {
   	const { handleSubmit, classes } = this.props
 
@@ -68,17 +34,18 @@ class LoginPage extends Component {
       <div className={classes.formStyle}>
         <form
           onSubmit={handleSubmit(this.handleSubmitForm)}
+          className={classes.formBlock}
         >
           <Field
             label='Email'
             name='email'
-            component={this.renderField}
+            component={CustomImput}
             type='text'
           />
           <Field
             label='Password'
             name='password'
-            component={this.renderField}
+            component={CustomImput}
             type='password'
           />
           <div className={ classes.btnGroup }>

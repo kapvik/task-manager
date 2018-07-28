@@ -10,26 +10,15 @@ import { showFormAuth } from '../../actions'
 import LoginPage from './LoginPage'
 import RegisterPage from './RegisterPage'
 
+// Own styles
+import styles from './auth.styles'
+
 // Material ui components
 import Grid from '@material-ui/core/Grid'
 import AppBar from '@material-ui/core/AppBar'
 import { withStyles } from '@material-ui/core/styles'
 import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
-
-const styles = theme => ({
-  root: {
-    backgroundColor: theme.palette.background.paper,
-    flexGrow: 1,
-    width: '100%'
-  },
-  videoBg: {
-    background: '#fff',
-  },
-  videoForeground: {
-    pointerEvents: 'none'
-  }
-})
 
 
 class Auth extends Component {
@@ -42,26 +31,9 @@ class Auth extends Component {
     this.props.showForm({ value })
   }
 
-  _onReady(event) {
-
-  }
-
-  _onEnd(event) {
-    event.target.playVideo()
-  }
-
-
   render() {
   	const { classes } = this.props
   	const { value } = this.props.auth
-    const videoOptions = {
-      playerVars: {
-        autoplay: 1,
-        controls: 0,
-        rel: 0,
-        showinfo: 0
-      }
-    }
 
     return (
       <Grid container className={classes.root}>
@@ -81,19 +53,19 @@ class Auth extends Component {
           </AppBar>
           { value === 1 && <RegisterPage/> }
           { value === 0 && <LoginPage /> }
-    <div className={classes.videoBg}>
-        <ReactPlayer
-          url='/Agile/MP4/Agile.mp4'
-          playing
-          loop
-          width='100%'
-          height='100%'
-          className={classes.videoForeground}
-        />
-    </div>
+          <div className={classes.videoBg}>
+            <ReactPlayer
+              url='/Agile/MP4/Agile.mp4'
+              playing
+              loop
+              width='100%'
+              height='100%'
+              className={classes.videoForeground}
+            />
+          </div>
         </Grid>
       </Grid>
-      )
+    )
   }
 }
 
