@@ -21,7 +21,8 @@ const schema = new Schema(
       unique: true
     },
     password: {
-      type: String
+      type: String,
+      required: true
     },
     admin: {
       type: Boolean,
