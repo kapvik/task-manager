@@ -1,7 +1,7 @@
 import { userConstants } from '../constants'
 import axios from 'axios'
+import { getToken } from '../utils/token'
 
-const token = localStorage.getItem('user').substr(1).slice(0, -1)
 // receive all users information
 export const receiveUsers = data => ({
   type: userConstants.RECEIVE_ALL_USERS,
@@ -25,7 +25,7 @@ export const receiveCurrUser = user => ({
 
 export const fetchCurrentUser = () => {
   return dispatch => {
-    return axios.get(`http://localhost:3007/me/${token}`)
+    return axios.get(`http://localhost:3007/me/${getToken()}`)
       .then(response => {
         dispatch(receiveCurrUser(response.data.user))
       })
@@ -61,11 +61,9 @@ export const stopEditData = newData => ({
 
 export const stopEditingUser = (newData) => {
   return dispatch => {
-        console.log('userdata===>', newData)
-
-    return axios.put(`http://localhost:3007/user/${newData._id}`)
+    return axios.put(`http://localhost:3007/user/${newData._id}`, newData)
       .then(response => {
-        dispatch(stopEditData(newData))
+        dispatch(stopEditData(response.data.user))
       })
-    }
+  }
 }

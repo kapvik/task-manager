@@ -1,6 +1,7 @@
 import { authConstants } from '../constants'
 import axios from 'axios'
 import { fetchCurrentUser } from './user.actions'
+
 export const loginReq = (user, admin = false) => ({
   type: authConstants.LOGIN_REQUEST,
   user,

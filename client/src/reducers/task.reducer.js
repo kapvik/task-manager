@@ -1,9 +1,14 @@
 import { taskConstants } from '../constants'
 
-export function tasksData(state = [], action) {
+export function tasksData(state = {
+  isEdit: false,
+  isAdd: false
+}, action) {
   switch (action.type) {
   case taskConstants.RECEIVE_ALL_TASKS:
-    return Object.assign({}, state, { tasks: action.tasks })
+    return Object.assign({}, state, {
+      tasks: action.tasks
+    })
   case taskConstants.SELECT_TASK:
     return Object.assign({}, state, {
       currentTask: action.taskId
@@ -23,16 +28,43 @@ export function tasksData(state = [], action) {
   case taskConstants.EDIT_CURRENT_TASK:
     return Object.assign({}, state, {
       currentTaskInfo: action.editData,
-      isEditTask: action.isEditTask
+      showTaskForm: action.showTaskForm,
+      isEdit: action.isEdit
     })
   case taskConstants.EDIT_TASK_START:
     return Object.assign({}, state, {
-      isEditTask: action.isEditTask
+      showTaskForm: action.showTaskForm,
+      isEdit: action.isEdit
     })
-  case taskConstants.EDIT_TASK_CANCEL:
+  case taskConstants.SHOW_TASK_FORM_CANCEL:
     return Object.assign({}, state, {
-      isEditTask: action.isEditTask
+      showTaskForm: action.showTaskForm
     })
+  case taskConstants.ADD_TASK_STOP:
+    return Object.assign({}, state, {
+      showTaskForm: action.showTaskForm,
+      isAdd: action.isAdd,
+      tasks: [...action.task]
+    })
+  case taskConstants.ADD_TASK_START:
+    return Object.assign({}, state, {
+      showTaskForm: action.showTaskForm,
+      isAdd: action.isAdd
+    })
+  case taskConstants.DELETE_TASK_START:
+    return Object.assign({}, state, {
+      deleteModalShow: action.deleteModalShow
+    })
+  case taskConstants.DELETE_CURRENT_TASK:
+    return Object.assign({}, state, {
+      currentTaskInfo: {},
+      deleteModalShow: action.deleteModalShow
+    })
+  case taskConstants.DELETE_TASK_CANCEL:
+    return Object.assign({}, state, {
+      deleteModalShow: action.deleteModalShow
+    })
+
   default:
     return state
   }

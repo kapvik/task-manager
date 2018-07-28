@@ -42,19 +42,19 @@ export const fetchCurrentTask = (task_id) => {
 }
 
 // Add comment to current task
-export const addComment = (comment) => ({
-  type: taskConstants.ADD_COMMENT,
-  comment
-})
+// export const addComment = (comment) => ({
+//   type: taskConstants.ADD_COMMENT,
+//   comment
+// })
 
-export const addedComment = (task_id, comment) => {
-  return dispatch => {
-    return axios.post(`http://localhost:3007/tasks/${task_id}`)
-      .then(response => {
-        dispatch(addComment(response.data.comment))
-      })
-  }
-}
+// export const addedComment = (task_id, comment) => {
+//   return dispatch => {
+//     return axios.post(`http://localhost:3007/task/${task_id}`)
+//       .then(response => {
+//         dispatch(addComment(response.data.comment))
+//       })
+//   }
+// }
 
 // receive comments for current task
 export const receiveComment = commentData => ({
@@ -71,38 +71,100 @@ export const fetchComments = () => {
   }
 }
 
-// Redirect to edit page
+// Render component with redux-form for edditing new task
 export const startEditTask = () => ({
   type: taskConstants.EDIT_TASK_START,
-  isEditTask: true
+  showTaskForm: true,
+  isEdit: true
 })
 
-export const startEditingTask = () => {
+export const startingEditTask = () => {
   return dispatch => dispatch(startEditTask())
 }
 
-export const cancelEditTask = () => ({
-  type: taskConstants.EDIT_TASK_CANCEL,
-  isEditTask: false
+// Cancel showing task form for edditing or adding task
+export const cancelShowTaskForm = () => ({
+  type: taskConstants.SHOW_TASK_FORM_CANCEL,
+  showTaskForm: false
 })
 
-export const cancelEditingTask = () => {
-  return dispatch => dispatch(cancelEditTask())
+export const cancelShowingTaskForm = () => {
+  return dispatch => dispatch(cancelShowTaskForm())
 }
 
 
 // Edit current task
-export const editCurrTask = (editData) => ({
+export const editCurrTask = editData => ({
   type: taskConstants.EDIT_CURRENT_TASK,
   editData,
-  isEditTask: false
+  showTaskForm: false,
+  isEdit: false
 })
 
 export const editingCurrTask = (editData) => {
   return dispatch => {
-    return axios.put(`http://localhost:3007/tasks/${editData}`, { editData })
-      .then(response => {
-        dispatch(editCurrTask(response.data))
+    return axios.put(`http://localhost:3007/tasks/${editData._id}`, editData)
+      .then((response) => {
+        dispatch(editCurrTask(response.data.task))
       })
+  }
+}
+
+// Render component with redux-form for adding new task
+export const startingAddTask = () => ({
+  type: taskConstants.ADD_TASK_START,
+  isAdd: true,
+  showTaskForm: true
+})
+
+export const startingFormToAddTask = () => {
+  return dispatch => dispatch(startingAddTask())
+}
+
+// Add new task
+export const addTask = task => ({
+  type: taskConstants.ADD_TASK_STOP,
+  task,
+  showTaskForm: false,
+  isAdd: false
+})
+
+export const addingTask = task => {
+  return dispatch => {
+    return axios.post('http://localhost:3007/tasks', task)
+      .then(() => dispatch(addTask(task)))
+  }
+}
+
+// Starting delete current task
+export const startDeleteTask = () => ({
+  type: taskConstants.DELETE_TASK_START,
+  deleteModalShow: true
+})
+
+export const startingDeleteTask = () => {
+  return dispatch => dispatch(startDeleteTask())
+}
+
+// Cancel delete
+export const cancelDeleteTask = () => ({
+  type: taskConstants.DELETE_TASK_CANCEL,
+  deleteModalShow: false
+})
+
+export const cancelingDeleteTask = () => {
+  return dispatch => dispatch(cancelDeleteTask())
+}
+
+// Delete current task
+export const deleteTask = () => ({
+  type: taskConstants.DELETE_CURRENT_TASK,
+  deleteModalShow: false
+})
+
+export const deletingTask = task_id => {
+  return dispatch => {
+    return axios.delete(`http://localhost:3007/tasks/${task_id}`)
+      .then(() => dispatch(deleteTask()))
   }
 }

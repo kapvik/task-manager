@@ -16,14 +16,20 @@ const getTasks = (req, res) => {
 
 // Add new task
 const addTask = (req,res) => {
-    const task = new Task()
+    const newTask = req.body
     if (!req.body.title) {
       throw new NotAcceptable(405, 'Should be title');
     }
-    Object.assign({}, task, req.body)
-    task.save()
+    if (!req.body.short_description) {
+      throw new NotAcceptable(405, 'Should be at least short description');
+    }
+    const task = new Task(newTask)
+    task.save((err, task) => {
+      if (err) throw new Error(err)
+      else if(!task) throw new NotAcceptable(405, 'Should not be an empty');
+      res.status(200).send({'success':true,'message':'Task add successfully', task})
+    })
 
-    res.status(200).send({'success':true,'message':'Task add successfully', task})
 } 
 
 // Receive current task
@@ -41,25 +47,18 @@ const getTask = (req, res) => {
 // Change task info
 const updateTask = (req, res) => {
   const { _id } = req.params
-  const task = Task.findOne({ _id }, (err, task) => {
-    if (err) {
-      throw new BadRequest(400, 'Task is not find')
-    }
-    Object.assign({}, task, req.body)
-  task.save()
-  res.status(200).send({'success':true,'message':'Task update successfully', task})
+  const task = Task.findByIdAndUpdate({ _id }, req.body, {new: true, runValidator: true}, (err, task) => {
+    if (err) throw new BadRequest(400, 'Task is not find')
+    res.status(200).send({'success':true,'message':'Task update successfully', task})
   })
 }
 
 // Delete current task
 const deleteTask = (req, res) => {
   const { _id } = req.params
-  const task = Task.findOne({ _id }, (err, task) => {
-    if (err) {
-      throw new BadRequest(400, 'Task is not find')
-    }
-    Task.remove({ _id })
-    res.status(200).send({'success':true,'message':'Task delete successfully', task})
+  const task = Task.findByIdAndRemove({ _id }, (err) => {
+    if (err) throw new BadRequest(400, 'Task is not find')
+    res.status(200).send({'success':true,'message':'Task delete successfully'})
   })
 }
 

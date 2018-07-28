@@ -37,7 +37,7 @@ class App extends Component {
           <PrivateRoute exact path='/' component={Dashboard} />
           <PrivateRoute exact path='/user' component={ProfilePage} />
           <PrivateRoute exact path='/tasks' component={TasksPage} />
-          <PrivateRoute exact path='/tasks/:number' component={TaskInfo} />
+          <PrivateRoute exact path='/task' component={TaskInfo} />
         </Switch>
       </Fragment>
     )

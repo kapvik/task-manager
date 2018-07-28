@@ -2,9 +2,17 @@ import React, { Component } from 'react'
 
 import { Field, reduxForm } from 'redux-form'
 import { connect } from 'react-redux'
-import { stopEditingTask, editingCurrTask } from '../../actions'
 import compose from 'recompose/compose'
 
+// Actions
+import {
+  cancelShowingTaskForm,
+  editingCurrTask,
+  fetchData,
+  addingTask
+} from '../../actions'
+
+// Material ui styles component
 import { withStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid'
@@ -15,28 +23,37 @@ const styles = () => ({
   btnGroup: {
     marginTop: '20px',
     display: 'flex',
-    justifyContent: 'space-around'
+    justifyContent: 'center'
   },
   formEdit: {
-    marginTop: '50px'
+    marginTop: '50px',
+    textAlign: 'center'
   },
   btn: {
     color: '#fff',
     backgroundColor: '#3f51b5',
     '&:hover': {
       backgroundColor: '#2c387e'
+    },
+    '&:not(:last-of-type)': {
+      marginRight: '15px'
     }
   }
 })
-class EditTask extends Component {
+class TaskForm extends Component {
   constructor(props) {
     super(props)
 
     this.onClickCancel = this.onClickCancel.bind(this)
   }
+
+  componentDidMount() {
+    this.props.dataFetch()
+  }
+
   renderField({ input, label, type }) {
     return (
-      <Grid item md={3} >
+      <Grid item md={12} >
         <TextField
           label={label}
           {...input}
@@ -50,10 +67,20 @@ class EditTask extends Component {
   }
 
   render() {
-    const { handleSubmit, submitting, pristine, classes } = this.props
+    const {
+      handleSubmit,
+      submitting,
+      pristine,
+      classes,
+      isEdit,
+      isAdd,
+      performers,
+      submitEdit,
+      submitAdd
+    } = this.props
     return (
       <form
-        onSubmit={handleSubmit(this.props.submitForm)}
+        onSubmit={ isEdit ? handleSubmit(submitEdit) : handleSubmit(submitAdd)}
         className={classes.formEdit}
       >
         <Typography
@@ -61,38 +88,38 @@ class EditTask extends Component {
           variant='title'
           align='center'
         >
-        Edit Task form
+          { isEdit && 'Edit' } { isAdd && 'Add'} Task
         </Typography>
         <Field
           label='Task title'
           name='title'
           component={this.renderField}
-          type='name'
+          type='text'
         />
         <Field
-          label='short description'
+          label='Short description'
           name='short_description'
           component={this.renderField}
-          type='name' />
+          type='text' />
         <Field
-          label='full description'
+          label='Full description'
           name='full_description'
           component={this.renderField}
-          type='email' />
-        <Field
-          label='Status'
-          name='status'
-          component={this.renderField}
-          type='text'
-          fullWidth
-        />
-        <Field
-          label='Performer'
-          name='performer'
-          component={this.renderField}
-          type='text'
-          fullWidth
-        />
+          type='text' />
+        <Field name='status' component='select'>
+          { ['To Do', 'Peer Review', 'Done', 'In Progress'].map(status =>
+            <option key={status} value={status}>{status}</option>
+          )
+          }
+        </Field>
+        <Field name='performer.username' component='select'>
+          { performers && performers.map(performer =>
+            (<option key={performer.username} value={ performer.username }>
+              { performer.username }
+            </option>)
+          )
+          }
+        </Field>
         <div className={ classes.btnGroup }>
           <Button
             variant='outlined'
@@ -117,12 +144,17 @@ class EditTask extends Component {
 }
 
 const mapStateToProps = state => ({
-  initialValues: state.tasksData.currentTaskInfo
+  initialValues: state.tasksData.currentTaskInfo,
+  isEdit: state.tasksData.isEdit,
+  isAdd: state.tasksData.isAdd,
+  performers: state.dataUser.users
 })
 
 const mapDispatchToProps = dispatch => ({
-  cancel: () => dispatch(stopEditingTask()),
-  submitForm: (newTaskData) => dispatch(editingCurrTask(newTaskData))
+  dataFetch: () => dispatch(fetchData()),
+  cancel: () => dispatch(cancelShowingTaskForm()),
+  submitEdit: (newTaskData) => dispatch(editingCurrTask(newTaskData)),
+  submitAdd: (newTask) => dispatch(addingTask(newTask))
 })
 
 
@@ -130,6 +162,6 @@ export default compose(
   connect(mapStateToProps, mapDispatchToProps),
   withStyles(styles),
   reduxForm({
-    form: 'editUser'
+    form: 'editTask'
   })
-)(EditTask)
+)(TaskForm)

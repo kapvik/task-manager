@@ -3,14 +3,23 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import compose from 'recompose/compose'
 import { Field, reduxForm } from 'redux-form'
-
-import Comment from './Comment'
-import Attachments from './Attachments'
-import EditTask from './EditTask'
-
-import { addedComment, fetchComments, startEditingTask } from '../../actions'
 import classNames from 'classnames'
 
+// Own component
+import Comment from './Comment'
+import Attachments from './Attachments'
+import TaskForm from './TaskForm'
+import DeleteModal from './DeleteModal'
+
+// Actions
+import {
+  addedComment,
+  fetchComments,
+  startingEditTask,
+  startingDeleteTask
+} from '../../actions'
+
+// Material ui styles component
 import { withStyles } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
@@ -33,6 +42,7 @@ import Input from '@material-ui/core/Input'
 import Collapse from '@material-ui/core/Collapse'
 import Switch from '@material-ui/core/Switch'
 import EditIcon from '@material-ui/icons/Edit'
+import DeleteIcon from '@material-ui/icons/Delete'
 import Grid from '@material-ui/core/Grid'
 
 const styles = theme => ({
@@ -77,13 +87,15 @@ const styles = theme => ({
   },
   attachments: {
     display: 'flex',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    flexWrap: 'wrap'
   },
-  editBtn: {
-    color: '#fff',
-    position: 'absolute',
-    right: '1%',
-    top: 0
+  btn: {
+    color: '#fff'
+  },
+  taskHeader: {
+    display: 'flex',
+    justifyContent: 'space-between'
   }
 })
 
@@ -133,24 +145,34 @@ class TaskInfo extends Component {
   onClickEditTask() {
     this.props.startEditTask()
   }
+
   render() {
-  	const { currentTaskInfo, comment, currentTask, isEditTask } = this.props.task
+  	const { currentTaskInfo, comment, currentTask, showTaskForm, deleteModalShow } = this.props.task
   	const { classes, handleSubmit, submitting, pristine } = this.props
-    if (currentTaskInfo && !isEditTask) {
+    if (currentTaskInfo && !showTaskForm) {
       return (
         <div className={classes.root}>
           <AppBar position='sticky'>
-            <Toolbar variant='dense'>
+            <Toolbar variant='dense' className={classes.taskHeader}>
               <Typography variant='title' color='inherit'>
                 Task Details
               </Typography>
-              <IconButton
-                aria-label='Delete'
-                onClick={ this.onClickEditTask }
-                className={classes.editBtn}
-              >
-                <EditIcon />
-              </IconButton>
+              <div className={classes.btnGroup}>
+                <IconButton
+                  aria-label='Edit'
+                  onClick={ this.onClickEditTask }
+                  className={classes.btn}
+                >
+                  <EditIcon />
+                </IconButton>
+                <IconButton
+                  aria-label='Delete'
+                  onClick={ () => this.props.show() }
+                  className={classes.btn}
+                >
+                  <DeleteIcon />
+                </IconButton>
+              </div>
             </Toolbar>
           </AppBar>
           <Paper className={classes.paper} elevation={1}>
@@ -166,7 +188,7 @@ class TaskInfo extends Component {
               <Typography variant='headline' component='h3'>
                 Performer
               </Typography>
-              <p> {currentTaskInfo.performer.username} </p>
+              <p> { currentTaskInfo.performer ? currentTaskInfo.performer.username : 'Free' } </p>
             </div>
             <div>
               <Typography variant='headline' component='h3'>
@@ -212,7 +234,7 @@ class TaskInfo extends Component {
             </Typography>
             <Collapse in={this.state.checked}>
               <Paper elevation={4} className={classes.paper}>
-                { comment ? <Comment /> : <p className={classes.commentTitle}>No comments to show</p>}
+                // { comment ? <Comment /> : <p className={classes.commentTitle}>No comments to show</p>}
               </Paper>
             </Collapse>
           </Paper>
@@ -222,7 +244,7 @@ class TaskInfo extends Component {
             aria-labelledby='form-dialog-title'
           >
             <DialogTitle id='form-dialog-title'>Add Comment</DialogTitle>
-            <form onSubmit={handleSubmit(this.props.addComment(currentTask))}>
+            <form >
               <DialogContent>
                 <Field
                   label='Full Name'
@@ -254,11 +276,12 @@ class TaskInfo extends Component {
               </DialogActions>
             </form>
           </Dialog>
+          { deleteModalShow && <DeleteModal/> }
         </div>)
-    } else if (isEditTask) {
+    } else if (showTaskForm) {
       return (
         <Grid container spacing={16} justify='center'>
-          <EditTask />
+          <TaskForm />
         </Grid>
       )
     }
@@ -275,7 +298,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   addComment: (comment, task_id) => dispatch(addedComment(comment, task_id)),
   commentFetch: () => dispatch(fetchComments()),
-  startEditTask: () => dispatch(startEditingTask())
+  startEditTask: () => dispatch(startingEditTask()),
+  show: () => dispatch(startingDeleteTask())
 })
 
 
