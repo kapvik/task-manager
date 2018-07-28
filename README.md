@@ -29,12 +29,12 @@
 - [x] List of task and task page
 - [x] Dashboard page
 - [x] Editing a user's info
-- [x] Add comments to task
 - [x] Change task status
-- [x] Task media
 - [x] Registration and authentication
+- [x] Edit, create and delete task
 
 ## What is not done yet
 - [ ] Validation
 - [ ] Check user role
-- [ ] Edit, create and delete task
+- [ ] Add comments to task
+- [ ] Task media
