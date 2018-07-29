@@ -10,37 +10,14 @@ import Loader from '../Loader/Loader'
 // Actions
 import { fetchAllTasks, selectedTask, fetchCurrentTask } from '../../actions'
 
+// Own styles
+import styles from './tasklist.styles'
+
 // Material ui styles component
 import { withStyles } from '@material-ui/core/styles'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
-
-const styles = theme => ({
-  root: {
-    width: '100%',
-    maxWidth: 360,
-    backgroundColor: theme.palette.background.paper
-  },
-  nested: {
-    paddingLeft: theme.spacing.unit * 4
-  },
-  status: {
-    color: theme.palette.primary.main,
-    fontWeight: 700
-  },
-  task: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between'
-  },
-  taskInfo: {
-    maxWidth: '75%'
-  },
-  taskLink: {
-    textDecoration: 'none'
-  }
-})
 
 class TasksList extends Component {
   componentDidMount() {

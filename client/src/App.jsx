@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 
 import ProfilePage from './components/User/ProfilePage'
 import TasksPage from './components/Task/TasksPage'
-import TaskInfo from './components/Task/TaskInfo'
+import TaskInfo from './components/Task/TaskInfo/'
 import Dashboard from './components/Dashboard'
 import Auth from './components/Auth/Auth'
 

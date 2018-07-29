@@ -6,19 +6,19 @@ import classNames from 'classnames'
 import { Link } from 'react-router-dom'
 
 // Own component
-import Comment from '../Comments/Comment'
-import CommentAddForm from '../Comments/CommentAddForm'
-import Attachments from './Attachments'
-import TaskForm from './TaskForm'
-import DeleteModal from './DeleteModal'
-import Loader from '../Loader/Loader'
+import Comment from '../../Comments/Comment'
+import CommentAddForm from '../../Comments/CommentAddForm'
+import Attachments from '../Attachments/'
+import TaskForm from '../TaskForm/'
+import DeleteModal from '../DeleteModal/'
+import Loader from '../../Loader/Loader'
 
 // Actions
 import {
   addedComment,
   startingEditTask,
   startingDeleteTask
-} from '../../actions'
+} from '../../../actions'
 
 // Own styles
 import styles from './taskinfo.styles'

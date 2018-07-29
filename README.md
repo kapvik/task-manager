@@ -33,8 +33,10 @@
 - [x] Registration and authentication
 - [x] Edit, create and delete task
 - [x] Add comments to task
+- [x] Client-side validation
 
 ## What is not done yet
-- [ ] Validation
 - [ ] Check user role
 - [ ] Task media
+- [ ] Chat
+- [ ] Server-side validation

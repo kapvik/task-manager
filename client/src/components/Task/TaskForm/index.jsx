@@ -6,7 +6,7 @@ import compose from 'recompose/compose'
 import classNames from 'classnames'
 
 // Custom validation
-import { taskEditOrAddValidation } from '../../utils/validation'
+import { taskEditOrAddValidation } from '../../../utils/validation'
 
 // Actions
 import {
@@ -14,10 +14,10 @@ import {
   editingCurrTask,
   fetchData,
   addingTask
-} from '../../actions'
+} from '../../../actions'
 
 // Own components
-import CustomImput from '../CustomInput'
+import CustomImput from '../../CustomInput'
 
 // Own styles
 import styles from './taskform.styles'

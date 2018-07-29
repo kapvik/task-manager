@@ -9,7 +9,7 @@ import { startingAddTask } from '../../actions'
 
 // Own component
 import TasksList from './TasksList'
-import TaskForm from './TaskForm'
+import TaskForm from './TaskForm/'
 
 // Own styles
 import styles from './taskpage.styles'

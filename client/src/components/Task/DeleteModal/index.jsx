@@ -6,15 +6,13 @@ import classNames from 'classnames'
 import { withRouter } from 'react-router-dom'
 
 // Actions
-import { cancelingDeleteTask, deletingTask } from '../../actions'
-
+import { cancelingDeleteTask, deletingTask } from '../../../actions'
 // Own styles
 import styles from './modals.styles'
 
 // Material ui styles component
 import { withStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
-import Modal from '@material-ui/core/Modal'
 import Button from '@material-ui/core/Button'
 
 class DeleteModal extends Component {
@@ -36,11 +34,9 @@ class DeleteModal extends Component {
               Are you sure you want to <b>delete</b> this awesomeness task?
           </Typography>
           <Button
-          	variant='outlined'
           	color='secondary'
           	className={classes.submitBtn} onClick={() => this.deleteTask(currentTaskInfo._id)}>Yes, I'm sure</Button>
           <Button
-          	variant='outlined'
           	color='primary'
           	onClick={() => this.props.cancel()} className={classes.cancelBtn}>
             Nah, I changed my mind
