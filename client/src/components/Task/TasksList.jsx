@@ -4,12 +4,14 @@ import compose from 'recompose/compose'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 
+// Own components
+import Loader from '../Loader/Loader'
+
 // Actions
 import { fetchAllTasks, selectedTask, fetchCurrentTask } from '../../actions'
 
 // Material ui styles component
 import { withStyles } from '@material-ui/core/styles'
-import CircularProgress from '@material-ui/core/CircularProgress'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
@@ -85,7 +87,7 @@ class TasksList extends Component {
     }
     return (
       <div>
-        <CircularProgress />
+        <Loader />
       </div>
     )
   }

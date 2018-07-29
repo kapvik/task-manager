@@ -22,11 +22,7 @@ const schema = new Schema({
     enum: ['To Do', 'Peer Review', 'Done', 'In Progress'],
     default: 'To Do'
   },
-  performer: {
-    username: {
-      type: String
-    }
-  },
+  performer: { type: String },
   comments: [{
     from: {
       type: String,

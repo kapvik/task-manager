@@ -1,16 +1,17 @@
 export default function styles(theme) {
   return {
     root: {
-	  backgroundColor: theme.palette.background.paper,
-	  flexGrow: 1,
-	  width: '100%'
+	    backgroundColor: theme.palette.background.paper,
+	    flexGrow: 1,
+	    width: '100%'
     },
     videoBg: {
-	  background: '#898889',
-	  height: '93vh'
+	    background: '#898889',
+	    height: '93vh',
+      backgroundImage: 'url(/Agile/Agile.jpg)'
     },
     videoForeground: {
-	  pointerEvents: 'none'
+	    pointerEvents: 'none'
     },
     btnGroup: {
       marginTop: '20px',

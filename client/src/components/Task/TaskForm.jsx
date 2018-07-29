@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import { Field, reduxForm } from 'redux-form'
 import { connect } from 'react-redux'
 import compose from 'recompose/compose'
+import classNames from 'classnames'
 
 // Actions
 import {
@@ -12,34 +13,17 @@ import {
   addingTask
 } from '../../actions'
 
+// Own styles
+import styles from './taskform.styles'
+
 // Material ui styles component
 import { withStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import TextField from '@material-ui/core/TextField'
+import Modal from '@material-ui/core/Modal'
 
-const styles = () => ({
-  btnGroup: {
-    marginTop: '20px',
-    display: 'flex',
-    justifyContent: 'center'
-  },
-  formEdit: {
-    marginTop: '50px',
-    textAlign: 'center'
-  },
-  btn: {
-    color: '#fff',
-    backgroundColor: '#3f51b5',
-    '&:hover': {
-      backgroundColor: '#2c387e'
-    },
-    '&:not(:last-of-type)': {
-      marginRight: '15px'
-    }
-  }
-})
 class TaskForm extends Component {
   constructor(props) {
     super(props)
@@ -76,12 +60,17 @@ class TaskForm extends Component {
       isAdd,
       performers,
       submitEdit,
-      submitAdd
+      submitAdd,
+      open
     } = this.props
     return (
+      <Modal
+        open={open}
+        onClose={this.onClickCancel}
+      >
       <form
         onSubmit={ isEdit ? handleSubmit(submitEdit) : handleSubmit(submitAdd)}
-        className={classes.formEdit}
+        className={classNames(classes.paper, classes.modalCenter, classes.formEdit)}
       >
         <Typography
           color='primary'
@@ -112,7 +101,7 @@ class TaskForm extends Component {
           )
           }
         </Field>
-        <Field name='performer.username' component='select'>
+        <Field name='performer' component='select'>
           { performers && performers.map(performer =>
             (<option key={performer.username} value={ performer.username }>
               { performer.username }
@@ -139,6 +128,7 @@ class TaskForm extends Component {
           </Button>
         </div>
       </form>
+      </Modal>
     )
   }
 }

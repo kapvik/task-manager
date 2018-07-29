@@ -243,7 +243,7 @@ class Dashboard extends Component {
               >
                 <Link
                   to='/user'
-                  className={classes.menuItem} 
+                  className={classes.menuItem}
                 >
                   <IconButton
                     color='inherit'

@@ -8,49 +8,20 @@ import { withRouter } from 'react-router-dom'
 // Actions
 import { cancelingDeleteTask, deletingTask } from '../../actions'
 
+// Own styles
+import styles from './modals.styles'
+
 // Material ui styles component
 import { withStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
 import Modal from '@material-ui/core/Modal'
 import Button from '@material-ui/core/Button'
 
-const styles = theme => ({
-  paper: {
-    position: 'absolute',
-    mawWidth: theme.spacing.unit * 50,
-    backgroundColor: theme.palette.background.paper,
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing.unit * 4
-  },
-  modalCenter: {
-  	top: '50%',
-  	left: '50%',
-  	transform: 'translate(-50%, -50%)',
-  	borderRadius: '10px'
-  },
-  modalWrapper: {
-  	backgroundColor: '#c1c6e0a8',
-  	width: '99%',
-  	height: '100vh',
-  	position: 'absolute',
-  	top: 0,
-  	zIndex: 9990
-  },
-  secretBtn: {
-
-  },
-  modalTitle: {
-  	marginBottom: '10px'
-  }
-})
-
-
 class DeleteModal extends Component {
-
-deleteTask(id) {
-  this.props.delete(id).then(() => 
-    this.props.history.push('/tasks'))
-}
+  deleteTask(id) {
+    this.props.delete(id).then(() =>
+      this.props.history.push('/tasks'))
+  }
 
   render() {
   	const { currentTaskInfo } = this.props.task
@@ -74,8 +45,6 @@ deleteTask(id) {
           	onClick={() => this.props.cancel()} className={classes.cancelBtn}>
             Nah, I changed my mind
           </Button>
-          <Button
-          	className={classes.secretBtn}>I'm a batman! </Button>
         </div>
       </div>
   		)

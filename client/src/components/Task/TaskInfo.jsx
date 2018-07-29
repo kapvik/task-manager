@@ -10,6 +10,7 @@ import CommentAddForm from '../Comments/CommentAddForm'
 import Attachments from './Attachments'
 import TaskForm from './TaskForm'
 import DeleteModal from './DeleteModal'
+import Loader from '../Loader/Loader'
 
 // Actions
 import {
@@ -24,7 +25,6 @@ import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import IconButton from '@material-ui/core/IconButton'
-import CircularProgress from '@material-ui/core/CircularProgress'
 import MenuItem from '@material-ui/core/MenuItem'
 import Select from '@material-ui/core/Select'
 import Paper from '@material-ui/core/Paper'
@@ -35,7 +35,6 @@ import Collapse from '@material-ui/core/Collapse'
 import Switch from '@material-ui/core/Switch'
 import EditIcon from '@material-ui/icons/Edit'
 import DeleteIcon from '@material-ui/icons/Delete'
-import Grid from '@material-ui/core/Grid'
 
 const styles = theme => ({
   root: {
@@ -124,11 +123,10 @@ class TaskInfo extends Component {
     this.props.startEditTask()
   }
 
-
   render() {
-  	const { currentTaskInfo, showTaskForm, deleteModalShow, currentTask } = this.props.task
+  	const { currentTaskInfo, showTaskForm, deleteModalShow } = this.props.task
   	const { classes } = this.props
-    if (currentTaskInfo && !showTaskForm) {
+    if (currentTaskInfo) {
       return (
         <div className={classes.root}>
           <AppBar position='sticky'>
@@ -167,14 +165,14 @@ class TaskInfo extends Component {
               <Typography variant='headline' component='h3'>
                 Performer
               </Typography>
-              <p> { currentTaskInfo.performer ? currentTaskInfo.performer.username : 'Free' } </p>
+              <p> { currentTaskInfo.performer || 'Free' } </p>
             </div>
             <div>
               <Typography variant='headline' component='h3'>
                 Status
               </Typography>
               <Select
-                value={currentTaskInfo.status}
+                value={currentTaskInfo.status || ' ' }
                 onChange={this.changeStatus}
               >
                 <MenuItem value='To Do'>To Do</MenuItem>
@@ -215,10 +213,11 @@ class TaskInfo extends Component {
             </Typography>
             <Collapse in={this.state.checked}>
               <Paper elevation={4} className={classes.paper}>
-                { (currentTaskInfo.comments.length > 0)
+                { (currentTaskInfo.comments && currentTaskInfo.comments.length > 0)
                   ? <Comment comments={ currentTaskInfo.comments }/>
                   : <p className={classes.commentTitle}>No comments to show</p>
                 }
+      <Loader />
               </Paper>
             </Collapse>
           </Paper>
@@ -229,16 +228,10 @@ class TaskInfo extends Component {
             initialValues={currentTaskInfo}
           />
           { deleteModalShow && <DeleteModal/> }
+          <TaskForm open={ showTaskForm }/>
         </div>)
-    } else if (showTaskForm) {
-      return (
-        <Grid container spacing={16} justify='center'>
-          <TaskForm />
-        </Grid>
-      )
     }
     return (
-      <CircularProgress />
     )
   }
 }

@@ -48,7 +48,8 @@ const schema = new Schema(
       type: String,
       required: true,
       default: ['super', 'lazy', 'for', 'this', 'field']
-      }
+      },
+    tasks: [Schema.Types.Mixed]
   }
 )
 

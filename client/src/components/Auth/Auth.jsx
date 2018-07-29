@@ -55,7 +55,7 @@ class Auth extends Component {
           { value === 0 && <LoginPage /> }
           <div className={classes.videoBg}>
             <ReactPlayer
-              url='/Agile/MP4/Agile.mp4'
+              url='/Agile/OGV/Agile.ogv'
               playing
               loop
               width='100%'

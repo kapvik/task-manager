@@ -15,9 +15,6 @@ import Button from '@material-ui/core/Button'
 class CommentAddForm extends Component {
   render() {
 	  const { handleSubmit, submitting, pristine, close, addComment } = this.props
-    const initialValues = {
-      taskId: this.props.taskId
-    }
     return (
       <Dialog
         open={this.props.open}
@@ -30,27 +27,27 @@ class CommentAddForm extends Component {
             <Field
               label='Full Name'
               name='comment.from'
-              component={CustomInput}
+              component={ CustomInput }
               type='text'
             />
             <Field
               label='Comment...'
               name='comment.msg'
-              component={CustomInput}
+              component={ CustomInput }
               type='textarea'
             />
           </DialogContent>
           <DialogActions>
             <Button
               type='button'
-              onClick={close}
+              onClick={ close }
               color='primary'>
               Cancel
             </Button>
             <Button
               type='submit'
-              onClick={close}
-              disabled={pristine || submitting }
+              onClick={ close }
+              disabled={ pristine || submitting }
               color='primary'>
               Add comment
             </Button>
