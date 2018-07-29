@@ -9,7 +9,6 @@ import { showFormAuth } from '../../actions'
 // Own components
 import LoginPage from './LoginPage'
 import RegisterPage from './RegisterPage'
-import Header from '../Header/Header'
 
 // Own styles
 import styles from './auth.styles'

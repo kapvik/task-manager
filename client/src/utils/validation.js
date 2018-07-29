@@ -41,6 +41,11 @@ export function userEditValidation(values) {
 
 export function taskEditOrAddValidation(values) {
   let errors = {}
-
+  if (!values.title) {
+    errors.title = 'This field is required'
+  }
+  if (!values.short_description) {
+    errors.short_description = 'This field is required'
+  }
   return errors
 }

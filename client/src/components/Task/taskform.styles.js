@@ -39,6 +39,23 @@ export default function styles(theme) {
       position: 'absolute',
       top: 0,
       zIndex: 9990
+    },
+    customSelect: {
+      'padding': '10px',
+      'backgroundColor': '#fff',
+      'border': 'none',
+      'borderBottom': '1px solid #c7c7c7',
+      'color': '#3f51b5',
+      'fontSize': '16px',
+      'margin': '5px auto',
+      'width': '100%',
+      '&:hover': {
+        borderBottom: '1px solid #000',
+        color: '#000'
+      },
+      '&:focus': {
+        outline: 'none'
+      }
     }
   }
 }

@@ -14,7 +14,6 @@ const CustomInput = ({ input, label, type, meta: { touched, error } }) => {
         {...input}
         type={type}
         error={(touched && error) ? true : false}
-        multiline
       />
       { (touched && error) && <FormHelperText error>{error}</FormHelperText> }
     </FormControl>)
