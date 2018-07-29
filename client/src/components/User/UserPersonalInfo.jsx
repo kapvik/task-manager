@@ -23,7 +23,7 @@ class User extends Component {
           <Typography variant='subheading'>
             <b className={classes.subTitle}>Email:</b> { currentUser.email } </Typography>
           <Typography variant='subheading'>
-            <b className={classes.subTitle}>Date of birth:</b> { birthdayFormat(currentUser.dateOfBirth) }</Typography>
+            <b className={classes.subTitle}>Date of birth:</b> { currentUser.dateOfBirth ? birthdayFormat(currentUser.dateOfBirth) : 'Date is not provided' }</Typography>
         </div>
         <Divider />
       </Fragment>
