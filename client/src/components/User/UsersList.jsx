@@ -7,8 +7,10 @@ import { fetchData, selectedUser, openigDialog } from '../../actions'
 
 import { withStyles } from '@material-ui/core/styles'
 
+// Own components
 import Chat from '../Chat'
-import CircularProgress from '@material-ui/core/CircularProgress'
+import Loader from '../Loader/Loader'
+
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import Typography from '@material-ui/core/Typography'
@@ -79,7 +81,7 @@ class UserList extends Component {
     }
     return (
       <div>
-        <CircularProgress />
+        <Loader />
       </div>
     )
   }

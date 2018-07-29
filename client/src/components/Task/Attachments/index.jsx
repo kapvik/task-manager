@@ -1,17 +1,12 @@
 import React, { Component } from 'react'
 
+// Own styles
+import styles from './attachments.styles'
+
+// Material ui styles component
 import Typography from '@material-ui/core/Typography'
 import { withStyles } from '@material-ui/core/styles'
 
-const styles = () => ({
-  imgContainer: {
-    marginTop: '20px'
-  },
-  imgSize: {
-    maxWidth: '200px',
-    maxHeight: '100px'
-  }
-})
 class Attachments extends Component {
   constructor(props) {
   	super(props)
@@ -32,7 +27,7 @@ class Attachments extends Component {
     const { classes } = this.props
     return (
       <div>
-        <Typography variant='headline' component='h3'>
+        <Typography variant='headline' component='h3' color='primary'>
                 Attachments
         </Typography>
         <input

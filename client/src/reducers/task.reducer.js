@@ -2,7 +2,8 @@ import { taskConstants } from '../constants'
 
 export function tasksData(state = {
   isEdit: false,
-  isAdd: false
+  isAdd: false,
+  showTaskForm: false
 }, action) {
   switch (action.type) {
   case taskConstants.RECEIVE_ALL_TASKS:

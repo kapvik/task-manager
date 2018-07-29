@@ -1,16 +1,16 @@
 export default function styles(theme) {
   return {
     root: {
-	  backgroundColor: theme.palette.background.paper,
-	  flexGrow: 1,
-	  width: '100%'
+	    backgroundColor: theme.palette.background.paper,
+	    flexGrow: 1,
+	    width: '100%'
     },
     videoBg: {
-	  background: '#898889',
-	  height: '93vh'
+	    background: '#898889',
+	    height: '93vh'
     },
     videoForeground: {
-	  pointerEvents: 'none'
+	    pointerEvents: 'none'
     },
     btnGroup: {
       marginTop: '20px',
@@ -18,8 +18,8 @@ export default function styles(theme) {
       justifyContent: 'center'
     },
     btn: {
-      color: '#fff',
-      backgroundColor: '#3f51b5',
+      'color': '#fff',
+      'backgroundColor': '#3f51b5',
       '&:hover': {
         backgroundColor: '#2c387e'
       }

@@ -3,6 +3,7 @@ const { NotAcceptable, BadRequest } = require('rest-api-errors');
 
 //import models
 const { Task } = require('../models/task');
+const { User } = require('../models/user');
 
 // Receive all tasks
 const getTasks = (req, res) => {  
@@ -17,6 +18,8 @@ const getTasks = (req, res) => {
 // Add new task
 const addTask = (req,res) => {
     const newTask = req.body
+    const { performer } = req.body
+
     if (!req.body.title) {
       throw new NotAcceptable(405, 'Should be title');
     }
@@ -24,14 +27,23 @@ const addTask = (req,res) => {
       throw new NotAcceptable(405, 'Should be at least short description');
     }
     const task = new Task(newTask)
+    getUserWithTasks(performer, task)
     task.save((err, task) => {
       if (err) throw new Error(err)
       else if(!task) throw new NotAcceptable(405, 'Should not be an empty');
+    console.log('task====>', task)
       res.status(200).send({'success':true,'message':'Task add successfully', task})
     })
 
 } 
 
+// Find user and add task to him
+function getUserWithTasks(username, task) {
+  return User.findOneAndUpdate({username: username}, {$push: {tasks: task }}, {new: true}, (err, user) => {
+    if (err) throw new Error(err)
+      console.log('user====>', user)
+  })
+}
 // Receive current task
 const getTask = (req, res) => {
   const { _id } = req.params;
@@ -64,12 +76,8 @@ const deleteTask = (req, res) => {
 
 // Add comments to current task
 const addComment = (req, res) => {
-  console.log('req.body ===>', req.body)
-  console.log('req.params ===>', req.params )
   const { _id } = req.params
-  console.log()
   const task = Task.findByIdAndUpdate({ _id }, {$push: {comments: req.body.comment}}, {new: true, safe: true, upsert: true}, (err, task) => {
-    console.log('task ===>', task)
     if (err) throw new NotAcceptable(405, 'Comment is invalid')
     res.status(200).send({'success':true, 'message': 'Comment add successfuly', task})
   })

@@ -67,3 +67,13 @@ export const stopEditingUser = (newData) => {
       })
   }
 }
+
+// Change task status
+export const changeTaskStatus = editTask => ({
+  type: userConstants.CHANGE_TASK_STATUS,
+  editTask
+})
+
+// export const changingTaskStatus = task_id => {
+//   return
+// }

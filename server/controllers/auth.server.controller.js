@@ -28,7 +28,8 @@ const signUp = (req, res, next) => {
 
     const user = new User({
         email: email,
-        username: username
+        username: username,
+        password: password
     })
 
     User.register(user, password, (err, user) => {

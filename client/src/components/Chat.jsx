@@ -3,11 +3,18 @@ import React, { Component, Fragment } from 'react'
 import compose from 'recompose/compose'
 import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form'
+import classNames from 'classnames'
+
+// Actions
 import { closingDialog, fetchMessages, sendingMessage } from '../actions'
 
-import classNames from 'classnames'
-import { withStyles } from '@material-ui/core/styles'
+// Custom validaation 
+import { messageValidation } from '../utils/validation'
 
+// Own components
+import Loader from './Loader/Loader'
+
+import { withStyles } from '@material-ui/core/styles'
 import Dialog from '@material-ui/core/Dialog'
 import DialogContent from '@material-ui/core/DialogContent'
 import DialogTitle from '@material-ui/core/DialogTitle'
@@ -16,7 +23,6 @@ import Button from '@material-ui/core/Button'
 import CancelIcon from '@material-ui/icons/Cancel'
 import SendIcon from '@material-ui/icons/Send'
 import Paper from '@material-ui/core/Paper'
-import CircularProgress from '@material-ui/core/CircularProgress'
 import InputLabel from '@material-ui/core/InputLabel'
 import FormControl from '@material-ui/core/FormControl'
 import Input from '@material-ui/core/Input'
@@ -165,7 +171,7 @@ class Chat extends Component {
     }
     return (
       <div>
-        <CircularProgress />
+        <Loader />
       </div>
     )
   }
@@ -186,6 +192,7 @@ export default compose(
   withStyles(styles),
   reduxForm({
     form: 'sendMsg',
+    validate: messageValidation,
     onSubmitSuccess: (result, dispatch, props) => {
       props.reset('sendMsg')
     }

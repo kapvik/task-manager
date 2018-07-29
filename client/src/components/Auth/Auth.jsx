@@ -24,6 +24,11 @@ import Tab from '@material-ui/core/Tab'
 class Auth extends Component {
   constructor() {
     super()
+
+    this.state = {
+      title: 'Task Manager'
+    }
+
     this.handleChange = this.handleChange.bind(this)
   }
 
@@ -55,7 +60,7 @@ class Auth extends Component {
           { value === 0 && <LoginPage /> }
           <div className={classes.videoBg}>
             <ReactPlayer
-              url='/Agile/MP4/Agile.mp4'
+              url='/Agile/OGV/Agile.ogv'
               playing
               loop
               width='100%'

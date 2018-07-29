@@ -1,20 +1,20 @@
-## To copy env file run
+## 1. To copy env file run
 
 `cp ./server/.env.example ./server/.env`
 
-## To change env file run
+## 2. To change env file run
 
 `nano ./server/.env`
 
-## To create an admin run
+## 3. To create an admin run
 
 `cd server && node admin.role.js`
 
-## For starting the app run
+## 4. For starting the app run
 
 `npm run start:dev`
 
-## To login as admin use
+## 5. To login as admin use
 
 **email:** cool-guy@only.one.com
 
@@ -32,9 +32,11 @@
 - [x] Change task status
 - [x] Registration and authentication
 - [x] Edit, create and delete task
+- [x] Add comments to task
+- [x] Client-side validation
 
 ## What is not done yet
-- [ ] Validation
 - [ ] Check user role
-- [ ] Add comments to task
 - [ ] Task media
+- [ ] Chat
+- [ ] Server-side validation
