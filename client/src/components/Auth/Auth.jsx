@@ -9,6 +9,7 @@ import { showFormAuth } from '../../actions'
 // Own components
 import LoginPage from './LoginPage'
 import RegisterPage from './RegisterPage'
+import Header from '../Header/Header'
 
 // Own styles
 import styles from './auth.styles'
@@ -24,6 +25,11 @@ import Tab from '@material-ui/core/Tab'
 class Auth extends Component {
   constructor() {
     super()
+
+    this.state = {
+      title: 'Task Manager'
+    }
+
     this.handleChange = this.handleChange.bind(this)
   }
 

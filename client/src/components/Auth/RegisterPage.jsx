@@ -8,12 +8,16 @@ import { withRouter } from 'react-router-dom'
 // Actions
 import { register } from '../../actions'
 
+// Custom validations
+import { registerValidation } from '../../utils/validation'
+
 // Own components
 import CustomImput from '../CustomInput'
 
 // Own styles
 import styles from './auth.styles'
 
+// Material ui components
 import { withStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
 
@@ -81,7 +85,8 @@ const mapDispatchToProps = dispatch => ({
 export default compose(
   withStyles(styles),
   reduxForm({
-    form: 'register'
+    form: 'register',
+    validate: registerValidation
   }),
   withRouter,
   connect(mapStateToProps, mapDispatchToProps)

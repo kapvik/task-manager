@@ -217,7 +217,6 @@ class TaskInfo extends Component {
                   ? <Comment comments={ currentTaskInfo.comments }/>
                   : <p className={classes.commentTitle}>No comments to show</p>
                 }
-      <Loader />
               </Paper>
             </Collapse>
           </Paper>
@@ -232,6 +231,7 @@ class TaskInfo extends Component {
         </div>)
     }
     return (
+      <Loader />
     )
   }
 }

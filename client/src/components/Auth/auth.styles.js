@@ -7,8 +7,7 @@ export default function styles(theme) {
     },
     videoBg: {
 	    background: '#898889',
-	    height: '93vh',
-      backgroundImage: 'url(/Agile/Agile.jpg)'
+	    height: '93vh'
     },
     videoForeground: {
 	    pointerEvents: 'none'
