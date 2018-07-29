@@ -11,6 +11,9 @@ import { startingAddTask } from '../../actions'
 import TasksList from './TasksList'
 import TaskForm from './TaskForm'
 
+// Own styles
+import styles from './taskpage.styles'
+
 // Material ui styles component
 import { withStyles } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
@@ -20,19 +23,6 @@ import Grid from '@material-ui/core/Grid'
 import HomeIcon from '@material-ui/icons/Home'
 import AddIcon from '@material-ui/icons/Add'
 import IconButton from '@material-ui/core/IconButton'
-
-const styles = theme => ({
-  root: {
-    flexGrow: 1
-  },
-  taskHeader: {
-    display: 'flex',
-    justifyContent: 'space-between'
-  },
-  btn: {
-    color: theme.palette.primary.contrastText
-  }
-})
 
 class TasksPage extends Component {
   constructor(props) {

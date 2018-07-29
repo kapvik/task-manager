@@ -29,18 +29,24 @@ export default function styles(theme) {
     button: {
       margin: theme.spacing.unit
     },
-    editBtn: {
+    btn: {
       color: theme.palette.primary.contrastText,
-      position: 'absolute',
-      right: '5%',
-      top: 0
+      backgroundColor: '#3f51b5',
+      '&:hover': {
+        backgroundColor: '#2c387e'
+      }
     },
-    homeBtn: {
-      color: theme.palette.primary.contrastText
+    toolbar: {
+      justifyContent: 'space-between'
     },
-    btnLink: {
-      position: 'absolute',
-      right: '1%'
+    btnGroup: {
+      marginTop: '20px',
+      display: 'flex',
+      justifyContent: 'space-around'
+    },
+    formEdit: {
+      marginTop: '50px',
+      padding: 50
     }
   }
 }

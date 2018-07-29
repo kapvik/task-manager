@@ -18,8 +18,8 @@ export default function styles(theme) {
       justifyContent: 'center'
     },
     btn: {
-      color: '#fff',
-      backgroundColor: '#3f51b5',
+      'color': '#fff',
+      'backgroundColor': '#3f51b5',
       '&:hover': {
         backgroundColor: '#2c387e'
       }

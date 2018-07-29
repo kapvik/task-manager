@@ -2,47 +2,30 @@ import React, { Component } from 'react'
 
 import { Field, reduxForm } from 'redux-form'
 import { connect } from 'react-redux'
-import { stopEditingUser, cancelEditingUser } from '../../actions'
 import compose from 'recompose/compose'
 
+// Actions
+import { stopEditingUser, cancelEditingUser } from '../../actions'
+
+// Custom validation
+import { userEditValidation } from '../../utils/validation'
+
+// Own components
+import CustomImput from '../CustomInput'
+
+// Own styles
+import styles from './user.styles'
+
+// Material ui components
 import { withStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
-import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
-import TextField from '@material-ui/core/TextField'
 
-const styles = () => ({
-  btnGroup: {
-    marginTop: '20px',
-    display: 'flex',
-    justifyContent: 'space-around'
-  },
-  formEdit: {
-    marginTop: '50px'
-  },
-  btn: {
-    color: '#fff',
-    backgroundColor: '#3f51b5',
-    '&:hover': {
-      backgroundColor: '#2c387e'
-    }
-  }
-})
 class EditForm extends Component {
   constructor(props) {
     super(props)
 
     this.onClickCancel = this.onClickCancel.bind(this)
-  }
-  renderField({ input, label, type }) {
-    return (
-      <Grid item md={3} >
-        <TextField
-          label={label}
-          {...input}
-          type={type}
-        />
-      </Grid>)
   }
 
   onClickCancel() {
@@ -66,30 +49,30 @@ class EditForm extends Component {
         <Field
           label='FirstName'
           name='firstname'
-          component={this.renderField}
+          component={CustomImput}
           type='name'
         />
         <Field
           label='LastName'
           name='lastname'
-          component={this.renderField}
+          component={CustomImput}
           type='name' />
         <Field
           label='Email'
           name='email'
-          component={this.renderField}
+          component={CustomImput}
           type='email' />
         <Field
           label='Date of Birth'
           name='dateOfBirth'
-          component={this.renderField}
+          component={CustomImput}
           type='date'
           fullWidth
         />
         <Field
           label='Skills'
           name='skills'
-          component={this.renderField}
+          component={CustomImput}
           type='text'
         />
         <div className={ classes.btnGroup }>
@@ -130,6 +113,7 @@ export default compose(
   connect(mapStateToProps, mapDispatchToProps),
   withStyles(styles),
   reduxForm({
-    form: 'editUser'
+    form: 'editUser',
+    validate: userEditValidation
   })
 )(EditForm)

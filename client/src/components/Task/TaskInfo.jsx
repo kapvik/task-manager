@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import compose from 'recompose/compose'
 import classNames from 'classnames'
+import { Link } from 'react-router-dom'
 
 // Own component
 import Comment from '../Comments/Comment'
@@ -19,14 +20,15 @@ import {
   startingDeleteTask
 } from '../../actions'
 
+// Own styles
+import styles from './taskinfo.styles'
+
 // Material ui styles component
 import { withStyles } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import IconButton from '@material-ui/core/IconButton'
-import MenuItem from '@material-ui/core/MenuItem'
-import Select from '@material-ui/core/Select'
 import Paper from '@material-ui/core/Paper'
 import Button from '@material-ui/core/Button'
 import AddIcon from '@material-ui/icons/Add'
@@ -35,60 +37,7 @@ import Collapse from '@material-ui/core/Collapse'
 import Switch from '@material-ui/core/Switch'
 import EditIcon from '@material-ui/icons/Edit'
 import DeleteIcon from '@material-ui/icons/Delete'
-
-const styles = theme => ({
-  root: {
-    flexGrow: 1
-  },
-  menuButton: {
-    marginLeft: -18,
-    marginRight: 10
-  },
-  paper: {
-  	...theme.mixins.gutters(),
-    paddingTop: theme.spacing.unit * 2,
-    paddingBottom: theme.spacing.unit * 2
-  },
-  comments: {
-    width: '100%',
-    maxWidth: 360,
-    backgroundColor: theme.palette.background.paper
-  },
-  nested: {
-    paddingLeft: theme.spacing.unit * 4
-  },
-  button: {
-    margin: theme.spacing.unit
-  },
-  fab: {
-    position: 'absolute',
-    bottom: theme.spacing.unit * 2,
-    right: theme.spacing.unit * 2
-  },
-  relative: {
-  	position: 'relative'
-  },
-  commentTitle: {
-    textAlign: 'center',
-    color: theme.palette.primary.main
-  },
-  status: {
-    color: theme.palette.primary.main,
-    fontWeight: 700
-  },
-  attachments: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    flexWrap: 'wrap'
-  },
-  btn: {
-    color: '#fff'
-  },
-  taskHeader: {
-    display: 'flex',
-    justifyContent: 'space-between'
-  }
-})
+import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 
 class TaskInfo extends Component {
   constructor(props) {
@@ -131,6 +80,13 @@ class TaskInfo extends Component {
         <div className={classes.root}>
           <AppBar position='sticky'>
             <Toolbar variant='dense' className={classes.taskHeader}>
+              <Link
+                to='/'
+              >
+                <IconButton aria-label='Home' className={classes.btn}>
+                  <ArrowBackIcon />
+                </IconButton>
+              </Link>
               <Typography variant='title' color='inherit'>
                 Task Details
               </Typography>
@@ -153,33 +109,25 @@ class TaskInfo extends Component {
             </Toolbar>
           </AppBar>
           <Paper className={classes.paper} elevation={1}>
-            <Typography variant='headline' component='h3'>
+            <Typography variant='headline' component='h3' align='center' color='primary'>
               { currentTaskInfo.title }
             </Typography>
-            <Typography component='p'>
+            <Typography component='p' align='justify'>
               {currentTaskInfo.full_description}
             </Typography>
           </Paper>
           <Paper className={classNames(classes.paper, classes.attachments)} elevation={1}>
             <div>
-              <Typography variant='headline' component='h3'>
+              <Typography variant='headline' component='h3' color='primary'>
                 Performer
               </Typography>
               <p> { currentTaskInfo.performer || 'Free' } </p>
             </div>
             <div>
-              <Typography variant='headline' component='h3'>
+              <Typography variant='headline' component='h3' color='primary'>
                 Status
               </Typography>
-              <Select
-                value={currentTaskInfo.status || ' ' }
-                onChange={this.changeStatus}
-              >
-                <MenuItem value='To Do'>To Do</MenuItem>
-                <MenuItem value='In Progress'>In Progress</MenuItem>
-                <MenuItem value='Peer Review'>Peer Review</MenuItem>
-                <MenuItem value='Done'>Done</MenuItem>
-              </Select>
+              <p>{ currentTaskInfo.status }</p>
             </div>
           </Paper>
           <Paper className={classes.paper} elevation={1}>

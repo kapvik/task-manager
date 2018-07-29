@@ -57,21 +57,23 @@ class ProfilePage extends Component {
         <Grid container >
           <Grid item xs={12}>
             <AppBar position='sticky'>
-              <Toolbar variant='dense'>
+              <Toolbar variant='dense' className={classes.toolbar}>
                 <Typography variant='title' color='inherit'>
                   Personal Task Manager
                 </Typography>
-                <IconButton aria-label='Edit' onClick={ this.onClickEdit } className={classes.editBtn}>
-                  <EditIcon />
-                </IconButton>
-                <Link
-                  to='/'
-                  className={classes.btnLink}
-                >
-                  <IconButton aria-label='Home' className={classes.homeBtn}>
-                    <HomeIcon />
+                <div>
+                  <IconButton aria-label='Edit' onClick={ this.onClickEdit } className={classes.btn}>
+                    <EditIcon />
                   </IconButton>
-                </Link>
+                  <Link
+                    to='/'
+                    className={classes.btn}
+                  >
+                    <IconButton aria-label='Home' className={classes.btn}>
+                      <HomeIcon />
+                    </IconButton>
+                  </Link>
+                </div>
               </Toolbar>
             </AppBar>
           </Grid>
@@ -89,7 +91,9 @@ class ProfilePage extends Component {
     } else if (isEditing) {
       return (
         <Grid container spacing={16} justify='center'>
-          <EditForm/>
+          <Grid item md={6}>
+            <EditForm />
+          </Grid>
         </Grid>
       )
     }

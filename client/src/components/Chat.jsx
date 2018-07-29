@@ -5,7 +5,11 @@ import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form'
 import classNames from 'classnames'
 
+// Actions
 import { closingDialog, fetchMessages, sendingMessage } from '../actions'
+
+// Custom validaation 
+import { messageValidation } from '../utils/validation'
 
 // Own components
 import Loader from './Loader/Loader'
@@ -188,6 +192,7 @@ export default compose(
   withStyles(styles),
   reduxForm({
     form: 'sendMsg',
+    validate: messageValidation,
     onSubmitSuccess: (result, dispatch, props) => {
       props.reset('sendMsg')
     }

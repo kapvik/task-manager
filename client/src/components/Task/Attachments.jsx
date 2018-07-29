@@ -32,7 +32,7 @@ class Attachments extends Component {
     const { classes } = this.props
     return (
       <div>
-        <Typography variant='headline' component='h3'>
+        <Typography variant='headline' component='h3' color='primary'>
                 Attachments
         </Typography>
         <input

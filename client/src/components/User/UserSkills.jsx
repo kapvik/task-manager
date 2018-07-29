@@ -24,7 +24,7 @@ class UserSkills extends Component {
             Skills
         </Typography>
         <List component='ul' className={ classes.listSkills }>
-          {skills.split(',').map(skill =>
+          {skills.split(/\W/).map(skill =>
             (<ListItem
               component='li'
               key={skill}
